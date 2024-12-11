@@ -1,6 +1,6 @@
 [
 null,
-{"id":1,"list":[{"code":0,"indent":0,"parameters":[]}],"name":"","switchId":1,"trigger":0},
+{"id":1,"list":[{"code":118,"indent":0,"parameters":["アクションループ"]},{"code":355,"indent":0,"parameters":["this._tona_Action_GetNextAction();"]},{"code":111,"indent":0,"parameters":[12,"$_tona_result == 0"]},{"code":119,"indent":1,"parameters":["アクションエンド"]},{"code":0,"indent":1,"parameters":[]},{"code":412,"indent":0,"parameters":[]},{"code":111,"indent":0,"parameters":[12,"$_tona_result == $_tona_Const_ActionType_Message"]},{"code":101,"indent":1,"parameters":["",0,0,2,""]},{"code":401,"indent":1,"parameters":["\\V[1]"]},{"code":119,"indent":1,"parameters":["アクションループ"]},{"code":0,"indent":1,"parameters":[]},{"code":412,"indent":0,"parameters":[]},{"code":118,"indent":0,"parameters":["アクションエンド"]},{"code":0,"indent":0,"parameters":[]}],"name":"アクション","switchId":1,"trigger":0},
 {"id":2,"list":[{"code":0,"indent":0,"parameters":[]}],"name":"","switchId":1,"trigger":0},
 {"id":3,"list":[{"code":0,"indent":0,"parameters":[]}],"name":"","switchId":1,"trigger":0},
 {"id":4,"list":[{"code":0,"indent":0,"parameters":[]}],"name":"","switchId":1,"trigger":0}
