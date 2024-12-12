@@ -67,7 +67,8 @@ Scene_PubStatus.prototype.create = function() {
     this.createStatusEquipWindow();
     this.createCommandWindow();
 
-    this.setActor($gameActors.actor($_tona_PubInviteData.actorId));
+	var actor = $gameActors.actor($_tona_PubInviteData.actorId);
+    this.setActor(actor);
     this.refreshActor();
 };
 

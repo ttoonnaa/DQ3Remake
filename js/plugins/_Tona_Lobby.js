@@ -71,6 +71,16 @@ Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
 
 	// 性格を決める
 	actor.setPersonalityId(Math.randomInt($_tona_Personality.length - 1) + 1);
+
+	// 種を与える
+	for (var i = 0; i < 5; i++) {
+		var paramId = Math.randomInt(6) + 2;
+		var value = Math.randomInt(3) + 1;
+		actor._tona_addParamPlus(paramId, value);
+	}
+
+	// 顔グラを準備しておく
+    ImageManager.loadFace(actor.faceName());
 }
 
 // ****************************************************************************************************************************
