@@ -66,6 +66,9 @@ Scene_PubStatus.prototype.create = function() {
     this.createStatusParamsWindow();
     this.createStatusEquipWindow();
     this.createCommandWindow();
+
+    this.setActor($gameActors.actor($_tona_PubInviteData.actorId));
+    this.refreshActor();
 };
 
 Scene_PubStatus.prototype.createStatusWindow = function() {
@@ -95,7 +98,11 @@ Scene_PubStatus.prototype.needsPageButtons = function() {
     return false;
 };
 
-Scene_Status.prototype.refreshActor = function() {
+Scene_PubStatus.prototype.setActor = function(actor) {
+    this._actor = actor;
+};
+
+Scene_PubStatus.prototype.refreshActor = function() {
     const actor = this.actor();
     this._statusWindow.setActor(actor);
     this._statusParamsWindow.setActor(actor);
@@ -103,10 +110,16 @@ Scene_Status.prototype.refreshActor = function() {
 };
 
 Scene_PubStatus.prototype.onCommandYes = function() {
+
+	$_tona_result = 1;
+
 	this.popScene();
 }
 
 Scene_PubStatus.prototype.onCommandNo = function() {
+
+	$_tona_result = 0;
+
 	this.popScene();
 }
 

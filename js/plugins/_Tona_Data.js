@@ -12,7 +12,7 @@ var $_tona_Const_ActionType_Message = 1;
 
 function _tona_CreateDatabase() {
 
-	$_tona_Name = {};
+	$_tona_Name = [];
 	$_tona_Name[1] = { name: "ソラ" };
 	$_tona_Name[2] = { name: "ロボコ" };
 	$_tona_Name[3] = { name: "ミコ" };
@@ -26,7 +26,7 @@ function _tona_CreateDatabase() {
 
 	// [HP、MP、力、守、魔、体、速、運]
 
-	$_tona_Personality = {};
+	$_tona_Personality = [];
 	$_tona_Personality[1] = { name: "あたまでっかち", params: [0,0,-10,10,20,-10,0,-20] };
 	$_tona_Personality[2] = { name: "あまえんぼう", params: [0,0,-10,-20,0,-10,0,10] };
 	$_tona_Personality[3] = { name: "いくじなし", params: [0,0,0,0,0,0,0,0] };

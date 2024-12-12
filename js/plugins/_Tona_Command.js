@@ -32,37 +32,5 @@ Game_Interpreter.prototype._tona_Action_GetNextAction = function() {
     }
 }
 
-// ****************************************************************************************************************************
-// ロビー：酒場：仲間を勧誘
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Interpreter.prototype._tona_Lobby_ShowPubStatus = function() {
-	var resultList = [];
-    var choices = [];
-
-	SceneManager.push(Scene_PubStatus);
-
-
-    //choices.push("武器を購入");
-    //resultList.push(1);
-    //
-    //choices.push("防具を購入");
-    //resultList.push(2);
-    //
-    //choices.push("道具を購入");
-    //resultList.push(3);
-    //
-    //choices.push("キャンセル");
-    //resultList.push(-1);
-    //
-    //$gameMessage.setChoices(choices, 0, resultList.length - 1);
-    //$gameMessage.setChoiceBackground(1);
-    //$gameMessage.setChoicePositionType(0);
-    //$gameMessage.setChoiceCallback(function(n) {
-    //    //$_hq_result = resultList[n];
-    //}.bind(this));
-    //
-    //this.setWaitMode('message');
-};
 
 

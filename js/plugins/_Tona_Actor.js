@@ -12,8 +12,6 @@
 	var Game_Actor_initMembers = Game_Actor.prototype.initMembers;
 	Game_Actor.prototype.initMembers = function() {
 		Game_Actor_initMembers.call(this);
-
-		this._personalityId = 1;
 		this.clearParamBase();
 	};
 
@@ -25,6 +23,33 @@
 	Game_Actor.prototype.setup = function(actorId) {
 		Game_Actor_setup.call(this, actorId);
 
+		// 性格を設定して改めてセットアップ
+		this.setPersonalityId(1);
+		this.setupParamBase();
+	    this.recoverAll();
+	};
+
+	// ****************************************************************************************************************************
+	// アクター：職業を指定してセットアップ
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+	Game_Actor.prototype._tona_setupWithClass = function(actorId, classId) {
+	    const actor = $dataActors[actorId];
+	    this._actorId = actorId;
+	    this._name = actor.name;
+	    this._nickname = actor.nickname;
+	    this._profile = actor.profile;
+	    this._classId = classId;
+	    this._level = actor.initialLevel;
+	    this.initImages();
+	    this.initExp();
+	    this.initSkills();
+	    this.initEquips(actor.equips);
+	    this.clearParamPlus();
+	    this.recoverAll();
+
+		// 性格を設定して改めてセットアップ
+		this.setPersonalityId(1);
 		this.setupParamBase();
 	    this.recoverAll();
 	};
@@ -42,7 +67,10 @@
 	};
 
 	Game_Actor.prototype.setPersonalityId = function(personalityId) {
-	    this._personalityId = _personalityId;
+
+console.log("setPersonalityId")
+	    this._personalityId = personalityId;
+console.log(this._personalityId)
 	};
 
 	// ****************************************************************************************************************************
@@ -124,13 +152,12 @@
 	// アクター：転職
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	var Game_Actor_changeClass = Game_Actor.prototype.changeClass;
-	Game_Actor.prototype.changeClass = function(classId, keepExp) {
+	Game_Actor.prototype._tona_changeClass = function(classId) {
 
 		// 新しいクラスの経験値を 0 にしてから元の処理を呼ぶ
 		this._exp[classId] = 0;
 
-		Game_Actor_changeClass.call(this, classId, keepExp);
+		Game_Actor_changeClass.call(this, classId, false);
 
 		// paramBase を半分にする（切り上げ）
 		for (var i = 0; i < 8; i++) {
