@@ -24,6 +24,30 @@ function _tona_CreateDatabase() {
 	$_tona_Name[9] = { name: "フブキ" };
 	$_tona_Name[10] = { name: "マツリ" };
 
+	$_tona_Face = [];
+	$_tona_Face[1] = { name: "Actor1", index: 3 };
+	$_tona_Face[2] = { name: "Actor1", index: 5 };
+	$_tona_Face[3] = { name: "Actor1", index: 7 };
+	$_tona_Face[4] = { name: "Actor2", index: 1 };
+	$_tona_Face[5] = { name: "Actor2", index: 3 };
+	$_tona_Face[6] = { name: "Actor2", index: 5 };
+	$_tona_Face[7] = { name: "Actor2", index: 7 };
+	$_tona_Face[8] = { name: "Actor3", index: 1 };
+	$_tona_Face[9] = { name: "Actor3", index: 3 };
+	$_tona_Face[10] = { name: "Actor3", index: 5 };
+	$_tona_Face[11] = { name: "Actor3", index: 7 };
+	$_tona_Face[12] = { name: "SF_Actor1", index: 3 };
+	$_tona_Face[13] = { name: "SF_Actor1", index: 5 };
+	$_tona_Face[14] = { name: "SF_Actor1", index: 7 };
+	$_tona_Face[15] = { name: "SF_Actor2", index: 1 };
+	$_tona_Face[16] = { name: "SF_Actor2", index: 3 };
+	$_tona_Face[17] = { name: "SF_Actor2", index: 5 };
+	$_tona_Face[18] = { name: "SF_Actor2", index: 7 };
+	$_tona_Face[19] = { name: "SF_Actor3", index: 1 };
+	$_tona_Face[20] = { name: "SF_Actor3", index: 3 };
+	$_tona_Face[21] = { name: "SF_Actor3", index: 5 };
+	$_tona_Face[22] = { name: "SF_Actor3", index: 7 };
+
 	// [HP、MP、力、守、魔、体、速、運]
 
 	$_tona_Personality = [];

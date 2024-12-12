@@ -56,3 +56,4 @@ function _tona_Util_PartyIsFull() {
 	return $gameParty.size() == $_tona_PubMaxParty;
 }
 
+

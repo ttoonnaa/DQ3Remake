@@ -46,6 +46,35 @@ Game_Interpreter.prototype._tona_Pub_InviteCreate = function() {
 }
 
 // ****************************************************************************************************************************
+// 酒場：勧誘：職業を選択する
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype._tona_Pub_InviteSelectClass = function() {
+	var resultList = [];
+    var choices = [];
+
+    choices.push("せんし");    		resultList.push(2);
+    choices.push("ぶとうか");    	resultList.push(3);
+    choices.push("まほうつかい");   resultList.push(4);
+    choices.push("そうりょ");    	resultList.push(5);
+    choices.push("しょうにん");    	resultList.push(6);
+    choices.push("あそびにん");    	resultList.push(7);
+    choices.push("とうぞく");		resultList.push(8);
+    choices.push("まものつかい");   resultList.push(9);
+    choices.push("キャンセル");    	resultList.push(-1);
+
+    $gameMessage.setChoices(choices, 0, resultList.length - 1);
+    $gameMessage.setChoiceBackground(1);
+    $gameMessage.setChoicePositionType(0);
+    $gameMessage.setChoiceCallback(function(n) {
+		$_tona_result = resultList[n];
+        $_tona_PubInviteData.classId = resultList[n];
+    }.bind(this));
+
+    this.setWaitMode('message');
+};
+
+// ****************************************************************************************************************************
 // 酒場：勧誘：職業を設定する
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -63,14 +92,24 @@ Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
 	var actor = $gameActors.actor(actorId);
 	var classId = $_tona_PubInviteData.classId;
 
-	// アクターを作成
+	// 職業からアクターを作成
 	actor._tona_setupWithClass(actorId, classId);
 
 	// 名前を決める
-	actor.setName($_tona_Name[Math.randomInt($_tona_Name.length - 1) + 1].name);
+	var name = $_tona_Name[Math.randomInt($_tona_Name.length - 1) + 1];
+	actor.setName(name.name);
+
+	// 顔グラを決める
+	var face = $_tona_Face[Math.randomInt($_tona_Face.length - 1) + 1];
+	actor.setFaceImage(face.name, face.index);
 
 	// 性格を決める
-	actor.setPersonalityId(Math.randomInt($_tona_Personality.length - 1) + 1);
+	var personalityId = Math.randomInt($_tona_Personality.length - 1) + 1;
+	actor.setPersonalityId(personalityId);
+
+	// 装備を設定する
+
+	// スキルを設定する
 
 	// 種を与える
 	for (var i = 0; i < 5; i++) {
