@@ -127,7 +127,7 @@ function _tona_CreateQuestDatabase() {
 	var hagureFull = [];
 
 	quests[1] = { name: "アリアハン大陸", level: 1, condition: [], waves: [] };
-    quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, monster: [5], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
     quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
 
 	// レベルから Gold を設定
