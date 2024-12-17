@@ -173,15 +173,23 @@ Spriteset_Map.prototype._tona_AddEventSprite = function(event) {
 // 汎用：BGM を再生
 // ----------------------------------------------------------------------------------------------------------------------------
 
-_tona_PlayBgm = function(name) {
+function _tona_PlayBgm(name) {
     AudioManager.playBgm({name:name, pan: 0, volume:100, pitch:90});
+};
+
+// ****************************************************************************************************************************
+// 汎用：Lerp
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function _tona_Lerp(value, min, max) {
+	return Math.max(Math.min(value, max), min);
 };
 
 // ****************************************************************************************************************************
 // 汎用：偏った乱数
 // ----------------------------------------------------------------------------------------------------------------------------
 
-_tona_SquareIntegerRand = function(value) {
+function _tona_SquareIntegerRand(value) {
     return Math.floor(Math.pow(Math.random(), 2) * value);
 };
 
@@ -189,7 +197,7 @@ _tona_SquareIntegerRand = function(value) {
 // 汎用：シャッフル
 // ----------------------------------------------------------------------------------------------------------------------------
 
-_tona_ArrayShuffle = function(arr) {
+function _tona_ArrayShuffle(arr) {
 	var newArr = [];
 
 	while (arr.length > 0) {

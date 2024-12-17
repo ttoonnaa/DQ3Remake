@@ -1,35 +1,19 @@
 
 // ****************************************************************************************************************************
-// アクション：攻撃順位の決定方法をＤＱ３形式に変更
+// バトラー：呪文のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Action.prototype.speed = function() {
+Game_BattlerBase.prototype._tona_magicDamage = function(value) {
 
-    if (this.item()) {
-        if (this.item().speed >= 1000) {         // 1000 以上の場合は必ず先行（防御・疾風突きなど）
-	        return this.item().speed;
-        }
-    }
+	let mat = this.mat;
 
-    let speed = this.subject().agi;
+	return _tona_Lerp((mat - value) / 2 + value, value, value * 1.3);
+}
 
-    if (this.item()) {
-        speed += this.item().speed;
-    }
-    if (this.isAttack()) {
-        speed += this.subject().attackSpeed();
-    }
-
-    let x = 136;
-    for (let i = 0; i < 16; i++) {
-        x += Math.randomInt(32);
-    }
-    x %= 256;
-
-    speed = (speed + 20) * x / 256;
-
-    return speed;
-};
+// エイリアス
+Game_BattlerBase.prototype.MD = function(value) {
+	return this._tona_magicDamage(value);
+}
 
 // ****************************************************************************************************************************
 // バトラー：パラメータ上昇・下降率を 25% → 50% に変更
@@ -116,6 +100,14 @@ Game_Battler.prototype.onTurnEnd = function() {
 };
 
 // ****************************************************************************************************************************
+// バトラー：Hidden の判定にニフラム・バシルーラ状態を加える
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_BattlerBase.prototype.isHidden = function() {
+    return this._hidden || this.isStateAffected($_tona_Const_StateId_Nifuramu) || this.isStateAffected($_tona_Const_StateId_Bashiruura);
+};
+
+// ****************************************************************************************************************************
 // エネミー：アクションのターン条件がおかしかったので修正
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -129,27 +121,35 @@ Game_Enemy.prototype.meetsTurnCondition = function(param1, param2) {
 };
 
 // ****************************************************************************************************************************
-// アクション：効果範囲の大きさを求める
+// アクション：攻撃順位の決定方法をＤＱ３形式に変更
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Action.prototype._tona_getRangeSize = function() {
-	var rangeSize = 0;
+Game_Action.prototype.speed = function() {
 
-	if (this.isSkill()) {
-		if (this.item().json !== undefined && this.item().json['rangeSize'] !== undefined) {
-            rangeSize = this.item().json['rangeSize'];
-		}
-	}
+    if (this.item()) {
+        if (this.item().speed >= 1000) {         // 1000 以上の場合は必ず先行（防御・疾風突きなど）
+	        return this.item().speed;
+        }
+    }
 
-	return rangeSize;
-};
+    let speed = this.subject().agi;
 
-// ****************************************************************************************************************************
-// バトラー：Hidden の判定にニフラム・バシルーラ状態を加える
-// ----------------------------------------------------------------------------------------------------------------------------
+    if (this.item()) {
+        speed += this.item().speed;
+    }
+    if (this.isAttack()) {
+        speed += this.subject().attackSpeed();
+    }
 
-Game_BattlerBase.prototype.isHidden = function() {
-    return this._hidden || this.isStateAffected($_tona_Const_StateId_Nifuramu) || this.isStateAffected($_tona_Const_StateId_Bashiruura);
+    let x = 136;
+    for (let i = 0; i < 16; i++) {
+        x += Math.randomInt(32);
+    }
+    x %= 256;
+
+    speed = (speed + 20) * x / 256;
+
+    return speed;
 };
 
 // ****************************************************************************************************************************
@@ -221,7 +221,6 @@ Game_Troop.prototype.expTotal = function() {
         return r + enemy.exp();
     }, 0) * 4 / $gameParty.size());
 };
-
 
 
 
