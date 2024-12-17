@@ -166,28 +166,86 @@ Game_Interpreter.prototype._tona_Pub_InviteShowWindow = function() {
     var choices = [];
 
 	SceneManager.push(Scene_PubStatus);
-
-    //choices.push("武器を購入");
-    //resultList.push(1);
-    //
-    //choices.push("防具を購入");
-    //resultList.push(2);
-    //
-    //choices.push("道具を購入");
-    //resultList.push(3);
-    //
-    //choices.push("キャンセル");
-    //resultList.push(-1);
-    //
-    //$gameMessage.setChoices(choices, 0, resultList.length - 1);
-    //$gameMessage.setChoiceBackground(1);
-    //$gameMessage.setChoicePositionType(0);
-    //$gameMessage.setChoiceCallback(function(n) {
-    //    //$_hq_result = resultList[n];
-    //}.bind(this));
-    //
-    //this.setWaitMode('message');
 };
+
+// ****************************************************************************************************************************
+// ショップ：メニューを表示
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype._tona_Shop_ShowMenu = function() {
+	var resultList = [];
+    var choices = [];
+
+    choices.push("武器屋");		resultList.push(1);
+    choices.push("防具屋");		resultList.push(2);
+    choices.push("道具屋");		resultList.push(3);
+    choices.push("キャンセル");	resultList.push(-1);
+
+    $gameMessage.setChoices(choices, 0, resultList.length - 1);
+    $gameMessage.setChoiceBackground(1);
+    $gameMessage.setChoicePositionType(0);
+    $gameMessage.setChoiceCallback(function(n) {
+        $_tona_result = resultList[n];
+    }.bind(this));
+
+    this.setWaitMode('message');
+};
+
+// ****************************************************************************************************************************
+// Interpreter：ショップを開く
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype._tona_Lobby_OpenWeaponShop = function() {
+    var kouho = $_tona_lobbyWeaponList;
+    var goods = [];
+
+    for (var i = 0; i < kouho.length; i++) {
+        var index = kouho[i];
+        if ($_tona_saveData.weaponAppearState[index]) {
+            goods.push([1, index, 0, 0]);
+        }
+    }
+    SceneManager.push(Scene_Shop);
+    SceneManager.prepareNextScene(goods, false);
+}
+
+Game_Interpreter.prototype._tona_Lobby_OpenArmorShop = function() {
+    var kouho = $_tona_lobbyArmorList;
+    var goods = [];
+
+    for (var i = 0; i < kouho.length; i++) {
+        var index = kouho[i];
+        if ($_tona_saveData.armorAppearState[index]) {
+            goods.push([2, index, 0, 0]);
+        }
+    }
+    SceneManager.push(Scene_Shop);
+    SceneManager.prepareNextScene(goods, false);
+}
+
+Game_Interpreter.prototype._tona_Lobby_OpenItemShop = function() {
+    var kouho = $_tona_lobbyItemList;
+    var goods = [];
+
+    for (var i = 0; i < kouho.length; i++) {
+        var index = kouho[i];
+        if ($_tona_saveData.itemAppearState[index]) {
+            goods.push([0, index, 0, 0]);
+        }
+    }
+    SceneManager.push(Scene_Shop);
+    SceneManager.prepareNextScene(goods, false);
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

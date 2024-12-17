@@ -115,6 +115,9 @@ function _tona_CreateDatabase() {
 
 	// クエスト
 	_tona_CreateQuestDatabase();
+
+	// ショップ
+	_tona_CreateShopDatabase();
 }
 
 // ****************************************************************************************************************************
@@ -127,7 +130,7 @@ function _tona_CreateQuestDatabase() {
 	var hagureFull = [];
 
 	quests[1] = { name: "アリアハン大陸", level: 1, condition: [], waves: [] };
-    quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, monster: [5], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
     quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
 
 	// レベルから Gold を設定
@@ -142,6 +145,36 @@ function _tona_CreateQuestDatabase() {
 	}
 
 	$_tona_quest = quests;
+}
+
+// ****************************************************************************************************************************
+// データベースを作成する：ショップ
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function _tona_CreateShopDatabase() {
+
+	$_tona_lobbyWeaponList = [
+		1, 2,
+		21,
+		31,
+		41, 42,
+		51,
+		61,
+		81, 82,
+		101,
+		111, 112,
+		121,
+	];
+
+	$_tona_lobbyArmorList = [
+		86, 87, 71, 72, 73,
+		1, 2, 3,
+		41, 42, 43, 31,
+	];
+
+	$_tona_lobbyItemList = [
+		11, 
+	];
 }
 
 // ****************************************************************************************************************************
@@ -285,20 +318,33 @@ function _tona_CreateSaveData() {
         $_tona_saveData = {};
     }
 
-    // 武器
+    // 武器登場
     if ($_tona_saveData.weaponAppearState == null) {
         $_tona_saveData.weaponAppearState = {};
     }
+
+    $_tona_saveData.weaponAppearState[1] = 2;
+    $_tona_saveData.weaponAppearState[41] = 2;
+    $_tona_saveData.weaponAppearState[111] = 2;
+    $_tona_saveData.weaponAppearState[112] = 2;
 
     // 防具
     if ($_tona_saveData.armorAppearState == null) {
         $_tona_saveData.armorAppearState = {};
     }
 
+    $_tona_saveData.armorAppearState[1] = 2;
+    $_tona_saveData.armorAppearState[41] = 2;
+    $_tona_saveData.armorAppearState[71] = 2;
+    $_tona_saveData.armorAppearState[86] = 2;
+    $_tona_saveData.armorAppearState[87] = 2;
+
     // 道具
     if ($_tona_saveData.itemAppearState == null) {
         $_tona_saveData.itemAppearState = {};
     }
+
+    $_tona_saveData.itemAppearState[11] = 2;
 
     // クエストクリア
     if ($_tona_saveData.questClearFlag == null) {
@@ -311,6 +357,11 @@ function _tona_CreateSaveData() {
     }
 
     $_tona_saveData.questAppearState[1] = 2;
+
+    // パーティー
+    if ($_tona_saveData.partyLevel == null) {
+        $_tona_saveData.partyLevel = 0;
+    }
 }
 
 

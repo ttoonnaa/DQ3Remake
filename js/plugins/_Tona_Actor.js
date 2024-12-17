@@ -186,7 +186,7 @@
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	Game_Actor.prototype.canEquipWeapon = function(item) {
-		return item._tona_canEquipClasses.includes(this._actorId);
+		return item._tona_canEquipClasses.includes(this._classId);
 	};
 
 	// ****************************************************************************************************************************
@@ -194,7 +194,7 @@
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	Game_Actor.prototype.canEquipArmor = function(item) {
-		return item._tona_canEquipClasses.includes(this._actorId);
+		return item._tona_canEquipClasses.includes(this._classId);
 	};
 
 })();

@@ -3,16 +3,20 @@
 // バトラー：呪文のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_BattlerBase.prototype._tona_magicDamage = function(value) {
+Game_BattlerBase.prototype._tona_magicalDamage = function(value) {
+
+	// ダメージ = Lerp(賢, value, value * 1.3);
+	// これが基本概念。賢さが value 以上だとダメージが伸び始める。
+	// ダメージの伸びを半分にした式を実際は採用。
 
 	let mat = this.mat;
 
 	return _tona_Lerp((mat - value) / 2 + value, value, value * 1.3);
 }
 
-// エイリアス
+// エイリアス（エディターで指定する計算式で使う）
 Game_BattlerBase.prototype.MD = function(value) {
-	return this._tona_magicDamage(value);
+	return this._tona_magicalDamage(value);
 }
 
 // ****************************************************************************************************************************
