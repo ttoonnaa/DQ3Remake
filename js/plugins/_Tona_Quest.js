@@ -190,7 +190,7 @@ Game_Interpreter.prototype._tona_Quest_SuccessQuest = function() {
 
 	// クエスト成功
     $_tona_saveData.questClearFlag[$_tona_questNow.questId] = 1;
-    $_tona_saveData.partyLevel = Math.max($_tona_saveData.partyLevel, $_tona_questNow.getQuestNow().level);
+    $_tona_saveData.partyLevel = Math.max($_tona_saveData.partyLevel, $_tona_questNow.getQuestNow().levelResult);
 
     // チェックポイント処理
     $_tona_resultAction.push([$_tona_Const_ActionType_Message, "合計で " + $_tona_questNow.gotGold + " Gold を獲得！"]);

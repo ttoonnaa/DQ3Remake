@@ -157,6 +157,70 @@ Game_Action.prototype.speed = function() {
 };
 
 // ****************************************************************************************************************************
+// アクション：グループ攻撃
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.targetsForAlive = function(unit) {
+
+	// グループ攻撃は「敵単体」指定になっています
+	// コマンド時にターゲットを選択できるようにするためです
+	// なので isForOne の手前で判定します
+
+	// ★ここからグループ処理追加
+    if (this._tona_isForGroup()) {
+
+		// ターゲットが Troop のときのみ処理
+		if (unit === $gameTroop) {
+			return this._tona_targetsForTroopSmoothGroup(unit);
+		}
+		else {
+
+			// ターゲットが Party の場合は全員をターゲット
+			return unit.aliveMembers();
+		}
+	}
+
+	// ★ここから元の処理
+    else if (this.isForOne()) {
+
+        if (this._targetIndex < 0) {
+            return [unit.randomTarget()];
+        } else {
+            return [unit.smoothTarget(this._targetIndex)];
+        }
+    } else {
+        return unit.aliveMembers();
+    }
+};
+
+Game_Action.prototype._tona_targetsForTroopSmoothGroup = function(troop) {
+
+	let target;
+	let targets = [];
+
+	// 単体の Smooth ターゲットを取得する
+    if (this._targetIndex < 0) {
+        target = troop.randomTarget();
+    } else {
+        target = troop.smoothTarget(this._targetIndex);
+    }
+
+	// 隣合う同じ種類の敵をターゲットに追加する
+	let targetIndex = target.index();
+	let targetEnemyId = target.enemyId();
+	let aliveMembers = troop.aliveMembers();
+
+	for (let i = targetIndex - 1; i >= 0 && aliveMembers[i].enemyId() === targetEnemyId; i--) {
+		targets.push(aliveMembers[i]);
+	}
+	for (let i = targetIndex + 1; i < aliveMembers.length && aliveMembers[i].enemyId() === targetEnemyId; i++) {
+		targets.push(aliveMembers[i]);
+	}
+	targets.sort((a, b) => b.index() - a.index());
+	return targets;
+}
+
+// ****************************************************************************************************************************
 // アクション：魔法反射率にマホカンタ状態を加える
 // ----------------------------------------------------------------------------------------------------------------------------
 

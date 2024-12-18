@@ -116,6 +116,9 @@ function _tona_CreateDatabase() {
 	// クエスト
 	_tona_CreateQuestDatabase();
 
+	// レベルアイテム
+	_tona_CreateLevelItemDatabase();
+
 	// ショップ
 	_tona_CreateShopDatabase();
 }
@@ -129,9 +132,20 @@ function _tona_CreateQuestDatabase() {
     var quests = {};
 	var hagureFull = [];
 
-	quests[1] = { name: "アリアハン大陸", level: 1, condition: [], waves: [] };
+	quests[1] = { name: "アリアハン大陸", level: 1, condition: [], waves: [], levelResult: 3 };
     quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
     quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+
+	quests[2] = { name: "いざないの洞窟", level: 3, condition: [1], waves: [], levelResult: 5 };
+    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[2].waves[3] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+
+	quests[3] = { name: "いざないの洞窟", level: 5, condition: [1], waves: [], levelResult: 6 };
+    quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[3].waves[2] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[3].waves[3] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
 
 	// レベルから Gold を設定
 	for (var questId in quests) {
@@ -148,32 +162,112 @@ function _tona_CreateQuestDatabase() {
 }
 
 // ****************************************************************************************************************************
+// データベースを作成する：レベル道具
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function _tona_CreateLevelItemDatabase() {
+
+	$_tona_levelWeapons = [
+		[],
+		[111, 112, 41, 1],		// Lv.1		ひのきのぼう、こんぼう、ブロンズナイフ、どうのつるぎ
+		[],
+		[42],	// Lv.3		せいなるナイフ
+		[],
+		[81],	// Lv.5		くさりがま
+		[],
+		[82],	// Lv.7		とげのムチ
+		[],
+		[61],	// Lv.9		まどうしのつえ
+		[],
+		[31],	// Lv.11	てつのやり
+		[51],	// Lv.12	てつのつめ
+		[3],	// Lv.13	はがねのはりせん
+		[2],	// Lv.14	はがねのつるぎ
+		[32],	// Lv.15	ホーリーランス
+		[21],	// Lv.16	てつのオノ
+	];
+
+	$_tona_levelArmors = [
+		[],
+		[86, 87, 108, 71],		// Lv.1		布の服、たびびとの服、けいこぎ、皮のよろい
+		[],
+		[],
+		[],
+		[72],	// Lv.5		カメのこうら
+		[],
+		[117],	// Lv.7		レザーマント
+		[],
+		[73],	// Lv.9		こうらのよろい
+		[],
+		[74],	// Lv.11	くさりかたびら
+		[95],	// Lv.12	きぬのローブ
+		[114],	// Lv.13	てつのまえかけ
+		[111],	// Lv.14	かわのこしまき
+		[88],	// Lv.15	みかわしのふく
+		[75],	// Lv.16	てつのよろい
+	];
+
+	$_tona_levelShileds = [
+		[],
+		[18, 1],	// Lv.1		おなべのフタ、皮の盾
+		[],
+		[],
+		[],
+		[2],	// Lv.5		うろこの盾
+		[],
+		[],
+		[],
+		[],
+		[],
+		[3],	// Lv.11	せいどうの盾
+		[],
+		[],
+		[4],	// Lv.14	てつの盾
+		[],
+		[19],	// Lv.16	シルバートレイ
+	];
+
+	$_tona_levelHelmets = [
+		[],
+		[41],	// Lv.1		皮のぼうし
+		[],
+		[50],	// Lv.3		ターバン
+		[],
+		[],
+		[],
+		[42],	// lv.7		はねぼうし
+		[],
+		[],
+		[],
+		[43],	// Lv.11	きのぼうし
+		[52],	// Lv.12	毛皮のフード
+		[46],	// Lv.13	とんがりぼうし
+		[],
+		[31],	// Lv.15	てつかぶと
+		[44],	// Lv.16	インテリハット
+	];
+}
+
+// ****************************************************************************************************************************
 // データベースを作成する：ショップ
 // ----------------------------------------------------------------------------------------------------------------------------
 
 function _tona_CreateShopDatabase() {
 
-	$_tona_lobbyWeaponList = [
-		1, 2,
-		21,
-		31,
-		41, 42,
-		51,
-		61,
-		81, 82,
-		101,
-		111, 112,
-		121,
+	$_tona_shopWeaponList = [
+		111, 112, 41, 1, 42, 81, 82, 61, 31, 51,
+		3, 2, 32, 21,
 	];
 
-	$_tona_lobbyArmorList = [
-		86, 87, 71, 72, 73,
-		1, 2, 3,
-		41, 42, 43, 31,
+	$_tona_shopArmorList = [
+		86, 87, 108, 71, 72, 117, 73, 74, 95,
+		114, 111, 88, 75,
+		18, 1, 2, 3, 4, 19,
+		41, 50, 42, 43, 52, 46, 31, 44,
 	];
 
-	$_tona_lobbyItemList = [
-		11, 
+	$_tona_shopItemList = [
+		11,
 	];
 }
 
@@ -364,8 +458,16 @@ function _tona_CreateSaveData() {
     }
 }
 
+// ****************************************************************************************************************************
+// セーブデータを更新
+// ----------------------------------------------------------------------------------------------------------------------------
 
+function _tona_UpdateSaveData() {
 
+	// 武器
+	for (let i = 1; i < $dataWeapons.length; i++) {
+	}
+}
 
 
 

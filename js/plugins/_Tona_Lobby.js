@@ -196,7 +196,7 @@ Game_Interpreter.prototype._tona_Shop_ShowMenu = function() {
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_Interpreter.prototype._tona_Lobby_OpenWeaponShop = function() {
-    var kouho = $_tona_lobbyWeaponList;
+    var kouho = $_tona_shopWeaponList;
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
@@ -210,7 +210,7 @@ Game_Interpreter.prototype._tona_Lobby_OpenWeaponShop = function() {
 }
 
 Game_Interpreter.prototype._tona_Lobby_OpenArmorShop = function() {
-    var kouho = $_tona_lobbyArmorList;
+    var kouho = $_tona_shopArmorList;
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
@@ -224,7 +224,7 @@ Game_Interpreter.prototype._tona_Lobby_OpenArmorShop = function() {
 }
 
 Game_Interpreter.prototype._tona_Lobby_OpenItemShop = function() {
-    var kouho = $_tona_lobbyItemList;
+    var kouho = $_tona_shopItemList;
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
