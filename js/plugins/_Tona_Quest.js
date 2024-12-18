@@ -196,7 +196,7 @@ Game_Interpreter.prototype._tona_Quest_SuccessQuest = function() {
     $_tona_resultAction.push([$_tona_Const_ActionType_Message, "合計で " + $_tona_questNow.gotGold + " Gold を獲得！"]);
 
     // データを更新
-    _tona_UpdateData();
+    _tona_UpdateData(true);
 }
 
 // ****************************************************************************************************************************

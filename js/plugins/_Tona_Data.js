@@ -129,23 +129,23 @@ function _tona_CreateDatabase() {
 
 function _tona_CreateQuestDatabase() {
 
-    var quests = {};
+    var quests = [];
 	var hagureFull = [];
 
-	quests[1] = { name: "アリアハン大陸", level: 1, condition: [], waves: [], levelResult: 3 };
-    quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
-    quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
-    quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+	quests[1] = { name: "アリアハン大陸", level: 1, waves: [], levelResult: 3 };
+    quests[1].waves[1] = { mapId: 3, eventNum: 1, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
 
-	quests[2] = { name: "いざないの洞窟", level: 3, condition: [1], waves: [], levelResult: 5 };
-    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
-    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
-    quests[2].waves[3] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+	quests[2] = { name: "いざないの洞窟", level: 3, waves: [], levelResult: 5 };
+    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[2].waves[3] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
 
-	quests[3] = { name: "いざないの洞窟", level: 5, condition: [1], waves: [], levelResult: 6 };
-    quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
-    quests[3].waves[2] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
-    quests[3].waves[3] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+	quests[3] = { name: "ナジミの塔", level: 5, waves: [], levelResult: 6 };
+    quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[3].waves[2] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[3].waves[3] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
 
 	// レベルから Gold を設定
 	for (var questId in quests) {
@@ -207,7 +207,7 @@ function _tona_CreateLevelItemDatabase() {
 		[75],	// Lv.16	てつのよろい
 	];
 
-	$_tona_levelShileds = [
+	$_tona_levelShields = [
 		[],
 		[18, 1],	// Lv.1		おなべのフタ、皮の盾
 		[],
@@ -379,6 +379,15 @@ function _tona_OverrideWeaponDatabase() {
 			}
 		}
 	}
+
+	// レベルを設定
+	for (var level = 1; level < $_tona_levelWeapons.length; level++) {
+		var levelWeapons = $_tona_levelWeapons[level];
+		for (var i = 0; i < levelWeapons.length; i++) {
+			var weaponId = levelWeapons[i];
+			$dataWeapons[weaponId].meta.level = level;
+		}
+	}
 }
 
 // ****************************************************************************************************************************
@@ -400,6 +409,29 @@ function _tona_OverrideArmorDatabase() {
 			}
 		}
 	}
+
+	// レベルを設定
+	for (var level = 1; level < $_tona_levelArmors.length; level++) {
+		var levelArmors = $_tona_levelArmors[level];
+		for (var i = 0; i < levelArmors.length; i++) {
+			var armorId = levelArmors[i];
+			$dataArmors[armorId].meta.level = level;
+		}
+	}
+	for (var level = 1; level < $_tona_levelShields.length; level++) {
+		var levelArmors = $_tona_levelShields[level];
+		for (var i = 0; i < levelArmors.length; i++) {
+			var armorId = levelArmors[i];
+			$dataArmors[armorId].meta.level = level;
+		}
+	}
+	for (var level = 1; level < $_tona_levelHelmets.length; level++) {
+		var levelArmors = $_tona_levelHelmets[level];
+		for (var i = 0; i < levelArmors.length; i++) {
+			var armorId = levelArmors[i];
+			$dataArmors[armorId].meta.level = level;
+		}
+	}
 }
 
 // ****************************************************************************************************************************
@@ -412,33 +444,25 @@ function _tona_CreateSaveData() {
         $_tona_saveData = {};
     }
 
-    // 武器登場
+    // パーティー
+    if ($_tona_saveData.partyLevel == null) {
+        $_tona_saveData.partyLevel = 1;
+    }
+
+    // 武器解禁
     if ($_tona_saveData.weaponAppearState == null) {
         $_tona_saveData.weaponAppearState = {};
     }
 
-    $_tona_saveData.weaponAppearState[1] = 2;
-    $_tona_saveData.weaponAppearState[41] = 2;
-    $_tona_saveData.weaponAppearState[111] = 2;
-    $_tona_saveData.weaponAppearState[112] = 2;
-
-    // 防具
+    // 防具解禁
     if ($_tona_saveData.armorAppearState == null) {
         $_tona_saveData.armorAppearState = {};
     }
 
-    $_tona_saveData.armorAppearState[1] = 2;
-    $_tona_saveData.armorAppearState[41] = 2;
-    $_tona_saveData.armorAppearState[71] = 2;
-    $_tona_saveData.armorAppearState[86] = 2;
-    $_tona_saveData.armorAppearState[87] = 2;
-
-    // 道具
+    // 道具解禁
     if ($_tona_saveData.itemAppearState == null) {
         $_tona_saveData.itemAppearState = {};
     }
-
-    $_tona_saveData.itemAppearState[11] = 2;
 
     // クエストクリア
     if ($_tona_saveData.questClearFlag == null) {
@@ -449,25 +473,112 @@ function _tona_CreateSaveData() {
     if ($_tona_saveData.questAppearState == null) {
         $_tona_saveData.questAppearState = {};
     }
-
-    $_tona_saveData.questAppearState[1] = 2;
-
-    // パーティー
-    if ($_tona_saveData.partyLevel == null) {
-        $_tona_saveData.partyLevel = 0;
-    }
 }
 
 // ****************************************************************************************************************************
-// セーブデータを更新
+// データを更新
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_UpdateSaveData() {
+function _tona_UpdateData(showMessage) {
 
-	// 武器
-	for (let i = 1; i < $dataWeapons.length; i++) {
+	// 武器解禁
+	for (let i = 0; i < $_tona_shopWeaponList.length; i++) {
+		var weaponId = $_tona_shopWeaponList[i];
+
+		// レベルが設定されている武器について
+		if ($dataWeapons[weaponId].meta.level != null) {
+
+			// まだ解禁していない武器の場合
+			if (!$_tona_saveData.weaponAppearState[weaponId]) {
+
+	            // 条件を満たしているかを判定
+	            if ($dataWeapons[weaponId].meta.level <= $_tona_saveData.partyLevel) {
+					$_tona_saveData.weaponAppearState[weaponId] = 2;
+
+					if (showMessage) {
+						$_tona_resultAction.push([$_tona_Const_ActionType_SoundItem2]);
+						$_tona_resultAction.push([$_tona_Const_ActionType_Message, "武器屋に『" + $dataWeapons[weaponId].name + "』が追加されました！"]);
+					}
+				}
+			}
+		}
+	}
+
+	// 防具解禁
+	for (let i = 0; i < $_tona_shopArmorList.length; i++) {
+		var armorId = $_tona_shopArmorList[i];
+
+		// レベルが設定されている防具について
+		if ($dataArmors[armorId].meta.level != null) {
+
+			// まだ解禁していない武器の場合
+			if (!$_tona_saveData.armorAppearState[armorId]) {
+
+	            // 条件を満たしているかを判定
+	            if ($dataArmors[armorId].meta.level <= $_tona_saveData.partyLevel) {
+					$_tona_saveData.armorAppearState[armorId] = 2;
+
+					if (showMessage) {
+						$_tona_resultAction.push([$_tona_Const_ActionType_SoundItem2]);
+						$_tona_resultAction.push([$_tona_Const_ActionType_Message, "防具屋に『" + $dataArmors[armorId].name + "』が追加されました！"]);
+					}
+				}
+			}
+		}
+	}
+
+	// 道具解禁
+	for (let i = 0; i < $_tona_shopItemList.length; i++) {
+		var itemId = $_tona_shopItemList[i];
+
+		// レベルが設定されている道具について
+		if ($dataItems[itemId].meta.level != null) {
+
+			// まだ解禁していない道具の場合
+			if (!$_tona_saveData.itemAppearState[itemId]) {
+
+	            // 条件を満たしているかを判定
+	            if ($dataItems[itemId].meta.level <= $_tona_saveData.partyLevel) {
+					$_tona_saveData.itemAppearState[itemId] = 2;
+
+					if (showMessage) {
+						$_tona_resultAction.push([$_tona_Const_ActionType_SoundItem2]);
+						$_tona_resultAction.push([$_tona_Const_ActionType_Message, "道具屋に『" + $dataItems[itemId].name + "』が追加されました！"]);
+					}
+				}
+			}
+		}
+	}
+
+	// クエスト解禁
+	for (let questId = 1; questId < $_tona_quest.length; questId++) {
+		var quest = $_tona_quest[questId];
+
+		// まだ解禁していないクエストの場合
+		if (!$_tona_saveData.questAppearState[questId]) {
+
+            // 条件を満たしているかを判定
+            if (quest.level <= $_tona_saveData.partyLevel) {
+				$_tona_saveData.questAppearState[questId] = 2;
+
+				if (showMessage) {
+					$_tona_resultAction.push([$_tona_Const_ActionType_SoundItem2]);
+					$_tona_resultAction.push([$_tona_Const_ActionType_Message, "クエスト『" + quest.name + "』が追加されました！"]);
+				}
+			}
+		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

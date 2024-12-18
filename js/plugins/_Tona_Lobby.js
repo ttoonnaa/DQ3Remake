@@ -192,7 +192,7 @@ Game_Interpreter.prototype._tona_Shop_ShowMenu = function() {
 };
 
 // ****************************************************************************************************************************
-// Interpreter：ショップを開く
+// ショップ：ショップを開く
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_Interpreter.prototype._tona_Lobby_OpenWeaponShop = function() {
@@ -200,9 +200,9 @@ Game_Interpreter.prototype._tona_Lobby_OpenWeaponShop = function() {
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
-        var index = kouho[i];
-        if ($_tona_saveData.weaponAppearState[index]) {
-            goods.push([1, index, 0, 0]);
+        var weaponId = kouho[i];
+        if ($_tona_saveData.weaponAppearState[weaponId]) {
+            goods.push([1, weaponId, 0, 0]);
         }
     }
     SceneManager.push(Scene_Shop);
@@ -214,9 +214,9 @@ Game_Interpreter.prototype._tona_Lobby_OpenArmorShop = function() {
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
-        var index = kouho[i];
-        if ($_tona_saveData.armorAppearState[index]) {
-            goods.push([2, index, 0, 0]);
+        var armorId = kouho[i];
+        if ($_tona_saveData.armorAppearState[armorId]) {
+            goods.push([2, armorId, 0, 0]);
         }
     }
     SceneManager.push(Scene_Shop);
@@ -228,16 +228,42 @@ Game_Interpreter.prototype._tona_Lobby_OpenItemShop = function() {
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
-        var index = kouho[i];
-        if ($_tona_saveData.itemAppearState[index]) {
-            goods.push([0, index, 0, 0]);
-        }
+        var itemId = kouho[i];
+//        if ($_tona_saveData.itemAppearState[itemId]) {
+            goods.push([0, itemId, 0, 0]);
+//        }
     }
     SceneManager.push(Scene_Shop);
     SceneManager.prepareNextScene(goods, false);
 }
 
+// ****************************************************************************************************************************
+// クエスト：メニューを表示
+// ----------------------------------------------------------------------------------------------------------------------------
 
+Game_Interpreter.prototype._tona_Quest_ShowMenu = function() {
+	var resultList = [];
+    var choices = [];
+
+	// クエスト解禁
+	for (let questId = 1; questId < $_tona_quest.length; questId++) {
+		var quest = $_tona_quest[questId];
+		if ($_tona_saveData.questAppearState[questId]) {
+		    choices.push(quest.name);		resultList.push(questId);
+		}
+	}
+
+    choices.push("キャンセル");	resultList.push(-1);
+
+    $gameMessage.setChoices(choices, 0, resultList.length - 1);
+    $gameMessage.setChoiceBackground(1);
+    $gameMessage.setChoicePositionType(0);
+    $gameMessage.setChoiceCallback(function(n) {
+        $_tona_result = resultList[n];
+    }.bind(this));
+
+    this.setWaitMode('message');
+};
 
 
 

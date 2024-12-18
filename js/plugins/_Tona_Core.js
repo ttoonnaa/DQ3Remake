@@ -5,6 +5,7 @@
 
 // アクション
 var $_tona_Const_ActionType_Message = 1;
+var $_tona_Const_ActionType_SoundItem2 = 2;
 
 // クエストイベント
 var $_tona_Const_QuestEventType_None = 0;
