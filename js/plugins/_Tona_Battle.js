@@ -160,6 +160,11 @@ Game_Action.prototype.speed = function() {
 // アクション：グループ攻撃
 // ----------------------------------------------------------------------------------------------------------------------------
 
+Game_Action.prototype._tona_isForGroup = function() {
+
+	return this.meta._tona_groupRange != null;
+}
+
 Game_Action.prototype.targetsForAlive = function(unit) {
 
 	// グループ攻撃は「敵単体」指定になっています

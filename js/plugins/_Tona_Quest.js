@@ -224,14 +224,12 @@ _tona_randomBattleCreateTemorary = function() {
 Game_Interpreter.prototype._tona_Quest_CreateRandomBattle_Start = function() {
 	var wave = $_tona_questNow.getWaveNow();
 
-console.log("_tona_Quest_CreateRandomBattle_Start");
-
     $_tona_randomBattleCreateTemorary = new _tona_randomBattleCreateTemorary();
     $_tona_randomBattleCreateTemorary.done = 0;
     $_tona_randomBattleCreateTemorary.step = 1;
     $_tona_randomBattleCreateTemorary.questId = $_tona_questNow.questId;
     $_tona_randomBattleCreateTemorary.mapId = $_tona_questNow.waveId;
-    $_tona_randomBattleCreateTemorary.monsters = wave.monster.concat();
+    $_tona_randomBattleCreateTemorary.monsters = _tona_FindLevelEnemies(wave.level);
     $_tona_randomBattleCreateTemorary.hagureRate = wave.hagureRate;
     $_tona_randomBattleCreateTemorary.hagure = wave.hagure.concat();
     $_tona_randomBattleCreateTemorary.result = [];
@@ -333,8 +331,8 @@ Game_Interpreter.prototype._tona_Quest_CreateRandomBattle_Update = function() {
             var enemyId = $_tona_randomBattleCreateTemorary.result[i][0];
             var enemy = $dataEnemies[enemyId];
             var x = Math.floor(offsetX + $_tona_randomBattleCreateTemorary.result[i][2] + $_tona_randomBattleCreateTemorary.result[i][1] / 2);
-            var y = 436 - ((enemy.json !== undefined && enemy.json['y'] !== undefined) ? enemy.json['y'] : 0);
-            $dataTroops[$_tona_Const_TroopId_RandomEnemy].members.push({"enemyId":enemyId,"x":x,"y":y,"hidden":false});
+            var y = 436 - (enemy.meta._tona_pos_y != null ? enemy.meta._tona_pos_y : 0);
+            $dataTroops[$_tona_Const_TroopId_RandomEnemy].members.push({"enemyId": enemyId, "x": x ,"y": y, "hidden": false});
         }
         $_tona_randomBattleCreateTemorary.step = 99;
         // 処理終了
