@@ -132,20 +132,20 @@ function _tona_CreateQuestDatabase() {
     var quests = [];
 	var hagureFull = [];
 
-	quests[1] = { name: "アリアハン大陸", level: 1, waves: [], levelResult: 3 };
+	quests[1] = { name: "アリアハン大陸", level: 2, waves: [], levelResult: 3 };
     quests[1].waves[1] = { mapId: 3, eventNum: 1, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 2, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 2, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
 
-	quests[2] = { name: "いざないの洞窟", level: 3, waves: [], levelResult: 5 };
+	quests[2] = { name: "いざないの洞窟", level: 3, waves: [], levelResult: 4 };
     quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
     quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
     quests[2].waves[3] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
 
-	quests[3] = { name: "ナジミの塔", level: 5, waves: [], levelResult: 6 };
-    quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[3].waves[2] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[3].waves[3] = { mapId: 3, eventNum: 10, level: 5, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+	quests[3] = { name: "ナジミの塔", level: 4, waves: [], levelResult: 5 };
+    quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 4, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[3].waves[2] = { mapId: 3, eventNum: 10, level: 4, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[3].waves[3] = { mapId: 3, eventNum: 10, level: 4, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
 
 	// レベルから Gold を設定
 	for (var questId in quests) {
@@ -169,82 +169,71 @@ function _tona_CreateLevelItemDatabase() {
 
 	$_tona_levelWeapons = [
 		[],
-		[111, 112, 41, 1],		// Lv.1		ひのきのぼう、こんぼう、ブロンズナイフ、どうのつるぎ
-		[],
+		[111, 112, 41],		// Lv.1		ひのきのぼう、こんぼう、ブロンズナイフ
+		[1],	// Lv.2		どうのつるぎ
 		[42],	// Lv.3		せいなるナイフ
-		[],
-		[81],	// Lv.5		くさりがま
-		[],
-		[82],	// Lv.7		とげのムチ
-		[],
-		[61],	// Lv.9		まどうしのつえ
-		[],
-		[31],	// Lv.11	てつのやり
-		[51],	// Lv.12	てつのつめ
-		[3],	// Lv.13	はがねのはりせん
-		[2],	// Lv.14	はがねのつるぎ
-		[32],	// Lv.15	ホーリーランス
-		[21],	// Lv.16	てつのオノ
+		[81],	// Lv.4		くさりがま
+		[82],	// Lv.5		とげのムチ
+		[61],	// Lv.6		まどうしのつえ
+		[31],	// Lv.7		てつのやり
+		[51],	// Lv.8		てつのつめ
+		[3],	// Lv.9		はがねのはりせん
+		[2],	// Lv.10	はがねのつるぎ
+		[32],	// Lv.11	ホーリーランス
+		[21],	// Lv.12	てつのオノ
+		[],		// Lv.13	ねむりの杖、まふうじの杖
 	];
 
 	$_tona_levelArmors = [
 		[],
-		[86, 87, 108, 71],		// Lv.1		布の服、たびびとの服、けいこぎ、皮のよろい
+		[86, 87, 108],		// Lv.1		布の服、たびびとの服、けいこぎ
+		[71],	// Lv.2		皮のよろい
 		[],
-		[],
-		[],
-		[72],	// Lv.5		カメのこうら
-		[],
-		[117],	// Lv.7		レザーマント
-		[],
-		[73],	// Lv.9		こうらのよろい
-		[],
-		[74],	// Lv.11	くさりかたびら
-		[95],	// Lv.12	きぬのローブ
-		[114],	// Lv.13	てつのまえかけ
-		[111],	// Lv.14	かわのこしまき
-		[88],	// Lv.15	みかわしのふく
-		[75],	// Lv.16	てつのよろい
+		[72],	// Lv.4		カメのこうら
+		[117],	// Lv.5		レザーマント
+		[73],	// Lv.6		こうらのよろい
+		[74],	// Lv.7		くさりかたびら
+		[95],	// Lv.8		きぬのローブ
+		[],		// Lv.9		ぶとうぎ
+		[114],	// Lv.10	てつのまえかけ
+		[111],	// Lv.11	かわのこしまき
+		[88],	// Lv.12	みかわしのふく
+		[],		// Lv.13	マジカルスカート
+		[75],	// Lv.14	てつのよろい
 	];
 
 	$_tona_levelShields = [
 		[],
-		[18, 1],	// Lv.1		おなべのフタ、皮の盾
+		[18],	// Lv.1		おなべのフタ
+		[1],	// Lv.2		皮の盾
+		[],
+		[2],	// Lv.4		うろこの盾
 		[],
 		[],
 		[],
-		[2],	// Lv.5		うろこの盾
+		[3],	// Lv.8		せいどうの盾
 		[],
 		[],
+		[4],	// Lv.11	てつの盾
 		[],
-		[],
-		[],
-		[3],	// Lv.11	せいどうの盾
-		[],
-		[],
-		[4],	// Lv.14	てつの盾
-		[],
-		[19],	// Lv.16	シルバートレイ
+		[19],	// Lv.13	シルバートレイ
 	];
 
 	$_tona_levelHelmets = [
 		[],
-		[41],	// Lv.1		皮のぼうし
 		[],
+		[41],	// Lv.2		皮のぼうし
 		[50],	// Lv.3		ターバン
 		[],
+		[42],	// lv.5		はねぼうし
 		[],
+		[43],	// Lv.7		きのぼうし
+		[52],	// Lv.8		毛皮のフード
 		[],
-		[42],	// lv.7		はねぼうし
+		[46],	// Lv.10	とんがりぼうし
 		[],
-		[],
-		[],
-		[43],	// Lv.11	きのぼうし
-		[52],	// Lv.12	毛皮のフード
-		[46],	// Lv.13	とんがりぼうし
-		[],
-		[31],	// Lv.15	てつかぶと
-		[44],	// Lv.16	インテリハット
+		[31],	// Lv.12	てつかぶと
+		[44],	// Lv.13	インテリハット
 	];
 }
 
@@ -446,7 +435,7 @@ function _tona_CreateSaveData() {
 
     // パーティー
     if ($_tona_saveData.partyLevel == null) {
-        $_tona_saveData.partyLevel = 1;
+        $_tona_saveData.partyLevel = 2;
     }
 
     // 武器解禁
