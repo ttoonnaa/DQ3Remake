@@ -116,6 +116,9 @@ function _tona_CreateDatabase() {
 	// クエスト
 	_tona_CreateQuestDatabase();
 
+	// エネミー
+	_tona_CreateEnemyDatabase();
+
 	// レベルアイテム
 	_tona_CreateLevelItemDatabase();
 
@@ -159,6 +162,34 @@ function _tona_CreateQuestDatabase() {
 	}
 
 	$_tona_quest = quests;
+}
+
+// ****************************************************************************************************************************
+// データベースを作成する：エネミー
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function _tona_CreateEnemyDatabase() {
+
+	let enemies = [];
+
+	// リメイク攻略本の順に並べます
+
+	// attr: [メラ, ギラ, イオ, ヒャド, バギ, デイン, 炎, 氷, 物理]
+	// regist1: [ザキ, 急所, メガ, バシ, ニフ, MP, おたけび, 転倒]
+	// regist2: [攻Ｄ, 防Ｄ, 速Ｄ, 耐Ｄ, マヒ, 眠り, 混乱, 幻惑, 封印]
+
+	enemies[1]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// スライム
+	enemies[2]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// おおがらす
+	enemies[3]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// 
+	enemies[4]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// 
+	enemies[5]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// 
+	enemies[6]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// 
+	enemies[7]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// 
+	enemies[8]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// 
+	enemies[9]   = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// 
+	enemies[10]  = { name: "", attr: [3, 3, 3, 3, 3, 3, 3, 3, 3], regist1: [3, 3, 3, 3, 3, 3, 3, 3], regist2: [3, 3, 3, 3, 3, 3, 3, 3, 3] };	// 
+
+	$_tona_enemy = enemies;
 }
 
 // ****************************************************************************************************************************
@@ -273,9 +304,9 @@ function _tona_OverrideDatabase(object) {
     //    _tona_OverrideActorDatabase();
     //}
 	// エネミー
-	//else if (object === $dataEnemies) {
-    //    _tona_OverrideEnemyDatabase();
-    //}
+	else if (object === $dataEnemies) {
+        _tona_OverrideEnemyDatabase();
+    }
     // クラス
 	else if (object === $dataClasses) {
         _tona_OverrideClassDatabase();
@@ -288,6 +319,60 @@ function _tona_OverrideDatabase(object) {
 	else if (object === $dataArmors) {
         _tona_OverrideArmorDatabase();
     }
+}
+
+// ****************************************************************************************************************************
+// エネミーのデータベースを上書き
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function _tona_OverrideClassDatabase() {
+
+	// ▲値は仮
+    var attrRate = [0, 10, 75, 100, 125, 150];
+    var statRate = [0, 10, 30,  50,  70, 100];
+    var zakiRate = [0, 10, 20,  30,  50, 100];
+
+	for (var i = 1; i < $_tona_enemies.length; i++) {
+		var tonaEnemy = $_tona_enemies[i];
+
+		// 防御力を半分にする
+		$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] / 2);
+
+		// 特徴を設定する
+		$dataEnemies[i].traits = [];
+	    $dataEnemies[i].traits.push({ "code": 31, "dataId":  1, "value": 0 });				// 攻撃持続性：物理
+	    $dataEnemies[i].traits.push({ "code": 22, "dataId":  0, "value": 1 });				// 命中率＋１００％
+
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  1, "value": attrRate[tonaEnemy.attr[8]] / 100 });		// 物理
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  2, "value": attrRate[tonaEnemy.attr[0]] / 100 });		// メラ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  3, "value": attrRate[tonaEnemy.attr[1]] / 100 });		// ギラ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  4, "value": attrRate[tonaEnemy.attr[2]] / 100 });		// イオ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  5, "value": attrRate[tonaEnemy.attr[3]] / 100 });		// ヒャド
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  6, "value": attrRate[tonaEnemy.attr[4]] / 100 });		// バギ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  7, "value": attrRate[tonaEnemy.attr[5]] / 100 });		// デイン
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  9, "value": attrRate[tonaEnemy.attr[6]] / 100 });		// 炎
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 10, "value": attrRate[tonaEnemy.attr[7]] / 100 });		// 氷
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 11, "value": attrRate[tonaEnemy.regist1[5]] / 100 });	// MP吸収
+
+	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  2, "value": statRate[tonaEnemy.regist2[0]] / 100 });	// 攻撃力↓
+	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  3, "value": statRate[tonaEnemy.regist2[1]] / 100 });	// 防御力↓
+	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  6, "value": statRate[tonaEnemy.regist2[2]] / 100 });	// 敏捷性↓
+
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  1, "value": zakiRate[tonaEnemy.regist1[0]] / 100 });	// 戦闘不能
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  7, "value": statRate[tonaEnemy.regist2[4]] / 100 });	// 麻痺
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  8, "value": statRate[tonaEnemy.regist2[5]] / 100 });	// ラリホー
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  9, "value": statRate[tonaEnemy.regist2[6]] / 100 });	// メダパニ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 10, "value": statRate[tonaEnemy.regist2[7]] / 100 });	// マヌーサ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 11, "value": statRate[tonaEnemy.regist2[8]] / 100 });	// マホトーン
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 12, "value": zakiRate[tonaEnemy.regist1[0]] / 100 });	// ザキ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 13, "value": zakiRate[tonaEnemy.regist1[1]] / 100 });	// 急所
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 14, "value": statRate[tonaEnemy.regist1[2]] / 100 });	// メガンテ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 15, "value": statRate[tonaEnemy.regist1[3]] / 100 });	// バシルーラ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 16, "value": statRate[tonaEnemy.regist1[4]] / 100 });	// ニフラム
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 17, "value": statRate[tonaEnemy.regist1[6]] / 100 });	// おたけび
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 18, "value": statRate[tonaEnemy.regist1[7]] / 100 });	// 転倒
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 19, "value": statRate[tonaEnemy.regist2[3]] / 100 });	// 呪文耐性ダウン
+	}
 }
 
 // ****************************************************************************************************************************
