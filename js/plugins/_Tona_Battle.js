@@ -1,5 +1,19 @@
 
 // ****************************************************************************************************************************
+// バトラー：物理のダメージ計算式
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_BattlerBase.prototype._tona_physicalDamage = function(b) {
+
+	return this.atk - b.def / 2;
+}
+
+// エイリアス（エディターで指定する計算式で使う）
+Game_BattlerBase.prototype.PD = function(b) {
+	return this._tona_physicalDamage(b);
+}
+
+// ****************************************************************************************************************************
 // バトラー：呪文のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -162,7 +176,7 @@ Game_Action.prototype.speed = function() {
 
 Game_Action.prototype._tona_isForGroup = function() {
 
-	return this.meta._tona_groupRange != null;
+	return this.item().meta._tona_groupRange != null;
 }
 
 Game_Action.prototype.targetsForAlive = function(unit) {

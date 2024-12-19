@@ -96,6 +96,39 @@
 	}
 
 	// ****************************************************************************************************************************
+	// アクター：経験値を取得
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+	Game_Actor.prototype.changeExp = function(exp, show) {
+	    this._exp[this._classId] = Math.max(exp, 0);
+	    const lastLevel = this._level;
+	    const lastSkills = this.skills();
+
+		let params1 = [];
+		let params2 = [];
+
+		for (let i = 0; i < 8; i++) {
+			params1[i] = this._paramBase[i] + this._paramPlus[i];
+		}
+
+	    while (!this.isMaxLevel() && this.currentExp() >= this.nextLevelExp()) {
+	        this.levelUp();
+	    }
+	    while (this.currentExp() < this.currentLevelExp()) {
+	        this.levelDown();
+	    }
+	    if (show && this._level > lastLevel) {
+
+			for (let i = 0; i < 8; i++) {
+				params2[i] = this._paramBase[i] + this._paramPlus[i] - params1[i];
+			}
+
+	        this.displayLevelUp(this.findNewSkills(lastSkills), params2);
+	    }
+	    this.refresh();
+	};
+
+	// ****************************************************************************************************************************
 	// アクター：レベルアップ
 	// ----------------------------------------------------------------------------------------------------------------------------
 
@@ -123,16 +156,43 @@
 	};
 
 	// ****************************************************************************************************************************
+	// アクター：レベルアップを表示
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+	Game_Actor.prototype.displayLevelUp = function(newSkills, changeParams) {
+	    const text = TextManager.levelUp.format(
+	        this._name,
+	        TextManager.level,
+	        this._level
+	    );
+	    $gameMessage.newPage();
+	    $gameMessage.add(text);
+
+	    $gameMessage.newPage();
+	    $gameMessage.add("最大HP +"  + changeParams[0] + "　最大MP +"  + changeParams[1]);
+	    $gameMessage.add("攻撃力 +"  + changeParams[2] + "　守備力 +"  + changeParams[3]);
+	    $gameMessage.add("体力 +"  + changeParams[5] + "　賢さ +"  + changeParams[4]);
+	    $gameMessage.add("素早さ +"  + changeParams[6] + "　運の良さ +"  + changeParams[7]);
+
+		if (newSkills.length > 0) {
+		    $gameMessage.newPage();
+		    for (const skill of newSkills) {
+		        $gameMessage.add(TextManager.obtainSkill.format(skill.name));
+		    }
+		}
+	};
+
+	// ****************************************************************************************************************************
 	// アクター：パラメーターを補正
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	Game_Actor.prototype._tona_refreshParam = function() {
 
-		// HPを計算（体力の2倍）（種の分も含む）
+		// HPを計算（体力の2倍、種の分も含む）
 		this._paramBase[0] = (this._paramBase[5] + this._paramPlus[5]) * 2;
 		this._paramBaseAmari[0] = this._paramBaseAmari[5] * 2;
 
-		// MPを計算（賢さの2倍）（種の分も含む）
+		// MPを計算（賢さの2倍、種の分も含む）
 		this._paramBase[1] = (this._paramBase[4] + this._paramPlus[4]) * 2;
 		this._paramBaseAmari[1] = this._paramBaseAmari[4] * 2;
 

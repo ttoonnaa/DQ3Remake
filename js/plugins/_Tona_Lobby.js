@@ -129,6 +129,12 @@ Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
 		actor._tona_addParamPlus(paramId, value);
 	}
 
+	// パラメーターを補正
+	actor._tona_refreshParam();
+
+	// 全回復
+	actor.recoverAll();
+
 	// 顔グラを準備しておく
     ImageManager.loadFace(actor.faceName());
 }
