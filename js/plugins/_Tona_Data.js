@@ -130,19 +130,19 @@ function _tona_CreateQuestDatabase() {
 	var hagureFull = [];
 
 	quests[1] = { name: "アリアハン大陸", level: 2, waves: [], levelResult: 3 };
-    quests[1].waves[1] = { mapId: 3, eventNum: 1, level: 1, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 2, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 2, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
 	quests[2] = { name: "いざないの洞窟", level: 3, waves: [], levelResult: 4 };
-    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[2].waves[3] = { mapId: 3, eventNum: 10, level: 3, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[2].waves[3] = { mapId: 3, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
 
 	quests[3] = { name: "ナジミの塔", level: 4, waves: [], levelResult: 5 };
-    quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 4, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[3].waves[2] = { mapId: 3, eventNum: 10, level: 4, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
-    quests[3].waves[3] = { mapId: 3, eventNum: 10, level: 4, monster: [1], maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull };
+    quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+    quests[3].waves[2] = { mapId: 3, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+    quests[3].waves[3] = { mapId: 3, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
 
 	// レベルから Gold を設定
 	for (var questId in quests) {

@@ -259,24 +259,18 @@ Game_Action.prototype.itemMrf = function(target) {
 };
 
 // ****************************************************************************************************************************
-// バトル：身代わり判定の条件を変更
+// バトル：身代わり
 // ----------------------------------------------------------------------------------------------------------------------------
 
-// 前：必中でない、かつ HP 1/4 未満
-// 後：常時 75%、必中でもかばう、HP 関係なくかばう
+Game_BattlerBase.prototype._tona_isUkenagashi = function() {
 
-BattleManager.checkSubstitute = function(target) {
-
-    return target.isDying() && this._action.isForOpponent() && (this._action.isForOne() || this._action.isForRandom());
+	return this._states.includes($_tona_Const_StateId_Ukenagashi) && this.canMove();
 };
 
-// ****************************************************************************************************************************
-// ユニット：身代わりのバグを修正
-// ----------------------------------------------------------------------------------------------------------------------------
-
-// かばう候補に自分が入ってたので修正
-
 BattleManager.applySubstitute = function(target) {
+
+	// 身代わり
+	// substituteBattler に引数が増えたので修正
     if (this.checkSubstitute(target)) {
         var substitute = target.friendsUnit().substituteBattler(target);
         if (substitute && target !== substitute) {
@@ -284,16 +278,65 @@ BattleManager.applySubstitute = function(target) {
             return substitute;
         }
     }
+
+	// 受け流し
+	if (target._tona_isUkenagashi()) {
+
+		// ▲かならず味方にしてみる
+
+        var substitute = target.friendsUnit()._tona_ukenagashiBattler(target);
+        if (substitute && target !== substitute) {
+            this._logWindow._tona_displayUkenagashi(substitute, target);
+            return substitute;
+        }
+	}
+
     return target;
 };
 
+BattleManager.checkSubstitute = function(target) {
+
+	// 身代わりの判定条件を変更
+
+	// 修正前：必中でない、かつ HP 1/4 未満
+	// 修正後：常時 75%、必中でもかばう、HP 関係なくかばう
+
+    return target.isDying() && this._action.isForOpponent() && (this._action.isForOne() || this._action.isForRandom());
+};
+
 Game_Unit.prototype.substituteBattler = function(target) {
+
+	// かばう候補に自分が入ってたので修正
+
     var members = this.members();
     for (var i = 0; i < members.length; i++) {
         if (members[i] !== target && members[i].isSubstitute()) {
             return members[i];
         }
     }
+    return null;
+};
+
+// ****************************************************************************************************************************
+// バトル：受け流し
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Unit.prototype._tona_ukenagashiBattler = function(target) {
+
+    var members = this.members();
+    for (var i = 0; i < members.length; i++) {
+        if (members[i] !== target && members[i].isAlive()) {
+            return members[i];
+        }
+    }
+    return null;
+};
+
+Window_BattleLog.prototype._tona_displayUkenagashi = function(substitute, target) {
+    const substName = substitute.name();
+    const text = substName + "は攻撃を受け流した！";
+    this.push("performSubstitute", substitute, target);
+    this.push("addText", text);
 };
 
 // ****************************************************************************************************************************
