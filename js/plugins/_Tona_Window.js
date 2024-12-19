@@ -41,8 +41,8 @@ Window_PubStatusCommand.prototype.maxCols = function() {
 };
 
 Window_PubStatusCommand.prototype.makeCommandList = function() {
-    this.addCommand("決定", "yes");
-    this.addCommand("キャンセル", "no");
+    this.addCommand("この子に決めた！", "yes");
+    this.addCommand("やり直す", "no");
 };
 
 // ****************************************************************************************************************************

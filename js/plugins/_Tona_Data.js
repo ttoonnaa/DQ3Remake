@@ -44,71 +44,65 @@ function _tona_CreateDatabase() {
 	// [HP、MP、力、守、魔、体、速、運]
 
 	$_tona_Personality = [];
-	$_tona_Personality[1] = { name: "あたまでっかち", params: [0,0,-10,10,20,-10,0,-20] };
-	$_tona_Personality[2] = { name: "あまえんぼう", params: [0,0,-10,-20,0,-10,0,10] };
-	$_tona_Personality[3] = { name: "いくじなし", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[4] = { name: "いっぴきおおかみ", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[5] = { name: "いのちしらず", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[6] = { name: "うっかりもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[7] = { name: "おおぐらい", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[8] = { name: "ブルジョワ", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[9] = { name: "おせっかい", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[10] = { name: "おちょうしもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[11] = { name: "おっちょこちょい", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[12] = { name: "つよき", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[13] = { name: "がんこもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[14] = { name: "がんばりや", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[15] = { name: "きれもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[16] = { name: "くろうにん", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[17] = { name: "ごうけつ", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[18] = { name: "さびしがりや", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[19] = { name: "しあわせもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[20] = { name: "しょうじきもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[21] = { name: "ずのうめいせき", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[22] = { name: "すばしっこい", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[23] = { name: "セクシーギャル", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[24] = { name: "せけんしらず", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[25] = { name: "タフネス", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[26] = { name: "ちからじまん", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[27] = { name: "てつじん", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[28] = { name: "でんこうせっか", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[29] = { name: "なきむし", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[30] = { name: "なまけもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[31] = { name: "ぬけめがない", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[32] = { name: "ねっけつ", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[33] = { name: "のんきもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[34] = { name: "ひっこみじあん", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[35] = { name: "ひねくれもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[36] = { name: "ふつう", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[37] = { name: "へこたれない", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[38] = { name: "まけずぎらい", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[39] = { name: "みえっぱり", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[40] = { name: "むっつりスケベ", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[41] = { name: "やさしいひと", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[42] = { name: "ラッキーパーソン", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[43] = { name: "らんぼうもの", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[44] = { name: "ロマンチスト", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[45] = { name: "わがまま", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[46] = { name: "わんぱく", params: [0,0,0,0,0,0,0,0] };
+	$_tona_Personality[1] = { name: "あたまでっかち", params: [0,0,-1,1,2,-1,0,-2] };
+	$_tona_Personality[2] = { name: "あまえんぼう", params: [0,0,-1,-2,0,-1,0,1] };
+	$_tona_Personality[3] = { name: "いくじなし", params: [0,0,-1,-2,2,-1,-2,2] };
+	$_tona_Personality[4] = { name: "いっぴきおおかみ", params: [0,0,1,2,1,2,1,-2] };
+	$_tona_Personality[5] = { name: "いのちしらず", params: [0,0,1,-3,0,2,2,1] };
+	$_tona_Personality[6] = { name: "うっかりもの", params: [0,0,-1,-1,-2,0,2,-2] };
+	$_tona_Personality[7] = { name: "おおぐらい", params: [0,0,1,2,-3,1,-3,-2] };
+	$_tona_Personality[8] = { name: "おせっかい", params: [0,0,0,0,-2,1,-1,0] };
+	$_tona_Personality[9] = { name: "おちょうしもの", params: [0,0,0,0,1,-1,2,1] };
+	$_tona_Personality[10] = { name: "おっちょこちょい", params: [0,0,-1,0,-2,-2,2,-1] };
+	$_tona_Personality[11] = { name: "がんこもの", params: [0,0,1,2,-3,2,-3,-2] };
+	$_tona_Personality[12] = { name: "がんばりや", params: [0,0,1,1,0,1,-1,-2] };
+	$_tona_Personality[13] = { name: "きれもの", params: [0,0,0,-1,3,-2,2,-2] };
+	$_tona_Personality[14] = { name: "くろうにん", params: [0,0,1,2,-1,2,-2,-2] };
+	$_tona_Personality[15] = { name: "ごうけつ", params: [0,0,3,0,-2,0,-2,-2] };
+	$_tona_Personality[16] = { name: "さびしがりや", params: [0,0,0,-2,1,-2,-1,1] };
+	$_tona_Personality[17] = { name: "しあわせもの", params: [0,0,-1,-1,0,-1,0,2] };
+	$_tona_Personality[18] = { name: "しょうじきもの", params: [0,0,0,0,0,0,-1,-1] };
+	$_tona_Personality[19] = { name: "ずのうめいせき", params: [0,0,-1,-1,2,0,0,-1] };
+	$_tona_Personality[20] = { name: "すばしっこい", params: [0,0,-1,-1,0,-1,2,-2] };
+	$_tona_Personality[21] = { name: "セクシーギャル", params: [0,0,1,0,1,1,2,2] };
+	$_tona_Personality[22] = { name: "せけんしらず", params: [0,0,0,-2,-2,-1,-1,2] };
+	$_tona_Personality[23] = { name: "タフネス", params: [0,0,2,2,-2,3,-1,-2] };
+	$_tona_Personality[24] = { name: "ちからじまん", params: [0,0,2,-1,-2,0,-2,-2] };
+	$_tona_Personality[25] = { name: "つよき", params: [0,0,2,1,-2,0,-1,-2] };
+	$_tona_Personality[26] = { name: "てつじん", params: [0,0,1,3,0,2,-2,-2] };
+	$_tona_Personality[27] = { name: "でんこうせっか", params: [0,0,0,-1,0,0,3,0] };
+	$_tona_Personality[28] = { name: "なきむし", params: [0,0,-1,-2,1,0,-1,2] };
+	$_tona_Personality[29] = { name: "なまけもの", params: [0,0,1,-2,-2,2,-3,1] };
+	$_tona_Personality[30] = { name: "ぬけめがない", params: [0,0,-1,1,2,-1,1,0] };
+	$_tona_Personality[31] = { name: "ねっけつ", params: [0,0,1,2,-1,1,0,-3] };
+	$_tona_Personality[32] = { name: "のんきもの", params: [0,0,0,1,0,1,-2,0] };
+	$_tona_Personality[33] = { name: "ひっこみじあん", params: [0,0,1,-2,1,2,-3,-1] };
+	$_tona_Personality[34] = { name: "ひねくれもの", params: [0,0,-2,1,1,-2,2,2] };
+	$_tona_Personality[35] = { name: "ふつう", params: [0,0,0,0,0,0,0,0] };
+	$_tona_Personality[36] = { name: "ブルジョワ", params: [0,0,0,-2,1,-1,-2,3] };
+	$_tona_Personality[37] = { name: "へこたれない", params: [0,0,0,-1,-1,2,0,0] };
+	$_tona_Personality[38] = { name: "まけずぎらい", params: [0,0,-1,0,-1,1,1,-1] };
+	$_tona_Personality[39] = { name: "みえっぱり", params: [0,0,1,1,0,-1,1,-1] };
+	$_tona_Personality[40] = { name: "むっつりスケベ", params: [0,0,1,1,1,2,-1,-1] };
+	$_tona_Personality[41] = { name: "やさしいひと", params: [0,0,1,1,1,1,-1,-1] };
+	$_tona_Personality[42] = { name: "ラッキーパーソン", params: [0,0,0,0,0,0,1,3] };
+	$_tona_Personality[43] = { name: "らんぼうもの", params: [0,0,2,1,-3,-1,-1,-2] };
+	$_tona_Personality[44] = { name: "ロマンチスト", params: [0,0,0,-1,1,0,1,0] };
+	$_tona_Personality[45] = { name: "わがまま", params: [0,0,-1,-1,-1,-1,1,-1] };
+	$_tona_Personality[46] = { name: "わんぱく", params: [0,0,1,-2,-2,-2,1,-1] };
 
 	// 性格の偏りを補正する
-
-	// [-40,-30,-20,-10,  0, 10, 20, 30, 40, 50] =>
-	// [  0,  0,  0,  0,  0,  5, 10, 15, 20, 25]
 
 	for (var i = 1; i <= 46; i++) {
 		for (var p = 0; p < 9; p++) {
 			switch ($_tona_Personality[i][p]) {
-			case -40:	$_tona_Personality[i][p] = 0;
-			case -30:	$_tona_Personality[i][p] = 0;
-			case -20:	$_tona_Personality[i][p] = 0;
-			case -10:	$_tona_Personality[i][p] = 0;
-			case   0:	$_tona_Personality[i][p] = 0;
-			case  10:	$_tona_Personality[i][p] = 5;
-			case  20:	$_tona_Personality[i][p] = 10;
-			case  30:	$_tona_Personality[i][p] = 15;
-			case  40:	$_tona_Personality[i][p] = 20;
-			case  50:	$_tona_Personality[i][p] = 25;
+			case -3:	$_tona_Personality[i][p] = -6;
+			case -2:	$_tona_Personality[i][p] = -3;
+			case -1:	$_tona_Personality[i][p] = 0;
+			case  0:	$_tona_Personality[i][p] = 0;
+			case  1:	$_tona_Personality[i][p] = 3;
+			case  2:	$_tona_Personality[i][p] = 6;
+			case  3:	$_tona_Personality[i][p] = 9;
 			}
 		}
 	}
@@ -325,15 +319,13 @@ function _tona_OverrideDatabase(object) {
 // エネミーのデータベースを上書き
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_OverrideClassDatabase() {
+function _tona_OverrideEnemyDatabase() {
 
-	// ▲値は仮
-    var attrRate = [0, 10, 75, 100, 125, 150];
-    var statRate = [0, 10, 30,  50,  70, 100];
-    var zakiRate = [0, 10, 20,  30,  50, 100];
+    var attrRate = [0, 10, 70, 100, 130, 160];
+    var statRate = [0, 0, 30, 70, 100, 100];
 
-	for (var i = 1; i < $_tona_enemies.length; i++) {
-		var tonaEnemy = $_tona_enemies[i];
+	for (var i = 1; i < $_tona_enemy.length; i++) {
+		var tonaEnemy = $_tona_enemy[i];
 
 		// 防御力を半分にする
 		$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] / 2);
@@ -358,14 +350,14 @@ function _tona_OverrideClassDatabase() {
 	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  3, "value": statRate[tonaEnemy.regist2[1]] / 100 });	// 防御力↓
 	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  6, "value": statRate[tonaEnemy.regist2[2]] / 100 });	// 敏捷性↓
 
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  1, "value": zakiRate[tonaEnemy.regist1[0]] / 100 });	// 戦闘不能
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  1, "value": statRate[tonaEnemy.regist1[0]] / 100 });	// 戦闘不能
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  7, "value": statRate[tonaEnemy.regist2[4]] / 100 });	// 麻痺
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  8, "value": statRate[tonaEnemy.regist2[5]] / 100 });	// ラリホー
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  9, "value": statRate[tonaEnemy.regist2[6]] / 100 });	// メダパニ
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 10, "value": statRate[tonaEnemy.regist2[7]] / 100 });	// マヌーサ
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 11, "value": statRate[tonaEnemy.regist2[8]] / 100 });	// マホトーン
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 12, "value": zakiRate[tonaEnemy.regist1[0]] / 100 });	// ザキ
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 13, "value": zakiRate[tonaEnemy.regist1[1]] / 100 });	// 急所
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 12, "value": statRate[tonaEnemy.regist1[0]] / 100 });	// ザキ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 13, "value": statRate[tonaEnemy.regist1[1]] / 100 });	// 急所
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 14, "value": statRate[tonaEnemy.regist1[2]] / 100 });	// メガンテ
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 15, "value": statRate[tonaEnemy.regist1[3]] / 100 });	// バシルーラ
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 16, "value": statRate[tonaEnemy.regist1[4]] / 100 });	// ニフラム

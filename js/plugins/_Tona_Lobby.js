@@ -46,6 +46,18 @@ Game_Interpreter.prototype._tona_Pub_InviteCreate = function() {
 }
 
 // ****************************************************************************************************************************
+// 酒場：勧誘：作成（勇者）
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype._tona_Pub_InviteCreateHero = function() {
+
+	// 勧誘データを作成
+	$_tona_PubInviteData = {};
+	$_tona_PubInviteData.actorId = 1;
+	$_tona_PubInviteData.classId = 1;
+}
+
+// ****************************************************************************************************************************
 // 酒場：勧誘：職業を選択する
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -61,7 +73,7 @@ Game_Interpreter.prototype._tona_Pub_InviteSelectClass = function() {
     choices.push("あそびにん");    	resultList.push(7);
     choices.push("とうぞく");		resultList.push(8);
     choices.push("まものつかい");   resultList.push(9);
-    choices.push("キャンセル");    	resultList.push(-1);
+    choices.push("キャンセル");    	resultList.push(0);
 
     $gameMessage.setChoices(choices, 0, resultList.length - 1);
     $gameMessage.setChoiceBackground(1);
@@ -103,13 +115,12 @@ Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
 	var face = $_tona_Face[Math.randomInt($_tona_Face.length - 1) + 1];
 	actor.setFaceImage(face.name, face.index);
 
+	// 歩行グラは顔グラと同じファイル名になる
+	actor.setCharacterImage(face.name, face.index);
+
 	// 性格を決める
 	var personalityId = Math.randomInt($_tona_Personality.length - 1) + 1;
 	actor.setPersonalityId(personalityId);
-
-	// 装備を設定する
-
-	// スキルを設定する
 
 	// 種を与える
 	for (var i = 0; i < 5; i++) {
