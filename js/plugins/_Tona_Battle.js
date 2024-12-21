@@ -281,14 +281,24 @@ BattleManager.applySubstitute = function(target) {
 
 	// 受け流し
 	if (target._tona_isUkenagashi()) {
+		const rand = Math.randomInt(8);
 
-		// ▲かならず味方にしてみる
-
-        var substitute = target.friendsUnit()._tona_ukenagashiBattler(target);
-        if (substitute && target !== substitute) {
-            this._logWindow._tona_displayUkenagashi(substitute, target);
-            return substitute;
-        }
+		// 5/8 で敵に受け流し
+		if (rand < 5) {
+	        var substitute = target.opponentsUnit()._tona_ukenagashiBattler(target);
+	        if (substitute && target !== substitute) {
+	            this._logWindow._tona_displayUkenagashi(substitute, target);
+	            return substitute;
+	        }
+	    }
+		// 2/8 で味方に受け流し
+		else if (rand < 7) {
+	        var substitute = target.friendsUnit()._tona_ukenagashiBattler(target);
+	        if (substitute && target !== substitute) {
+	            this._logWindow._tona_displayUkenagashi(substitute, target);
+	            return substitute;
+	        }
+	    }
 	}
 
     return target;
@@ -323,18 +333,17 @@ Game_Unit.prototype.substituteBattler = function(target) {
 
 Game_Unit.prototype._tona_ukenagashiBattler = function(target) {
 
-    var members = this.members();
-    for (var i = 0; i < members.length; i++) {
-        if (members[i] !== target && members[i].isAlive()) {
-            return members[i];
-        }
-    }
+    var members = this.members().filter(member => member !== target && member.isAlive());
+	if (members.length > 0) {
+		return members[Math.randomInt(members.length)];
+	}
+
     return null;
 };
 
 Window_BattleLog.prototype._tona_displayUkenagashi = function(substitute, target) {
-    const substName = substitute.name();
-    const text = substName + "は攻撃を受け流した！";
+    const targetName = target.name();
+    const text = targetName + "は攻撃を受け流した！";
     this.push("performSubstitute", substitute, target);
     this.push("addText", text);
 };
@@ -345,11 +354,11 @@ Window_BattleLog.prototype._tona_displayUkenagashi = function(substitute, target
 
 Game_Troop.prototype.expTotal = function() {
 
-	// ４倍してからパーティー人数で分割
+	// パーティー人数で分割
 
     return Math.ceil(this.deadMembers().reduce(function(r, enemy) {
         return r + enemy.exp();
-    }, 0) * 4 / $gameParty.size());
+    }, 0) / $gameParty.size());
 };
 
 

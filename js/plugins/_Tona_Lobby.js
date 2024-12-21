@@ -4,7 +4,7 @@
 // ----------------------------------------------------------------------------------------------------------------------------
 
 var $_tona_PubMaxActorId = 16;
-var $_tona_PubMaxParty = 8;
+var $_tona_PubMaxParty = 10;
 var $_tona_PubInviteData = {};
 
 // ****************************************************************************************************************************
@@ -20,6 +20,87 @@ function _tona_Pub_NewActorId() {
 	}
 
 	return 0;
+}
+
+// ****************************************************************************************************************************
+// 酒場：name を決める
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function _tona_Pub_NewName() {
+
+	let name;
+
+	_tona_Pub_NewNameId_Loop: while (true) {
+
+		name = $_tona_Name[Math.randomInt($_tona_Name.length - 1) + 1];
+
+		for (var i = 2; i <= $_tona_PubMaxActorId; i++) {
+			let actor = $gameActors.actor(i);
+			if (actor.name() == "") {
+				if (actor.name() == name.name) {
+					continue _tona_Pub_NewNameId_Loop;
+				}
+			}
+		}
+
+		break;
+	}
+
+	return name;
+}
+
+// ****************************************************************************************************************************
+// 酒場：face を決める
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function _tona_Pub_NewFace() {
+
+	let face;
+
+	_tona_Pub_NewFace_Loop: while (true) {
+
+		face = $_tona_Face[Math.randomInt($_tona_Face.length - 1) + 1];
+
+		for (var i = 2; i <= $_tona_PubMaxActorId; i++) {
+			let actor = $gameActors.actor(i);
+			if (actor.name() == "") {
+				if (actor.faceName() == face.name && actor.faceIndex() == face.index) {
+					continue _tona_Pub_NewFace_Loop;
+				}
+			}
+		}
+
+		break;
+	}
+
+	return face;
+}
+
+// ****************************************************************************************************************************
+// 酒場：性格を決める
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function _tona_Pub_NewPersonality() {
+
+	let personalityId;
+
+	_tona_Pub_NewPersonality_Loop: while (true) {
+
+		personalityId = Math.randomInt($_tona_Personality.length - 1) + 1;
+
+		for (var i = 2; i <= $_tona_PubMaxActorId; i++) {
+			let actor = $gameActors.actor(i);
+			if (actor.name() == "") {
+				if (actor._personalityId == personalityId) {
+					continue _tona_Pub_NewPersonality_Loop;
+				}
+			}
+		}
+
+		break;
+	}
+
+	return personalityId;
 }
 
 // ****************************************************************************************************************************
@@ -108,18 +189,18 @@ Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
 	actor._tona_setupWithClass(actorId, classId);
 
 	// 名前を決める
-	var name = $_tona_Name[Math.randomInt($_tona_Name.length - 1) + 1];
+	var name = _tona_Pub_NewName();
 	actor.setName(name.name);
 
 	// 顔グラを決める
-	var face = $_tona_Face[Math.randomInt($_tona_Face.length - 1) + 1];
+	var face = _tona_Pub_NewFace();
 	actor.setFaceImage(face.name, face.index);
 
 	// 歩行グラは顔グラと同じファイル名になる
 	actor.setCharacterImage(face.name, face.index);
 
 	// 性格を決める
-	var personalityId = Math.randomInt($_tona_Personality.length - 1) + 1;
+	var personalityId = _tona_Pub_NewPersonality();
 	actor.setPersonalityId(personalityId);
 
 	// 種を与える
@@ -150,7 +231,7 @@ Game_Interpreter.prototype._tona_Pub_InviteThis = function() {
 }
 
 // ****************************************************************************************************************************
-// 酒場：勧誘：破棄
+// 酒場：勧誘：仲間を破棄
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_Interpreter.prototype._tona_Pub_InviteDelete = function() {
