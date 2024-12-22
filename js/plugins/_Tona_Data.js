@@ -156,9 +156,9 @@ function _tona_CreateQuestDatabase() {
     quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
 	quests[2] = { name: "岬の洞窟", level: 3, waves: [], levelResult: 4 };
-    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
-    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
-    quests[2].waves[3] = { mapId: 3, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[2].waves[1] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[2].waves[2] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[2].waves[3] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
 
 	quests[3] = { name: "ナジミの塔", level: 4, waves: [], levelResult: 5 };
     quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
