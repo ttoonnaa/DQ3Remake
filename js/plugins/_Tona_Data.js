@@ -212,6 +212,9 @@ function _tona_CreateEnemyDatabase() {
 	enemies[9]   = { name: "", attr: [3,3,3,3,4,3,3,3,3], regist1: [4,4,4,4,3,4,2,0], regist2: [4,4,4,4,4,4,4,4,0] };	// 
 	enemies[10]  = { name: "", attr: [1,1,1,1,1,2,1,1,3], regist1: [2,3,4,4,0,2,3,0], regist2: [4,4,4,4,3,2,3,4,3] };	// 
 	enemies[11]  = { name: "", attr: [3,3,3,1,3,3,3,1,3], regist1: [4,4,4,3,3,4,4,3], regist2: [4,4,3,4,4,2,3,4,4] };	// 
+	enemies[12]  = { name: "", attr: [3,3,3,2,2,3,3,1,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,3,4,4,4,4,4,4,0] };	// 
+	enemies[13]  = { name: "", attr: [3,3,4,3,3,3,3,3,3], regist1: [4,4,4,4,3,3,2,4], regist2: [4,4,4,4,4,4,4,4,4] };	// 
+	enemies[14]  = { name: "", attr: [2,2,3,4,3,4,1,4,3], regist1: [4,4,4,4,3,4,3,3], regist2: [4,4,4,4,4,4,4,4,0] };	// 
 
 	//enemies[99]  = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,3,3,3,3,3,3,3], regist2: [3,3,3,3,3,3,3,3,3] };	// 
 
@@ -359,8 +362,14 @@ function _tona_OverrideEnemyDatabase() {
 	for (var i = 1; i < $_tona_enemy.length; i++) {
 		var tonaEnemy = $_tona_enemy[i];
 
+		// レベルを設定する
+		$dataEnemies[i]._tona_level = parseInt($dataEnemies[i].meta._tona_level);
+
 		// 守備力を調整する
 		$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 2 / 3);
+
+		// 運の良さを設定する
+		$dataEnemies[i].params[7] = Math.floor($dataEnemies[i]._tona_level * 2.5);
 
 		// 特徴を設定する
 		$dataEnemies[i].traits = [];
@@ -488,24 +497,24 @@ function _tona_OverrideWeaponDatabase() {
 
 	var cnt = $dataWeapons.length;
 
-	for (var i = 0; i < cnt; i++) {
+	// 初期化
+	for (var i = 1; i < cnt; i++) {
 		var weapon = $dataWeapons[i];
-		if (weapon != null) {
-			weapon._tona_canEquipClasses = [];
+		weapon._tona_level = 0;
+		weapon._tona_canEquipClasses = [];
 
-			var equip = weapon.meta._tona_equip;
-			if (equip != null) {
-				weapon._tona_canEquipClasses = eval(equip);
-			}
+		var equip = weapon.meta._tona_equip;
+		if (equip != null) {
+			weapon._tona_canEquipClasses = eval(equip);
 		}
 	}
 
-	// レベルを設定
+	// レベルを探す
 	for (var level = 1; level < $_tona_levelWeapons.length; level++) {
 		var levelWeapons = $_tona_levelWeapons[level];
 		for (var i = 0; i < levelWeapons.length; i++) {
 			var weaponId = levelWeapons[i];
-			$dataWeapons[weaponId].meta.level = level;
+			$dataWeapons[weaponId]._tona_level = level;
 		}
 	}
 }
@@ -518,38 +527,38 @@ function _tona_OverrideArmorDatabase() {
 
 	var cnt = $dataArmors.length;
 
-	for (var i = 0; i < cnt; i++) {
+	// 初期化
+	for (var i = 1; i < cnt; i++) {
 		var armor = $dataArmors[i];
-		if (armor != null) {
-			armor._tona_canEquipClasses = [];
+		armor._tona_level = 0;
+		armor._tona_canEquipClasses = [];
 
-			var equip = armor.meta._tona_equip;
-			if (equip != null) {
-				armor._tona_canEquipClasses = eval(equip);
-			}
+		var equip = armor.meta._tona_equip;
+		if (equip != null) {
+			armor._tona_canEquipClasses = eval(equip);
 		}
 	}
 
-	// レベルを設定
+	// レベルを探す
 	for (var level = 1; level < $_tona_levelArmors.length; level++) {
 		var levelArmors = $_tona_levelArmors[level];
 		for (var i = 0; i < levelArmors.length; i++) {
 			var armorId = levelArmors[i];
-			$dataArmors[armorId].meta.level = level;
+			$dataArmors[armorId]._tona_level = level;
 		}
 	}
 	for (var level = 1; level < $_tona_levelShields.length; level++) {
 		var levelArmors = $_tona_levelShields[level];
 		for (var i = 0; i < levelArmors.length; i++) {
 			var armorId = levelArmors[i];
-			$dataArmors[armorId].meta.level = level;
+			$dataArmors[armorId]._tona_level = level;
 		}
 	}
 	for (var level = 1; level < $_tona_levelHelmets.length; level++) {
 		var levelArmors = $_tona_levelHelmets[level];
 		for (var i = 0; i < levelArmors.length; i++) {
 			var armorId = levelArmors[i];
-			$dataArmors[armorId].meta.level = level;
+			$dataArmors[armorId]._tona_level = level;
 		}
 	}
 }
@@ -605,8 +614,8 @@ function _tona_FindLevelEnemies(level) {
 
 	for (var i = 1; i < $dataEnemies.length; i++) {
 		var enemy = $dataEnemies[i];
-		if (enemy.meta._tona_level != null) {
-			if (level - 2 <= enemy.meta._tona_level && enemy.meta._tona_level <= level) {
+		if (enemy.level != null) {
+			if (level - 2 <= enemy.level && enemy.level <= level) {
 				enemyIds.push(i);
 			}
 		}
@@ -614,7 +623,6 @@ function _tona_FindLevelEnemies(level) {
 
 	return enemyIds;
 }
-
 
 // ****************************************************************************************************************************
 // データを更新
@@ -627,13 +635,13 @@ function _tona_UpdateData(showMessage) {
 		var weaponId = $_tona_shopWeaponList[i];
 
 		// レベルが設定されている武器について
-		if ($dataWeapons[weaponId].meta.level != null) {
+		if ($dataWeapons[weaponId]._tona_level > 0) {
 
 			// まだ解禁していない武器の場合
 			if (!$_tona_saveData.weaponAppearState[weaponId]) {
 
 	            // 条件を満たしているかを判定
-	            if ($dataWeapons[weaponId].meta.level <= $_tona_saveData.partyLevel) {
+	            if ($dataWeapons[weaponId]._tona_level <= $_tona_saveData.partyLevel) {
 					$_tona_saveData.weaponAppearState[weaponId] = 2;
 
 					if (showMessage) {
@@ -650,13 +658,13 @@ function _tona_UpdateData(showMessage) {
 		var armorId = $_tona_shopArmorList[i];
 
 		// レベルが設定されている防具について
-		if ($dataArmors[armorId].meta.level != null) {
+		if ($dataArmors[armorId]._tona_level > 0) {
 
 			// まだ解禁していない武器の場合
 			if (!$_tona_saveData.armorAppearState[armorId]) {
 
 	            // 条件を満たしているかを判定
-	            if ($dataArmors[armorId].meta.level <= $_tona_saveData.partyLevel) {
+	            if ($dataArmors[armorId]._tona_level <= $_tona_saveData.partyLevel) {
 					$_tona_saveData.armorAppearState[armorId] = 2;
 
 					if (showMessage) {
@@ -673,13 +681,13 @@ function _tona_UpdateData(showMessage) {
 		var itemId = $_tona_shopItemList[i];
 
 		// レベルが設定されている道具について
-		if ($dataItems[itemId].meta.level != null) {
+		if ($dataItems[itemId]._tona_level > 0) {
 
 			// まだ解禁していない道具の場合
 			if (!$_tona_saveData.itemAppearState[itemId]) {
 
 	            // 条件を満たしているかを判定
-	            if ($dataItems[itemId].meta.level <= $_tona_saveData.partyLevel) {
+	            if ($dataItems[itemId]._tona_level <= $_tona_saveData.partyLevel) {
 					$_tona_saveData.itemAppearState[itemId] = 2;
 
 					if (showMessage) {
