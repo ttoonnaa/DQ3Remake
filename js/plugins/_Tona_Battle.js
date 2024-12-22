@@ -355,6 +355,143 @@ Game_Action.prototype.itemEffectAddDebuff = function(target, effect) {
 };
 
 // ****************************************************************************************************************************
+// アクション：開始処理
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.applyGlobal = function() {
+    for (const effect of this.item().effects) {
+        if (effect.code === Game_Action.EFFECT_COMMON_EVENT) {
+            $gameTemp.reserveCommonEvent(effect.dataId);
+        }
+    }
+    this.updateLastUsed();
+    this.updateLastSubject();
+
+    // ★ここから追加
+    if (this.isSkill()) {
+        if (this.item().meta._tona_callEnemy != null) {
+			this._tona_CallEnemy_Start(parseInt(this.item().meta._tona_callEnemy));
+        }
+    }
+}
+
+// ****************************************************************************************************************************
+// バトル：仲間呼び
+// ----------------------------------------------------------------------------------------------------------------------------
+
+var $_tona_Battle_CallEnemyTemorary = 0;
+
+function _tona_Battle_CallEnemyTemorary() {
+    this.enemyId = 0;
+    this.enemyIdList = 0;
+    this.enemyBitmap = 0;
+    this.intervalId = 0;
+};
+
+Game_Action.prototype._tona_CallEnemy_Start = function(param) {
+    var subject = BattleManager._subject;
+    if (subject instanceof Game_Enemy) {
+
+        // 読み込み終わるまでのウェイト
+        BattleManager._logWindow._waitCount = 100000;
+        if ((typeof param) === 'number') {
+            var enemyId = param > 0 ? param : subject._enemyId;
+            $_tona_Battle_CallEnemyTemorary = new _tona_Battle_CallEnemyTemorary();
+            $_tona_Battle_CallEnemyTemorary.enemyId = enemyId;
+            $_tona_Battle_CallEnemyTemorary.enemyIdList = [];
+            $_tona_Battle_CallEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
+            $_tona_Battle_CallEnemyTemorary.intervalId = setInterval("_tona_Battle_CallEnemy_Update()", 30);
+        }
+        else if (param.length > 0) {
+            var enemyId = param[0];
+            $_tona_Battle_CallEnemyTemorary = new _tona_Battle_CallEnemyTemorary();
+            $_tona_Battle_CallEnemyTemorary.enemyId = enemyId;
+            $_tona_Battle_CallEnemyTemorary.enemyIdList = param.slice(1);
+            $_tona_Battle_CallEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
+            $_tona_Battle_CallEnemyTemorary.intervalId = setInterval("_tona_Battle_CallEnemy_Update()", 30);
+        }
+        else {
+            console.log("仲間呼びに失敗");
+        }
+    }
+}
+
+function _tona_Battle_CallEnemy_Update() {
+
+    // 読み込みが終わっていない場合は何もしない
+    if (!($_tona_Battle_CallEnemyTemorary.enemyBitmap.width > 0)) {
+        return;
+    }
+
+    var dataEnemy = $dataEnemies[$_tona_Battle_CallEnemyTemorary.enemyId];
+
+    var resultX = -1;
+    var resultY = 436;
+    var resultY = 436 - (dataEnemy.meta._tona_pos_y != null ? dataEnemy.meta._tona_pos_y : 0);
+    var enemySprite = $_tona_Battle_CallEnemyTemorary.enemyBitmap;
+
+    // 現在のエネミーの配置を調べる
+    var poses = [[0, 0]];
+    for (var i = 0; i < $gameTroop._enemies.length; i++) {
+        var enemy = $gameTroop._enemies[i];
+        if (enemy.isAlive()) {
+            var sprite = ImageManager.loadEnemy(enemy.battlerName(), enemy.battlerHue());  // キャッシュにいるはず
+            poses.push([enemy._screenX - sprite.width / 2, enemy._screenX + sprite.width / 2]);
+        }
+    }
+    poses.push([Graphics.boxWidth, Graphics.boxWidth]);
+    // 配置をソートするよ
+    poses.sort(function(a, b) { if (a[0] < b[0]) return -1; if (a[0] > b[0]) return 1; return 0; });
+    // 間に配置できるかな…？
+    for (var i = 0; i < poses.length - 1; i++) { 
+        if (poses[i + 1][0] - poses[i][1] >= enemySprite.width) {
+            // 左右寄せに配置した場合の座標を求める
+            var leftAttach = poses[i][1] + enemySprite.width / 2;
+            var rightAttach = poses[i + 1][0] - enemySprite.width / 2;
+            // 中央に配置できたなら確定
+            if (leftAttach < Graphics.boxWidth / 2 && Graphics.boxWidth / 2 < rightAttach) {
+                resultX = Graphics.boxWidth / 2;
+                break;
+            }
+            // できるだけ中央に近い位置に配置
+            resultX = Math.abs(leftAttach - Graphics.boxWidth / 2) < Math.abs(resultX - Graphics.boxWidth / 2) ? leftAttach : resultX;
+            resultX = Math.abs(rightAttach - Graphics.boxWidth / 2) < Math.abs(resultX - Graphics.boxWidth / 2) ? rightAttach : resultX;
+        }
+    }
+    // 配置できた場合
+    if (resultX >= 0) {
+        // エネミーデータを追加
+        $dataTroops[$_tona_Const_TroopId_RandomEnemy].members.push(
+            { "enemyId": $_tona_Battle_CallEnemyTemorary.enemyId, "x": resultX, "y": resultY, "hidden": false }
+        );
+        // エネミーをセットアップ
+        var enemy = new Game_Enemy($_tona_Battle_CallEnemyTemorary.enemyId, resultX, resultY);
+        $gameTroop._enemies.push(enemy);
+        $gameTroop.makeUniqueNames();
+        // スプライトを追加
+        var sprite = new Sprite_Enemy(enemy);
+        SceneManager._scene._spriteset._battleField.addChild(sprite);
+        SceneManager._scene._spriteset._enemySprites.push(sprite);
+    }
+
+    // まだ呼ぶべきエネミーがいる場合
+    if ($_tona_Battle_CallEnemyTemorary.enemyIdList.length > 0) {
+        var enemyId = $_tona_Battle_CallEnemyTemorary.enemyId;
+        $_tona_Battle_CallEnemyTemorary.enemyId = $_tona_Battle_CallEnemyTemorary.enemyIdList[0];
+        $_tona_Battle_CallEnemyTemorary.enemyIdList = $_tona_Battle_CallEnemyTemorary.enemyIdList.slice(1);
+        $_tona_Battle_CallEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
+    }
+    // もうエネミーがいない場合
+    else {
+        // ウェイト終了
+        BattleManager._logWindow._waitCount = 0;
+        clearInterval($_tona_Battle_CallEnemyTemorary.intervalId);
+        // テンポラリを削除
+        $_tona_Battle_CallEnemyTemorary = 0;
+    }
+};
+
+// ****************************************************************************************************************************
 // バトル：身代わり
 // ----------------------------------------------------------------------------------------------------------------------------
 

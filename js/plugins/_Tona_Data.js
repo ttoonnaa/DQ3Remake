@@ -150,7 +150,7 @@ function _tona_CreateQuestDatabase() {
     var quests = [];
 	var hagureFull = [];
 
-	quests[1] = { name: "アリアハン大陸", level: 2, waves: [], levelResult: 3 };
+	quests[1] = { name: "アリアハン周辺", level: 2, waves: [], levelResult: 3 };
     quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
     quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
     quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
@@ -164,6 +164,14 @@ function _tona_CreateQuestDatabase() {
     quests[3].waves[1] = { mapId: 3, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
     quests[3].waves[2] = { mapId: 3, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
     quests[3].waves[3] = { mapId: 3, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+
+	quests[4] = { name: "ロマリア周辺", level: 5, waves: [], levelResult: 6 };
+	quests[5] = { name: "カザーブ周辺", level: 6, waves: [], levelResult: 7 };
+	quests[6] = { name: "シャンパーニの塔", level: 7, waves: [], levelResult: 8 };
+	quests[7] = { name: "ノアニール周辺", level: 8, waves: [], levelResult: 9 };
+	quests[8] = { name: "地底の湖", level: 9, waves: [], levelResult: 10 };
+	quests[9] = { name: "アッサラーム周辺", level: 10, waves: [], levelResult: 11 };
+	quests[10] = { name: "イシス周辺", level: 11, waves: [], levelResult: 12 };
 
 	// レベルから Gold を設定
 	for (var questId in quests) {

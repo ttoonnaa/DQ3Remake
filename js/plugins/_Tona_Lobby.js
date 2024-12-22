@@ -349,14 +349,14 @@ Game_Interpreter.prototype._tona_Quest_ShowMenu = function() {
     var choices = [];
 
 	// クエスト解禁
-	for (let questId = 1; questId < $_tona_quest.length; questId++) {
+	for (let questId = $_tona_quest.length - 1; questId >= 1 ; questId--) {
 		var quest = $_tona_quest[questId];
 		if ($_tona_saveData.questAppearState[questId]) {
 		    choices.push(quest.name);		resultList.push(questId);
 		}
 	}
 
-    choices.push("キャンセル");	resultList.push(-1);
+    choices.push("キャンセル");	resultList.push(0);
 
     $gameMessage.setChoices(choices, 0, resultList.length - 1);
     $gameMessage.setChoiceBackground(1);
