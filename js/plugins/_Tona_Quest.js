@@ -9,6 +9,7 @@ _tona_QuestNow = function() {
     this.progress = 0;
     this.eventList = [];
     this.gotGold = 0;
+    this.losed = 0;
 
 	this.getQuestNow = function() {
 		return $_tona_quest[this.questId];
@@ -197,6 +198,22 @@ Game_Interpreter.prototype._tona_Quest_SuccessQuest = function() {
 
     // データを更新
     _tona_UpdateData(true);
+}
+
+// ****************************************************************************************************************************
+// Interpreter：クエスト失敗
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype._tona_Quest_FailQuest = function() {
+	$_tona_questNow.losed = 1;
+}
+
+// ****************************************************************************************************************************
+// Interpreter：クエスト失敗判定
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype._tona_Quest_IsFailedQuest = function() {
+	return $_tona_questNow.losed == 1;
 }
 
 // ****************************************************************************************************************************
