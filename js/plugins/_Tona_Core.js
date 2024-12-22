@@ -23,9 +23,9 @@ var $_tona_Const_QuestEventType_Item = 13;
 var $_tona_Const_TroopId_RandomEnemy = 1;
 
 // ステート
-var $_tona_Const_StateId_Nifuramu = 12;
-var $_tona_Const_StateId_Bashiruura = 13;
-var $_tona_Const_StateId_Mahokanta = 14;
+var $_tona_Const_StateId_Nifuramu = 16;
+var $_tona_Const_StateId_Bashiruura = 15;
+var $_tona_Const_StateId_Mahokanta = 28;
 var $_tona_Const_StateId_Ukenagashi = 36;
 
 // ****************************************************************************************************************************

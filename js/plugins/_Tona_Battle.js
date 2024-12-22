@@ -229,15 +229,19 @@ Game_Action.prototype._tona_targetsForTroopSmoothGroup = function(troop) {
 	// 隣合う同じ種類の敵をターゲットに追加する
 	let targetIndex = target.index();
 	let targetEnemyId = target.enemyId();
-	let aliveMembers = troop.aliveMembers();
+	let members = troop.members();
 
-	for (let i = targetIndex - 1; i >= 0 && aliveMembers[i].enemyId() === targetEnemyId; i--) {
-		targets.push(aliveMembers[i]);
+	for (let i = targetIndex; i >= 0 && members[i].enemyId() === targetEnemyId; i--) {
+		if (members[i].isAlive()) {
+			targets.push(members[i]);
+		}
 	}
-	for (let i = targetIndex + 1; i < aliveMembers.length && aliveMembers[i].enemyId() === targetEnemyId; i++) {
-		targets.push(aliveMembers[i]);
+	for (let i = targetIndex + 1; i < members.length && members[i].enemyId() === targetEnemyId; i++) {
+		if (members[i].isAlive()) {
+			targets.push(members[i]);
+		}
 	}
-	targets.sort((a, b) => b.index() - a.index());
+	targets.sort((a, b) => a.index() - b.index());
 	return targets;
 }
 
