@@ -24,30 +24,43 @@ function _tona_CreateDatabase() {
 	$_tona_Name[16] = { name: "アヤメ" };
 	$_tona_Name[17] = { name: "チョコ" };
 	$_tona_Name[18] = { name: "スバル" };
+	$_tona_Name[19] = { name: "ペコラ" };
+	$_tona_Name[20] = { name: "マリン" };
+	$_tona_Name[21] = { name: "ノエル" };
+	$_tona_Name[22] = { name: "フレア" };
+	$_tona_Name[23] = { name: "カナタ" };
+	$_tona_Name[24] = { name: "トワ" };
+	$_tona_Name[25] = { name: "ワタメ" };
+	$_tona_Name[26] = { name: "ルーナ" };
+	$_tona_Name[27] = { name: "ラミィ" };
+	$_tona_Name[28] = { name: "ポルカ" };
+	$_tona_Name[29] = { name: "ボタン" };
+	$_tona_Name[30] = { name: "ネネ" };
+	$_tona_Name[31] = { name: "ラプラス" };
+	$_tona_Name[32] = { name: "ルイ" };
+	$_tona_Name[33] = { name: "コヨリ" };
+	$_tona_Name[34] = { name: "クロエ" };
+	$_tona_Name[35] = { name: "イロハ" };
 
 	$_tona_Face = [];
-	$_tona_Face[1] = { name: "Actor1", index: 3 };
-	$_tona_Face[2] = { name: "Actor1", index: 5 };
-	$_tona_Face[3] = { name: "Actor1", index: 7 };
-	$_tona_Face[4] = { name: "Actor2", index: 1 };
-	$_tona_Face[5] = { name: "Actor2", index: 3 };
-	$_tona_Face[6] = { name: "Actor2", index: 5 };
-	$_tona_Face[7] = { name: "Actor2", index: 7 };
-	$_tona_Face[8] = { name: "Actor3", index: 1 };
-	$_tona_Face[9] = { name: "Actor3", index: 3 };
-	$_tona_Face[10] = { name: "Actor3", index: 5 };
-	$_tona_Face[11] = { name: "Actor3", index: 7 };
-	$_tona_Face[12] = { name: "SF_Actor1", index: 3 };
-	$_tona_Face[13] = { name: "SF_Actor1", index: 5 };
-	$_tona_Face[14] = { name: "SF_Actor1", index: 7 };
-	$_tona_Face[15] = { name: "SF_Actor2", index: 1 };
-	$_tona_Face[16] = { name: "SF_Actor2", index: 3 };
-	$_tona_Face[17] = { name: "SF_Actor2", index: 5 };
-	$_tona_Face[18] = { name: "SF_Actor2", index: 7 };
-	$_tona_Face[19] = { name: "SF_Actor3", index: 1 };
-	$_tona_Face[20] = { name: "SF_Actor3", index: 3 };
-	$_tona_Face[21] = { name: "SF_Actor3", index: 5 };
-	$_tona_Face[22] = { name: "SF_Actor3", index: 7 };
+	$_tona_Face[1] = { name: "_Chara001", index: 0 };
+	$_tona_Face[2] = { name: "_Chara002", index: 0 };
+	$_tona_Face[3] = { name: "_Chara003", index: 0 };
+	$_tona_Face[4] = { name: "_Chara004", index: 0 };
+	$_tona_Face[5] = { name: "_Chara005", index: 0 };
+	$_tona_Face[6] = { name: "_Chara006", index: 0 };
+	$_tona_Face[7] = { name: "_Chara007", index: 0 };
+	$_tona_Face[8] = { name: "_Chara008", index: 0 };
+	$_tona_Face[9] = { name: "_Chara009", index: 0 };
+	$_tona_Face[10] = { name: "_Chara010", index: 0 };
+	$_tona_Face[11] = { name: "_Chara011", index: 0 };
+	$_tona_Face[12] = { name: "_Chara012", index: 0 };
+	$_tona_Face[13] = { name: "_Chara013", index: 0 };
+	$_tona_Face[14] = { name: "_Chara014", index: 0 };
+	$_tona_Face[15] = { name: "_Chara015", index: 0 };
+	$_tona_Face[16] = { name: "_Chara016", index: 0 };
+	$_tona_Face[17] = { name: "_Chara017", index: 0 };
+	$_tona_Face[18] = { name: "_Chara018", index: 0 };
 
 	// [HP、MP、力、守、魔、体、速、運]
 
@@ -435,6 +448,28 @@ function _tona_OverrideClassDatabase() {
 	$dataClasses[8].expTable = [0,0,13,39,78,136,223,353,548,840,1278,1935,2920,4397,6243,8550,11433,15036,19539,25167,32202,40116,49019,59034,70300,82974,97232,113272,131317,151617,174454,200145,229047,261561,298139,339289,385582,437661,496249,562160,636309,719726,813570,907414,1001258,1095102,1188946,1282790,1376634,1470478,1564322,1658166,1752010,1845854,1939698,2033542,2127386,2221230,2315074,2408918,2502762,2596606,2690450,2784294,2878138,2971982,3065826,3159670,3253514,3347358,3441202,3535046,3628890,3722734,3816578,3910422,4004266,4098110,4191954,4285798,4379642,4473486,4567330,4661174,4755018,4848862,4942706,5036550,5130394,5224238,5318082,5411926,5505770,5599614,5693458,5787302,5881146,5974990,6068834,6162678];
 	$dataClasses[9].expTable = [0,0,29,87,174,304,499,792,1232,1891,2880,4364,6218,8534,11428,15045,19114,23690,28837,34627,41141,48468,56711,65983,76413,88147,101347,116196,132901,151694,172836,196621,223378,253480,287344,325440,368298,416512,470752,531771,600417,677644,764524,862263,960002,1057741,1155480,1253219,1350958,1448697,1546436,1644175,1741914,1839653,1937392,2035131,2132870,2230609,2328348,2426087,2523826,2621565,2719304,2817043,2914782,3012521,3110260,3207999,3305738,3403477,3501216,3598915,3696694,3794433,3892172,3989911,4087650,4185389,4283128,4380867,4478606,4576345,4674084,4771823,4869562,4967301,5065040,5162779,5260518,5358257,5455996,5553735,5651474,5749213,5846952,5944691,6042430,6140169,6237908,6335647];
 	$dataClasses[10].expTable = [0,0,20,60,140,260,440,710,1115,1722,2633,3999,6047,8607,11807,15807,20807,27057,34869,43657,53543,64664,77175,91250,107083,124895,144933,167475,192835,221365,253461,289568,330188,375885,427293,485126,550188,623383,705726,798362,902577,1019818,1151714,1300096,1448478,1596860,1745242,1893624,2042006,2190388,2338770,2487152,2635534,2783916,2932298,3080680,3229062,3377444,3525826,3674208,3822590,3970972,4119354,4267736,4416118,4564500,4712882,4861264,5009646,5158028,5306410,5454792,5603174,5751556,5899938,6048320,6196702,6345084,6493466,6641848,6790230,6938612,7086994,7235376,7383758,7532140,7680522,7828904,7977286,8125668,8274050,8422432,8570814,8719196,8867578,9015960,9164342,9312724,9461106,9609488];
+
+	// 特徴
+    var attrRate = [0, 10, 70, 100, 130, 160];
+    var statRate = [0, 0, 30, 70, 100, 100];
+
+	for (var i = 1; i <= $_tona_Const_ClassCount; i++) {
+
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  1, "value": statRate[3] / 100 });	// 戦闘不能
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  7, "value": statRate[3] / 100 });	// 麻痺
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  8, "value": statRate[3] / 100 });	// ラリホー
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  9, "value": statRate[3] / 100 });	// メダパニ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 10, "value": statRate[3] / 100 });	// マヌーサ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 11, "value": statRate[3] / 100 });	// マホトーン
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 12, "value": statRate[3] / 100 });	// ザキ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 13, "value": statRate[3] / 100 });	// 急所
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 14, "value": statRate[3] / 100 });	// メガンテ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 15, "value": statRate[3] / 100 });	// バシルーラ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 16, "value": statRate[3] / 100 });	// ニフラム
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 17, "value": statRate[3] / 100 });	// おたけび
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 18, "value": statRate[3] / 100 });	// 転倒
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 19, "value": statRate[3] / 100 });	// 呪文耐性ダウン
+	}
 }
 
 // ****************************************************************************************************************************

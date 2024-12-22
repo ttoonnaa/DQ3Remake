@@ -196,8 +196,13 @@ Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
 	var face = _tona_Pub_NewFace();
 	actor.setFaceImage(face.name, face.index);
 
-	// 歩行グラは顔グラと同じファイル名になる
-	actor.setCharacterImage(face.name, face.index);
+	// 歩行グラは透明にする（勇者のみデフォルト）
+	if (actorId == 1) {
+		actor.setCharacterImage("Actor1", 1);
+	}
+	else {
+		actor.setCharacterImage("", 0);
+	}
 
 	// 性格を決める
 	var personalityId = _tona_Pub_NewPersonality();

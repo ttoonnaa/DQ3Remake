@@ -39,16 +39,18 @@ Game_BattlerBase.prototype.MD = function(value) {
 
 Game_BattlerBase.prototype.paramBuffRate = function(paramId) {
 
+	// やっぱり 25% でいいや…（リメイク計算式の都合）
+
     switch (paramId) {
-    case 0:  return this._buffs[paramId] * 0.50 + 1.0;
-    case 1:  return this._buffs[paramId] * 0.50 + 1.0;
-    case 2:  return this._buffs[paramId] * 0.25 + 1.0;  // 攻撃力は25%
-    case 3:  return this._buffs[paramId] * 0.50 + 1.0;
-    case 4:  return this._buffs[paramId] * 0.50 + 1.0;
-    case 5:  return this._buffs[paramId] * 0.50 + 1.0;
-    case 6:  return this._buffs[paramId] * 0.50 + 1.0;
-    case 7:  return this._buffs[paramId] * 0.50 + 1.0;
-    default: return this._buffs[paramId] * 0.50 + 1.0;
+    case 0:  return this._buffs[paramId] * 0.25 + 1.0;
+    case 1:  return this._buffs[paramId] * 0.25 + 1.0;
+    case 2:  return this._buffs[paramId] * 0.25 + 1.0;
+    case 3:  return this._buffs[paramId] * 0.25 + 1.0;
+    case 4:  return this._buffs[paramId] * 0.25 + 1.0;
+    case 5:  return this._buffs[paramId] * 0.25 + 1.0;
+    case 6:  return this._buffs[paramId] * 0.25 + 1.0;
+    case 7:  return this._buffs[paramId] * 0.25 + 1.0;
+    default: return this._buffs[paramId] * 0.25 + 1.0;
     }
 };
 
@@ -255,6 +257,96 @@ Game_Action.prototype.itemMrf = function(target) {
         }
     } else {
         return 0;
+    }
+};
+
+// ****************************************************************************************************************************
+// アクション：運の良さ補正値
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.lukEffectAdd = function(target) {
+    return (this.subject().luk - target.luk) * 0.001;
+};
+
+// ****************************************************************************************************************************
+// アクション：クリティカルの運の良さ補正
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.itemCri = function(target) {
+
+	// 回避を基準に考える
+	if (this.item().damage.critical) {
+		let chance = 1 - this.subject().cri * (1 - target.cev);
+		if (chance < 1) {
+		    chance -= Math.max(this.lukEffectAdd(target), 0.0);		// ★引き算に変更
+			return 1 - chance;
+		}
+	}
+
+	return 0;
+};
+
+// ****************************************************************************************************************************
+// アクション：回避の運の良さ補正
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.itemEvaDef = function(target) {
+    if (this.isPhysical()) {
+        return target.eva;
+    } else if (this.isMagical()) {
+        return target.mev;
+    } else {
+        return 0;
+    }
+};
+
+Game_Action.prototype.itemEva = function(target) {
+
+	let chance = 1 - this.itemEvaDef(target);
+	if (chance < 1) {
+	    chance += Math.min(this.lukEffectAdd(target), 0.0);		// ★足し算に変更
+		return 1 - chance;
+	}
+
+	return 0;
+};
+
+// ****************************************************************************************************************************
+// アクション：状態異常の運の良さ補正
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.itemEffectAddAttackState = function(target, effect) {
+    for (const stateId of this.subject().attackStates()) {
+        let chance = effect.value1;
+        chance *= target.stateRate(stateId);
+        chance *= this.subject().attackStatesRate(stateId);
+        chance += Math.min(this.lukEffectAdd(target), 0.0);		// ★足し算に変更
+        if (Math.random() < chance) {
+            target.addState(stateId);
+            this.makeSuccess(target);
+        }
+    }
+};
+
+Game_Action.prototype.itemEffectAddNormalState = function(target, effect) {
+    let chance = effect.value1;
+    if (!this.isCertainHit()) {
+        chance *= target.stateRate(effect.dataId);
+        chance += Math.min(this.lukEffectAdd(target), 0.0);		// ★足し算に変更
+    }
+    if (Math.random() < chance) {
+        target.addState(effect.dataId);
+        this.makeSuccess(target);
+    }
+};
+
+Game_Action.prototype.itemEffectAddDebuff = function(target, effect) {
+	let change = 1;
+    chance *= target.debuffRate(effect.dataId);
+    chance += Math.min(this.lukEffectAdd(target), 0.0);			// ★足し算に変更
+    if (Math.random() < chance) {
+        target.addDebuff(effect.dataId, effect.value1);
+        this.makeSuccess(target);
     }
 };
 
