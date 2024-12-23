@@ -336,7 +336,9 @@ Game_Action.prototype.itemEffectAddNormalState = function(target, effect) {
     let chance = effect.value1;
     if (!this.isCertainHit()) {
         chance *= target.stateRate(effect.dataId);
+var temp = chance;
         chance += Math.min(this.lukEffectAdd(target), 0.0);		// ★足し算に変更
+console.log("chance: " + temp + " -> " + chance);
     }
     if (Math.random() < chance) {
         target.addState(effect.dataId);
