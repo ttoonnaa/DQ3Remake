@@ -51,6 +51,17 @@ Game_BattlerBase.prototype._tona_healDamage = function(target, min, max) {
 }
 
 // ****************************************************************************************************************************
+// バトラー：範囲ダメージ計算式
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_BattlerBase.prototype._tona_rangeDamage = function(target, min, max) {
+
+	let value = (max - min + 1) * Math.random() + min;
+
+	return value;
+}
+
+// ****************************************************************************************************************************
 // バトラー：計算式のエイリアス（エディターで指定する計算式で使う）
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -64,6 +75,10 @@ Game_BattlerBase.prototype.MD = function(target, min, max) {
 
 Game_BattlerBase.prototype.HD = function(target, min, max) {
 	return BattleManager._tona_healDamage(target, min, max);
+}
+
+Game_BattlerBase.prototype.RD = function(target, min, max) {
+	return BattleManager._tona_rangeDamage(target, min, max);
 }
 
 // ****************************************************************************************************************************
