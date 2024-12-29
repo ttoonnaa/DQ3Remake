@@ -112,7 +112,7 @@ function _tona_CreateDatabase() {
 	$_tona_Personality[45] = { name: "わがまま", params: [0,0,-1,-1,-1,-1,1,-1] };
 	$_tona_Personality[46] = { name: "わんぱく", params: [0,0,1,-2,-2,-2,1,-1] };
 
-	// 性格の偏りを補正する
+	// 性格のパラメーターを実際に値に修正する
 
 	for (var i = 1; i <= 46; i++) {
 		for (var p = 0; p < 9; p++) {
@@ -134,9 +134,6 @@ function _tona_CreateDatabase() {
 	// エネミー
 	_tona_CreateEnemyDatabase();
 
-	// レベルアイテム
-	_tona_CreateLevelItemDatabase();
-
 	// ショップ
 	_tona_CreateShopDatabase();
 }
@@ -150,33 +147,35 @@ function _tona_CreateQuestDatabase() {
     var quests = [];
 	var hagureFull = [];
 
-	quests[1] = { name: "アリアハン周辺", level: 2, waves: [], levelResult: 3 };
+	quests[1] = { name: "アリアハン周辺", level: 1, waves: [], levelResult: 2 };
     quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
-    quests[1].waves[2] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
-    quests[1].waves[3] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
-	quests[2] = { name: "岬の洞窟", level: 3, waves: [], levelResult: 4 };
-    quests[2].waves[1] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
-    quests[2].waves[2] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
-    quests[2].waves[3] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+	quests[2] = { name: "レーベ周辺", level: 2, waves: [], levelResult: 3 };
+    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
-	quests[3] = { name: "ナジミの塔", level: 4, waves: [], levelResult: 5 };
-    quests[3].waves[1] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
-    quests[3].waves[2] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
-    quests[3].waves[3] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+	quests[3] = { name: "岬の洞窟", level: 3, waves: [], levelResult: 4 };
+    quests[3].waves[1] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[3].waves[2] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[3].waves[3] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
 
-	quests[4] = { name: "いざないの洞窟", level: 5, waves: [], levelResult: 6 };
-    quests[4].waves[1] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
-    quests[4].waves[2] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
-    quests[4].waves[3] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+	quests[4] = { name: "ナジミの塔", level: 4, waves: [], levelResult: 5 };
+    quests[4].waves[1] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+    quests[4].waves[2] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+    quests[4].waves[3] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
 
-	quests[5] = { name: "ロマリア周辺", level: 6, waves: [], levelResult: 7 };
-	quests[6] = { name: "カザーブ周辺", level: 7, waves: [], levelResult: 8 };
-	quests[7] = { name: "シャンパーニの塔", level: 8, waves: [], levelResult: 9 };
-	quests[8] = { name: "ノアニール周辺", level: 9, waves: [], levelResult: 10 };
-	quests[9] = { name: "地底の湖", level: 10, waves: [], levelResult: 11 };
-	quests[10] = { name: "アッサラーム周辺", level: 11, waves: [], levelResult: 12 };
-	quests[11] = { name: "イシス周辺", level: 11, waves: [], levelResult: 12 };
+	quests[5] = { name: "いざないの洞窟", level: 5, waves: [], levelResult: 6 };
+    quests[5].waves[1] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[5].waves[2] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[5].waves[3] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+
+	quests[6] = { name: "ロマリア周辺", level: 6, waves: [], levelResult: 7 };
+	quests[7] = { name: "カザーブ周辺", level: 7, waves: [], levelResult: 8 };
+	quests[8] = { name: "シャンパーニの塔", level: 8, waves: [], levelResult: 9 };
+	quests[9] = { name: "ノアニール周辺", level: 9, waves: [], levelResult: 10 };
+	quests[10] = { name: "地底の湖", level: 10, waves: [], levelResult: 11 };
+	quests[11] = { name: "アッサラーム周辺", level: 11, waves: [], levelResult: 12 };
+	quests[12] = { name: "イシス周辺", level: 12, waves: [], levelResult: 13 };
 
 	// レベルから Gold を設定
 	for (var questId in quests) {
@@ -184,7 +183,7 @@ function _tona_CreateQuestDatabase() {
 		for (var waveId = 1; waveId < quest.waves.length; waveId++) {
 			var wave = quest.waves[waveId];
 			if (wave.gold == null) {
-				wave.gold = wave.level * 4;
+				wave.gold = wave.level * 4 * 3;		// ×3：バランス調整
 			}
 		}
 	}
@@ -220,86 +219,22 @@ function _tona_CreateEnemyDatabase() {
 	enemies[12]  = { name: "", attr: [3,3,3,2,2,3,3,1,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,3,4,4,4,4,4,4,0] };	// 
 	enemies[13]  = { name: "", attr: [3,3,4,3,3,3,3,3,3], regist1: [4,4,4,4,3,3,2,4], regist2: [4,4,4,4,4,4,4,4,4] };	// 
 	enemies[14]  = { name: "", attr: [2,2,3,4,3,4,1,4,3], regist1: [4,4,4,4,3,4,3,3], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[15]  = { name: "", attr: [3,3,4,2,4,4,3,2,3], regist1: [4,4,4,4,3,4,4,0], regist2: [4,3,4,4,4,4,4,4,2] };	// 
+	enemies[16]  = { name: "", attr: [5,4,3,3,3,4,4,3,3], regist1: [0,0,4,4,4,4,0,4], regist2: [4,4,4,4,0,0,4,4,4] };	// 
+	enemies[17]  = { name: "", attr: [2,2,2,4,4,3,1,4,3], regist1: [4,4,4,3,3,4,4,0], regist2: [4,4,3,4,0,4,4,4,0] };	// 
+	enemies[18]  = { name: "", attr: [3,3,2,3,2,4,3,3,2], regist1: [4,4,4,2,3,4,2,4], regist2: [4,4,2,4,4,4,3,4,0] };	// 
+	enemies[19]  = { name: "", attr: [2,2,2,3,3,4,1,3,3], regist1: [0,0,4,4,4,4,0,3], regist2: [4,3,4,4,0,2,0,4,0] };	// 
+	enemies[20]  = { name: "", attr: [2,2,4,4,4,2,1,4,2], regist1: [3,4,4,3,3,4,4,0], regist2: [4,4,3,4,0,3,4,0,4] };	// 
+	enemies[21]  = { name: "", attr: [5,4,3,3,3,3,4,3,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,3,4,4,4,2,4,4,0] };	// 
+	enemies[22]  = { name: "", attr: [2,2,2,3,3,3,1,3,3], regist1: [4,4,4,4,3,4,2,4], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[23]  = { name: "", attr: [3,3,3,2,4,4,3,2,3], regist1: [4,4,4,3,3,4,4,0], regist2: [4,4,3,4,4,4,4,3,0] };	// 
+	enemies[24]  = { name: "", attr: [5,4,2,3,3,4,5,3,3], regist1: [0,0,4,3,4,3,0,4], regist2: [4,3,3,4,0,0,3,4,3] };	// 
+	enemies[25]  = { name: "", attr: [3,3,3,3,3,3,3,3,2], regist1: [0,0,4,2,3,0,0,0], regist2: [4,4,2,4,0,4,0,4,0] };	// 
+	enemies[26]  = { name: "", attr: [2,2,2,3,3,3,1,3,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,3,4,4,4,2,4,4,0] };	// 
 
 	//enemies[99]  = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,3,3,3,3,3,3,3], regist2: [3,3,3,3,3,3,3,3,3] };	// 
 
 	$_tona_enemy = enemies;
-}
-
-// ****************************************************************************************************************************
-// データベースを作成する：レベル道具
-// ----------------------------------------------------------------------------------------------------------------------------
-
-function _tona_CreateLevelItemDatabase() {
-
-	$_tona_levelWeapons = [
-		[],
-		[111, 112, 41],		// Lv.1		ひのきのぼう、こんぼう、ブロンズナイフ
-		[1],	// Lv.2		どうのつるぎ
-		[42],	// Lv.3		せいなるナイフ
-		[81],	// Lv.4		くさりがま
-		[82],	// Lv.5		とげのムチ
-		[61],	// Lv.6		まどうしのつえ
-		[31],	// Lv.7		てつのやり
-		[51],	// Lv.8		てつのつめ
-		[3],	// Lv.9		はがねのはりせん
-		[2],	// Lv.10	はがねのつるぎ
-		[32],	// Lv.11	ホーリーランス
-		[21],	// Lv.12	てつのオノ
-		[],		// Lv.13	ねむりの杖、まふうじの杖
-	];
-
-	$_tona_levelArmors = [
-		[],
-		[86, 87, 108],		// Lv.1		布の服、たびびとの服、けいこぎ
-		[71],	// Lv.2		皮のよろい
-		[],
-		[72],	// Lv.4		カメのこうら
-		[117],	// Lv.5		レザーマント
-		[73],	// Lv.6		こうらのよろい
-		[74],	// Lv.7		くさりかたびら
-		[95],	// Lv.8		きぬのローブ
-		[],		// Lv.9		ぶとうぎ
-		[114],	// Lv.10	てつのまえかけ
-		[111],	// Lv.11	かわのこしまき
-		[88],	// Lv.12	みかわしのふく
-		[],		// Lv.13	マジカルスカート
-		[75],	// Lv.14	てつのよろい
-	];
-
-	$_tona_levelShields = [
-		[],
-		[18],	// Lv.1		おなべのフタ
-		[1],	// Lv.2		皮の盾
-		[],
-		[2],	// Lv.4		うろこの盾
-		[],
-		[],
-		[],
-		[3],	// Lv.8		せいどうの盾
-		[],
-		[],
-		[4],	// Lv.11	てつの盾
-		[],
-		[19],	// Lv.13	シルバートレイ
-	];
-
-	$_tona_levelHelmets = [
-		[],
-		[],
-		[41],	// Lv.2		皮のぼうし
-		[50],	// Lv.3		ターバン
-		[],
-		[42],	// lv.5		はねぼうし
-		[],
-		[43],	// Lv.7		きのぼうし
-		[52],	// Lv.8		毛皮のフード
-		[],
-		[46],	// Lv.10	とんがりぼうし
-		[],
-		[31],	// Lv.12	てつかぶと
-		[44],	// Lv.13	インテリハット
-	];
 }
 
 // ****************************************************************************************************************************
@@ -309,15 +244,20 @@ function _tona_CreateLevelItemDatabase() {
 function _tona_CreateShopDatabase() {
 
 	$_tona_shopWeaponList = [
-		111, 112, 41, 1, 42, 81, 82, 61, 31, 51,
-		3, 2, 32, 21,
+		 71,  72,  27,   1,  28,  54,  55,  39,  21,  31,
+		 56,   3,  45,  41,   2,  22,  17,  73,  43,  76,
+		 58,  33,  23,  74,  59,  42,  18,  75,   5,  52,
+		 24,  60,  34,  35,  47,  10,  13,  11,
 	];
 
 	$_tona_shopArmorList = [
-		86, 87, 108, 71, 72, 117, 73, 74, 95,
-		114, 111, 88, 75,
-		18, 1, 2, 3, 4, 19,
-		41, 50, 42, 43, 52, 46, 31, 44,
+		116, 117, 138, 101, 102, 103, 104, 139, 144, 118,
+		119, 105, 106, 121, 129, 107, 127, 124, 146, 109,
+		110, 130, 112,
+		 18,   1,   2,   3,   4,  19,  14,   5,   6,  15,
+		  7,   8,   9,  16,  10,  17,
+		 61,  70,  63,  64,  66,  51,  73,  65,  74,  71,
+		 52,  54,  56,  57,  58,  79,
 	];
 
 	$_tona_shopItemList = [
@@ -375,6 +315,9 @@ function _tona_OverrideEnemyDatabase() {
 
 		// 運の良さを設定する
 		$dataEnemies[i].params[7] = Math.floor($dataEnemies[i]._tona_level * 2.5);
+
+		// 経験値を調整する
+		$dataEnemies[i].gold = Math.ceil($dataEnemies[i].gold / 2);
 
 		// 特徴を設定する
 		$dataEnemies[i].traits = [];
@@ -508,18 +451,13 @@ function _tona_OverrideWeaponDatabase() {
 		weapon._tona_level = 0;
 		weapon._tona_canEquipClasses = [];
 
+		// レベル
+		weapon._tona_level = eval(weapon.meta._tona_level);
+
+		// 装備可能クラス
 		var equip = weapon.meta._tona_equip;
 		if (equip != null) {
 			weapon._tona_canEquipClasses = eval(equip);
-		}
-	}
-
-	// レベルを探す
-	for (var level = 1; level < $_tona_levelWeapons.length; level++) {
-		var levelWeapons = $_tona_levelWeapons[level];
-		for (var i = 0; i < levelWeapons.length; i++) {
-			var weaponId = levelWeapons[i];
-			$dataWeapons[weaponId]._tona_level = level;
 		}
 	}
 }
@@ -538,32 +476,13 @@ function _tona_OverrideArmorDatabase() {
 		armor._tona_level = 0;
 		armor._tona_canEquipClasses = [];
 
+		// レベル
+		armor._tona_level = eval(armor.meta._tona_level);
+
+		// 装備可能クラス
 		var equip = armor.meta._tona_equip;
 		if (equip != null) {
 			armor._tona_canEquipClasses = eval(equip);
-		}
-	}
-
-	// レベルを探す
-	for (var level = 1; level < $_tona_levelArmors.length; level++) {
-		var levelArmors = $_tona_levelArmors[level];
-		for (var i = 0; i < levelArmors.length; i++) {
-			var armorId = levelArmors[i];
-			$dataArmors[armorId]._tona_level = level;
-		}
-	}
-	for (var level = 1; level < $_tona_levelShields.length; level++) {
-		var levelArmors = $_tona_levelShields[level];
-		for (var i = 0; i < levelArmors.length; i++) {
-			var armorId = levelArmors[i];
-			$dataArmors[armorId]._tona_level = level;
-		}
-	}
-	for (var level = 1; level < $_tona_levelHelmets.length; level++) {
-		var levelArmors = $_tona_levelHelmets[level];
-		for (var i = 0; i < levelArmors.length; i++) {
-			var armorId = levelArmors[i];
-			$dataArmors[armorId]._tona_level = level;
 		}
 	}
 }
@@ -580,7 +499,7 @@ function _tona_CreateSaveData() {
 
     // パーティー
     if ($_tona_saveData.partyLevel == null) {
-        $_tona_saveData.partyLevel = 2;
+        $_tona_saveData.partyLevel = 1;
     }
 
     // 武器解禁

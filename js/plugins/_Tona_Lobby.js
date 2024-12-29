@@ -34,7 +34,7 @@ function _tona_Pub_NewName() {
 
 		name = $_tona_Name[Math.randomInt($_tona_Name.length - 1) + 1];
 
-		for (var i = 2; i <= $_tona_PubMaxActorId; i++) {
+		for (var i = 1; i <= $_tona_PubMaxActorId; i++) {
 			let actor = $gameActors.actor(i);
 			if (actor.name() == "") {
 				if (actor.name() == name.name) {
@@ -61,7 +61,7 @@ function _tona_Pub_NewFace() {
 
 		face = $_tona_Face[Math.randomInt($_tona_Face.length - 1) + 1];
 
-		for (var i = 2; i <= $_tona_PubMaxActorId; i++) {
+		for (var i = 1; i <= $_tona_PubMaxActorId; i++) {
 			let actor = $gameActors.actor(i);
 			if (actor.name() == "") {
 				if (actor.faceName() == face.name && actor.faceIndex() == face.index) {
@@ -88,7 +88,7 @@ function _tona_Pub_NewPersonality() {
 
 		personalityId = Math.randomInt($_tona_Personality.length - 1) + 1;
 
-		for (var i = 2; i <= $_tona_PubMaxActorId; i++) {
+		for (var i = 1; i <= $_tona_PubMaxActorId; i++) {
 			let actor = $gameActors.actor(i);
 			if (actor.name() == "") {
 				if (actor._personalityId == personalityId) {
