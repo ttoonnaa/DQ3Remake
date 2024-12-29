@@ -3,14 +3,14 @@
 // バトル：物理攻撃のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
-BattleManager._tona_physicalDamage = function(a, b) {
+Game_BattlerBase.prototype._tona_physicalDamage = function(target) {
 
 	// https://hyperwiki.jp/dq3rhd2d/damage-calc/
 
 	// 運の良さによるダメージ補正は無しにする
 
-	let atk = Math.min(a.atk, 850);
-	let def = b.def;
+	let atk = Math.min(this.atk, 850);
+	let def = target.def;
 
 	let rate = Math.random() * 0.2 + 0.9;
 	let base = atk * (1700 - atk) / 2000 * (1700 - def) / 2000 * 0.7 * rate;
@@ -23,7 +23,7 @@ BattleManager._tona_physicalDamage = function(a, b) {
 // バトル：攻撃呪文のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
-BattleManager._tona_magicalDamage = function(a, b, min, max) {
+Game_BattlerBase.prototype._tona_magicalDamage = function(target, min, max) {
 
 	// https://hyperwiki.jp/dq3rhd2d/damage-calc/
 
@@ -31,7 +31,8 @@ BattleManager._tona_magicalDamage = function(a, b, min, max) {
 	// 代わりに、呪文ごとに設定された基準を採用する
 	// 「呪文ごとに設定された基準」= その呪文のダメージの中央値（つまりメラなら10程度）
 
-	let mat = a.mat;
+	let mat = this.mat;
+
 	let center = (min + max) / 2;
 	let rate = _tona_Limit(((mat - center) / 2 + center) / center, 1, 1.3);
 	let value = (max - min + 1) * Math.random() + min;
@@ -43,7 +44,7 @@ BattleManager._tona_magicalDamage = function(a, b, min, max) {
 // バトル：回復呪文のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
-BattleManager._tona_healDamage = function(a, b, min, max) {
+Game_BattlerBase.prototype._tona_healDamage = function(target, min, max) {
 
 	let value = (max - min + 1) * Math.random() + min;
 
@@ -54,16 +55,16 @@ BattleManager._tona_healDamage = function(a, b, min, max) {
 // 計算式のエイリアス（エディターで指定する計算式で使う）
 // ----------------------------------------------------------------------------------------------------------------------------
 
-PD = function(a, b, v) {
-	return BattleManager._tona_physicalDamage(a, b, v);
+Game_BattlerBase.prototype.PD = function(target) {
+	return BattleManager._tona_physicalDamage(target);
 }
 
-MD = function(a, b, min, max) {
-	return BattleManager._tona_magicalDamage(a, b, min, max);
+Game_BattlerBase.prototype.MD = function(target, min, max) {
+	return BattleManager._tona_magicalDamage(target, min, max);
 }
 
-HD = function(a, b, min, max) {
-	return BattleManager._tona_healDamage(a, b, min, max);
+Game_BattlerBase.prototype.HD = function(target, min, max) {
+	return BattleManager._tona_healDamage(target, min, max);
 }
 
 // ****************************************************************************************************************************
@@ -369,9 +370,7 @@ Game_Action.prototype.itemEffectAddNormalState = function(target, effect) {
     let chance = effect.value1;
     if (!this.isCertainHit()) {
         chance *= target.stateRate(effect.dataId);
-var temp = chance;
         chance += Math.min(this.lukEffectAdd(target), 0.0);		// ★足し算に変更
-console.log("chance: " + temp + " -> " + chance);
     }
     if (Math.random() < chance) {
         target.addState(effect.dataId);
