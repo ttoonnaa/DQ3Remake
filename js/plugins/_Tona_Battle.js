@@ -1,9 +1,9 @@
 
 // ****************************************************************************************************************************
-// バトル：物理のダメージ計算式
+// バトル：物理攻撃のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
-BattleManager._tona_physicalDamage = function(a, b, v) {
+BattleManager._tona_physicalDamage = function(a, b) {
 
 	// https://hyperwiki.jp/dq3rhd2d/damage-calc/
 
@@ -11,22 +11,16 @@ BattleManager._tona_physicalDamage = function(a, b, v) {
 
 	let atk = Math.min(a.atk, 850);
 	let def = b.def;
-	let variance = v / 100;
 
-	let rate = - variance + variance * Math.random() * 2 + 1;
+	let rate = Math.random() * 0.2 + 0.9;
 	let base = atk * (1700 - atk) / 2000 * (1700 - def) / 2000 * 0.7 * rate;
 	let value = (atk - def) * (1700 - Math.max(atk, def)) / 2000 * 0.6;
 
 	return base + value;
 }
 
-// エイリアス（エディターで指定する計算式で使う）
-PD = function(a, b, v) {
-	return BattleManager._tona_physicalDamage(a, b, v);
-}
-
 // ****************************************************************************************************************************
-// バトラー：呪文のダメージ計算式
+// バトル：攻撃呪文のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
 BattleManager._tona_magicalDamage = function(a, b, min, max) {
@@ -39,15 +33,37 @@ BattleManager._tona_magicalDamage = function(a, b, min, max) {
 
 	let mat = a.mat;
 	let center = (min + max) / 2;
-	var rate = _tona_Limit(((mat - center) / 2 + center) / center, 1, 1.3);
-	var value = (max - min) * Math.random() + min;
+	let rate = _tona_Limit(((mat - center) / 2 + center) / center, 1, 1.3);
+	let value = (max - min + 1) * Math.random() + min;
 
 	return value * rate;
 }
 
-// エイリアス（エディターで指定する計算式で使う）
+// ****************************************************************************************************************************
+// バトル：回復呪文のダメージ計算式
+// ----------------------------------------------------------------------------------------------------------------------------
+
+BattleManager._tona_healDamage = function(a, b, min, max) {
+
+	let value = (max - min + 1) * Math.random() + min;
+
+	return value;
+}
+
+// ****************************************************************************************************************************
+// 計算式のエイリアス（エディターで指定する計算式で使う）
+// ----------------------------------------------------------------------------------------------------------------------------
+
+PD = function(a, b, v) {
+	return BattleManager._tona_physicalDamage(a, b, v);
+}
+
 MD = function(a, b, min, max) {
 	return BattleManager._tona_magicalDamage(a, b, min, max);
+}
+
+HD = function(a, b, min, max) {
+	return BattleManager._tona_healDamage(a, b, min, max);
 }
 
 // ****************************************************************************************************************************
