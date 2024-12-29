@@ -1,36 +1,53 @@
 
 // ****************************************************************************************************************************
-// バトラー：物理のダメージ計算式
+// バトル：物理のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_BattlerBase.prototype._tona_physicalDamage = function(b) {
+BattleManager._tona_physicalDamage = function(a, b, v) {
 
-	return this.atk - b.def / 2;
+	// https://hyperwiki.jp/dq3rhd2d/damage-calc/
+
+	// 運の良さによるダメージ補正は無しにする
+
+	let atk = Math.min(a.atk, 850);
+	let def = b.def;
+	let variance = v / 100;
+
+	let rate = - variance + variance * Math.random() * 2 + 1;
+	let base = atk * (1700 - atk) / 2000 * (1700 - def) / 2000 * 0.7 * rate;
+	let value = (atk - def) * (1700 - Math.max(atk, def)) / 2000 * 0.6;
+
+	return base + value;
 }
 
 // エイリアス（エディターで指定する計算式で使う）
-Game_BattlerBase.prototype.PD = function(b) {
-	return this._tona_physicalDamage(b);
+PD = function(a, b, v) {
+	return BattleManager._tona_physicalDamage(a, b, v);
 }
 
 // ****************************************************************************************************************************
 // バトラー：呪文のダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_BattlerBase.prototype._tona_magicalDamage = function(value) {
+BattleManager._tona_magicalDamage = function(a, b, min, max) {
 
-	// ダメージ = Lerp(賢, value, value * 1.3);
-	// これが基本概念。賢さが value 以上だとダメージが伸び始める。
-	// ダメージの伸びを半分にした式を実際は採用。
+	// https://hyperwiki.jp/dq3rhd2d/damage-calc/
 
-	let mat = this.mat;
+	// 元の計算式はレベルごとに設定された基準を採用してるがやめる
+	// 代わりに、呪文ごとに設定された基準を採用する
+	// 「呪文ごとに設定された基準」= その呪文のダメージの中央値（つまりメラなら10程度）
 
-	return _tona_Lerp((mat - value) / 2 + value, value, value * 1.3);
+	let mat = a.mat;
+	let center = (min + max) / 2;
+	var rate = _tona_Limit(((mat - center) / 2 + center) / center, 1, 1.3);
+	var value = (max - min) * Math.random() + min;
+
+	return value * rate;
 }
 
 // エイリアス（エディターで指定する計算式で使う）
-Game_BattlerBase.prototype.MD = function(value) {
-	return this._tona_magicalDamage(value);
+MD = function(a, b, min, max) {
+	return BattleManager._tona_magicalDamage(a, b, min, max);
 }
 
 // ****************************************************************************************************************************
