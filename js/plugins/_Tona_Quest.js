@@ -3,64 +3,69 @@
 // 現在のクエスト構造体
 // ----------------------------------------------------------------------------------------------------------------------------
 
-_tona_QuestNow = function() {
-    this.questId = 0;
-    this.waveId = 0;
-    this.progress = 0;
-    this.eventList = [];
-    this.gotGold = 0;
-    this.losed = 0;
+function tona_QuestNow() {
+    this.initialize(...arguments);
+}
 
-	this.getQuestNow = function() {
-		return $_tona_quest[this.questId];
-	}
-    this.getWaveNow = function() {
-		return $_tona_quest[this.questId].waves[this.waveId];
-    }
+tona_QuestNow.prototype.initialize = function() {
+    this._questId = 0;
+    this._waveId = 0;
+    this._progress = 0;
+    this._eventList = [];
+    this._gotGold = 0;
+    this._losed = 0;
+};
+
+tona_QuestNow.prototype.quest = function() {
+	return $tona_quest[this._questId];
+}
+
+tona_QuestNow.prototype.wave = function() {
+	return $tona_quest[this._questId].waves[this._waveId];
 }
 
 // ****************************************************************************************************************************
 // Interpreter：クエスト名を変数に取得
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_GetQuestNameToVariable = function(questId) {
-    $gameVariables.setValue(1, $_tona_quest[questId].name);
+Game_Interpreter.prototype.tona_quest_getQuestNameToVariable = function(questId) {
+    $gameVariables.setValue(1, $tona_quest[questId].name);
 };
 
-Game_Interpreter.prototype._tona_Quest_GetQuestNowNameToVariable = function() {
-    $gameVariables.setValue(1, $_tona_questNow.getQuestNow().name);
+Game_Interpreter.prototype.tona_quest_getQuestNowNameToVariable = function() {
+    $gameVariables.setValue(1, $tona_questNow.quest().name);
 };
 
 // ****************************************************************************************************************************
 // Interpreter：クエストを設定
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_SetQuest = function(questId) {
+Game_Interpreter.prototype.tona_quest_setQuest = function(questId) {
 
-    $_tona_questNow.questId = questId;
-    $_tona_questNow.waveId = 1;
-    $_tona_questNow.progress = -1;
-    $_tona_questNow.eventList = [];
-    $_tona_questNow.gotGold = 0;
+    $tona_questNow._questId = questId;
+    $tona_questNow._waveId = 1;
+    $tona_questNow._progress = -1;
+    $tona_questNow._eventList = [];
+    $tona_questNow._gotGold = 0;
 };
 
 // ****************************************************************************************************************************
 // Interpreter：次の wave へ
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_ToNextWave = function() {
+Game_Interpreter.prototype.tona_quest_toNextWave = function() {
 
-    $_tona_questNow.waveId += 1;
-    $_tona_questNow.progress = -1;
-    $_tona_questNow.eventList = [];
+    $tona_questNow._waveId += 1;
+    $tona_questNow._progress = -1;
+    $tona_questNow._eventList = [];
 };
 
 // ****************************************************************************************************************************
 // Interpreter：マップへ移動
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_MoveToMap = function() {
-    var mapId = $_tona_questNow.getWaveNow().mapId;
+Game_Interpreter.prototype.tona_quest_moveToMap = function() {
+    var mapId = $tona_questNow.wave().mapId;
 
     // マップIDを初期化（強制的に再読み込みを発生させる）
     $gameMap._mapId = -1;
@@ -74,31 +79,31 @@ Game_Interpreter.prototype._tona_Quest_MoveToMap = function() {
 // Interpreter：クエストＢＧＭを再生
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_PlayBgm = function() {
+Game_Interpreter.prototype.tona_quest_playBgm = function() {
 
     // BGM 再生
-    _tona_PlayBgm($_tona_questNow.getWaveNow().bgmName);
+    tona_playBgm($tona_questNow.wave().bgmName);
 }
 
 // ****************************************************************************************************************************
 // Interpreter：イベント情報を準備
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_ReadyMap = function() {
-    var waveNum = $_tona_questNow.getQuestNow().waves.length - 1;
-    var eventNum = $_tona_questNow.getWaveNow().eventNum;
+Game_Interpreter.prototype.tona_quest_readyMap = function() {
+    var waveNum = $tona_questNow.quest().waves.length - 1;
+    var eventNum = $tona_questNow.wave().eventNum;
 
-    $_tona_questNow.eventList = [];
+    $tona_questNow._eventList = [];
     for (var i = 0; i < eventNum; i++) {
 
         // ゴール
         if (i == eventNum - 1) {
-            if ($_tona_questNow.waveId == waveNum) {
-                $_tona_questNow.eventList.push($_tona_Const_QuestEventType_Goal);
+            if ($tona_questNow._waveId == waveNum) {
+                $tona_questNow._eventList.push($tona_QuestEventType_Goal);
 	            continue;
             }
             else {
-                $_tona_questNow.eventList.push($_tona_Const_QuestEventType_NextWave);
+                $tona_questNow._eventList.push($tona_QuestEventType_NextWave);
 	            continue;
             }
         }
@@ -108,11 +113,11 @@ Game_Interpreter.prototype._tona_Quest_ReadyMap = function() {
 
         // バトル
         if (value < 50) {
-            $_tona_questNow.eventList.push($_tona_Const_QuestEventType_Battle);
+            $tona_questNow._eventList.push($tona_QuestEventType_Battle);
         }
         // ゴールド
         else if (value < 100) {
-            $_tona_questNow.eventList.push($_tona_Const_QuestEventType_Gold);
+            $tona_questNow._eventList.push($tona_QuestEventType_Gold);
         }
 	}
 }
@@ -121,40 +126,40 @@ Game_Interpreter.prototype._tona_Quest_ReadyMap = function() {
 // Interpreter：イベントを構築
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_CreateMapEvent = function() {
+Game_Interpreter.prototype.tona_quest_createMapEvent = function() {
     var event;
-	var eventNum = $_tona_questNow.eventList.length;
+	var eventNum = $tona_questNow._eventList.length;
 
     for (var i = 0; i < eventNum; i++) {
 
         if (false) {}
-        else if ($_tona_questNow.eventList[i] == $_tona_Const_QuestEventType_Battle) {
-            event = _tona_AddEmptyEvent(12 + 8 * i, 6);
+        else if ($tona_questNow._eventList[i] == $tona_QuestEventType_Battle) {
+            event = tona_addEmptyEvent(12 + 8 * i, 6);
             event.setImage("Monster", 2);
             event.setDirection(4);
         }
-        else if ($_tona_questNow.eventList[i] == $_tona_Const_QuestEventType_Boss) {
-            event = _tona_AddEmptyEvent(12 + 8 * i, 6);
+        else if ($tona_questNow._eventList[i] == $tona_QuestEventType_Boss) {
+            event = tona_addEmptyEvent(12 + 8 * i, 6);
             event.setImage("Monster", 3);
             event.setDirection(4);
         }
-        else if ($_tona_questNow.eventList[i] == $_tona_Const_QuestEventType_Gold) {
-            event = _tona_AddEmptyEvent(12 + 8 * i, 6);
+        else if ($tona_questNow._eventList[i] == $tona_QuestEventType_Gold) {
+            event = tona_addEmptyEvent(12 + 8 * i, 6);
             event.setImage("!Chest", 4);
             event.setDirection(2);
         }
-        else if ($_tona_questNow.eventList[i] == $_tona_Const_QuestEventType_Item) {
-            event = _tona_AddEmptyEvent(12 + 8 * i, 6);
+        else if ($tona_questNow._eventList[i] == $tona_QuestEventType_Item) {
+            event = tona_addEmptyEvent(12 + 8 * i, 6);
             event.setImage("!Chest", 5);
             event.setDirection(2);
         }
-        else if ($_tona_questNow.eventList[i] == $_tona_Const_QuestEventType_NextWave) {
-            event = _tona_AddEmptyEvent(12 + 8 * i, 6);
+        else if ($tona_questNow._eventList[i] == $tona_QuestEventType_NextWave) {
+            event = tona_addEmptyEvent(12 + 8 * i, 6);
             event.setImage("!Door2", 7);
             event.setDirection(2);
         }
-        else if ($_tona_questNow.eventList[i] == $_tona_Const_QuestEventType_Goal) {
-            event = _tona_AddEmptyEvent(12 + 8 * i, 6);
+        else if ($tona_questNow._eventList[i] == $tona_QuestEventType_Goal) {
+            event = tona_addEmptyEvent(12 + 8 * i, 6);
             event.setImage("!Crystal", 3);
             event.setDirection(2);
         }
@@ -165,7 +170,7 @@ Game_Interpreter.prototype._tona_Quest_CreateMapEvent = function() {
 // Interpreter：マップからイベントを削除
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_ClearMapEvent = function() {
+Game_Interpreter.prototype.tona_quest_clearMapEvent = function() {
     $dataMap.events = [];
     $gameMap._events = [];
     SceneManager._scene._spriteset._characterSprites = [];
@@ -175,54 +180,54 @@ Game_Interpreter.prototype._tona_Quest_ClearMapEvent = function() {
 // Interpreter：次のイベントへ
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_ToNextEvent = function() {
-    $_tona_questNow.progress ++;
+Game_Interpreter.prototype.tona_quest_toNextEvent = function() {
+    $tona_questNow._progress ++;
 
     // 結果変数にイベントを入れておく
-    $_tona_result = $_tona_questNow.eventList[$_tona_questNow.progress];
+    $tona_result = $tona_questNow._eventList[$tona_questNow._progress];
 }
 
 // ****************************************************************************************************************************
 // Interpreter：クエスト成功
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_SuccessQuest = function() {
-    $_tona_resultAction = [];
+Game_Interpreter.prototype.tona_quest_successQuest = function() {
+    $tona_resultAction = [];
 
 	// クエスト成功
-    $_tona_saveData.questClearFlag[$_tona_questNow.questId] = 1;
-    $_tona_saveData.partyLevel = Math.max($_tona_saveData.partyLevel, $_tona_questNow.getQuestNow().levelResult);
+    $tona_saveData.questClearFlag[$tona_questNow._questId] = 1;
+    $tona_saveData.partyLevel = Math.max($tona_saveData.partyLevel, $tona_questNow.quest().levelResult);
 
     // チェックポイント処理
-    $_tona_resultAction.push([$_tona_Const_ActionType_Message, "合計で " + $_tona_questNow.gotGold + " Gold を獲得！"]);
+    $tona_resultAction.push([$tona_ActionType_Message, "合計で " + $tona_questNow._gotGold + " Gold を獲得！"]);
 
     // データを更新
-    _tona_UpdateData(true);
+    tona_UpdateData(true);
 }
 
 // ****************************************************************************************************************************
 // Interpreter：クエスト失敗
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_FailQuest = function() {
-	$_tona_questNow.losed = 1;
+Game_Interpreter.prototype.tona_quest_failQuest = function() {
+	$tona_questNow._losed = 1;
 }
 
 // ****************************************************************************************************************************
 // Interpreter：クエスト失敗判定
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_IsFailedQuest = function() {
-	return $_tona_questNow.losed == 1;
+Game_Interpreter.prototype.tona_quest_isFailedQuest = function() {
+	return $tona_questNow._losed == 1;
 }
 
 // ****************************************************************************************************************************
 // Interpreter：ランダムバトル
 // ----------------------------------------------------------------------------------------------------------------------------
 
-var $_tona_randomBattleCreateTemorary = 0;
+var $tona_randomBattleCreateTemorary = 0;
 
-_tona_randomBattleCreateTemorary = function() {
+tona_randomBattleCreateTemorary = function() {
     this.done = 0;
     this.step = 0;
     this.questId = 0;
@@ -238,122 +243,122 @@ _tona_randomBattleCreateTemorary = function() {
     this.enemyBitmap = 0;
 };
 
-Game_Interpreter.prototype._tona_Quest_CreateRandomBattle_Start = function() {
-	var wave = $_tona_questNow.getWaveNow();
+Game_Interpreter.prototype.tona_quest_createRandomBattle_Start = function() {
+	var wave = $tona_questNow.wave();
 
-    $_tona_randomBattleCreateTemorary = new _tona_randomBattleCreateTemorary();
-    $_tona_randomBattleCreateTemorary.done = 0;
-    $_tona_randomBattleCreateTemorary.step = 1;
-    $_tona_randomBattleCreateTemorary.questId = $_tona_questNow.questId;
-    $_tona_randomBattleCreateTemorary.mapId = $_tona_questNow.waveId;
-    $_tona_randomBattleCreateTemorary.monsters = _tona_FindLevelEnemies(wave.level);
-    $_tona_randomBattleCreateTemorary.hagureRate = wave.hagureRate;
-    $_tona_randomBattleCreateTemorary.hagure = wave.hagure.concat();
-    $_tona_randomBattleCreateTemorary.result = [];
-    $_tona_randomBattleCreateTemorary.maxWidth = Graphics.boxWidth;
-    $_tona_randomBattleCreateTemorary.maxEnemyNum = wave.maxEnemyNum;
-    $_tona_randomBattleCreateTemorary.totalWidth = 0;
-    $_tona_randomBattleCreateTemorary.totalWidthPlus = 0;
-    $_tona_randomBattleCreateTemorary.enemyId = 0;
-    $_tona_randomBattleCreateTemorary.enemyBitmap = 0;
+    $tona_randomBattleCreateTemorary = new tona_randomBattleCreateTemorary();
+    $tona_randomBattleCreateTemorary.done = 0;
+    $tona_randomBattleCreateTemorary.step = 1;
+    $tona_randomBattleCreateTemorary.questId = $tona_questNow._questId;
+    $tona_randomBattleCreateTemorary.mapId = $tona_questNow._waveId;
+    $tona_randomBattleCreateTemorary.monsters = tona_findLevelEnemies(wave.level);
+    $tona_randomBattleCreateTemorary.hagureRate = wave.hagureRate;
+    $tona_randomBattleCreateTemorary.hagure = wave.hagure.concat();
+    $tona_randomBattleCreateTemorary.result = [];
+    $tona_randomBattleCreateTemorary.maxWidth = Graphics.boxWidth;
+    $tona_randomBattleCreateTemorary.maxEnemyNum = wave.maxEnemyNum;
+    $tona_randomBattleCreateTemorary.totalWidth = 0;
+    $tona_randomBattleCreateTemorary.totalWidthPlus = 0;
+    $tona_randomBattleCreateTemorary.enemyId = 0;
+    $tona_randomBattleCreateTemorary.enemyBitmap = 0;
 
     // 敵の最大数
-    if ($_tona_randomBattleCreateTemorary.maxEnemyNum == null) {
-        $_tona_randomBattleCreateTemorary.maxEnemyNum = 5;
+    if ($tona_randomBattleCreateTemorary.maxEnemyNum == null) {
+        $tona_randomBattleCreateTemorary.maxEnemyNum = 5;
     }
 
     // はぐれを作っておく
-    //_tona_CreateHagureEnemy($_tona_questNow.getWaveNow().level);
+    //tona_createHagureEnemy($tona_questNow.wave()._level);
 };
 
-Game_Interpreter.prototype._tona_Quest_CreateRandomBattle_IsFinish = function() {
-    return $_tona_randomBattleCreateTemorary.done;
+Game_Interpreter.prototype.tona_quest_createRandomBattle_isFinish = function() {
+    return $tona_randomBattleCreateTemorary.done;
 };
 
-Game_Interpreter.prototype._tona_Quest_CreateRandomBattle_Update = function() {
+Game_Interpreter.prototype.tona_quest_createRandomBattle_update = function() {
 
     // ステップ１
-    if ($_tona_randomBattleCreateTemorary.step == 1) {
+    if ($tona_randomBattleCreateTemorary.step == 1) {
 
         // エネミーを選択
-        if (Math.random() < $_tona_randomBattleCreateTemorary.hagureRate) {
-            var index = Math.floor(Math.random() * $_tona_randomBattleCreateTemorary.hagure.length);
-        	$_tona_randomBattleCreateTemorary.enemyId = $_tona_randomBattleCreateTemorary.hagure[index];
+        if (Math.random() < $tona_randomBattleCreateTemorary.hagureRate) {
+            var index = Math.floor(Math.random() * $tona_randomBattleCreateTemorary.hagure.length);
+        	$tona_randomBattleCreateTemorary.enemyId = $tona_randomBattleCreateTemorary.hagure[index];
         }
         else {
-            var index = Math.floor(Math.random() * $_tona_randomBattleCreateTemorary.monsters.length);
-            $_tona_randomBattleCreateTemorary.enemyId = $_tona_randomBattleCreateTemorary.monsters[index];
+            var index = Math.floor(Math.random() * $tona_randomBattleCreateTemorary.monsters.length);
+            $tona_randomBattleCreateTemorary.enemyId = $tona_randomBattleCreateTemorary.monsters[index];
         }
 		// 画像読み込み開始
-        var enemy = $dataEnemies[$_tona_randomBattleCreateTemorary.enemyId];
-        $_tona_randomBattleCreateTemorary.enemyBitmap = ImageManager.loadEnemy(enemy.battlerName, enemy.battlerHue);  // Loading...
-        $_tona_randomBattleCreateTemorary.step = 2;
+        var enemy = $dataEnemies[$tona_randomBattleCreateTemorary.enemyId];
+        $tona_randomBattleCreateTemorary.enemyBitmap = ImageManager.loadEnemy(enemy.battlerName, enemy.battlerHue);  // Loading...
+        $tona_randomBattleCreateTemorary.step = 2;
     }
-    if ($_tona_randomBattleCreateTemorary.step == 2) {
+    if ($tona_randomBattleCreateTemorary.step == 2) {
 
         // 読み込み終わったら次へ
-        if ($_tona_randomBattleCreateTemorary.enemyBitmap.width > 0) {
-            $_tona_randomBattleCreateTemorary.step = 3;
+        if ($tona_randomBattleCreateTemorary.enemyBitmap.width > 0) {
+            $tona_randomBattleCreateTemorary.step = 3;
         }
         else {
             return;
         }
     }
-    if ($_tona_randomBattleCreateTemorary.step == 3) {
-        var enemy = $dataEnemies[$_tona_randomBattleCreateTemorary.enemyId];
+    if ($tona_randomBattleCreateTemorary.step == 3) {
+        var enemy = $dataEnemies[$tona_randomBattleCreateTemorary.enemyId];
 
         // 配置開始
-        var maxWidth = $_tona_randomBattleCreateTemorary.maxWidth;
-        var enemyId = $_tona_randomBattleCreateTemorary.enemyId;
-        var enemyBitmapWidth = $_tona_randomBattleCreateTemorary.enemyBitmap.width;
-        var enemyBitmapHeight = $_tona_randomBattleCreateTemorary.enemyBitmap.height;
+        var maxWidth = $tona_randomBattleCreateTemorary.maxWidth;
+        var enemyId = $tona_randomBattleCreateTemorary.enemyId;
+        var enemyBitmapWidth = $tona_randomBattleCreateTemorary.enemyBitmap.width;
+        var enemyBitmapHeight = $tona_randomBattleCreateTemorary.enemyBitmap.height;
         // 何匹まで配置できるだろう…？（まずは画面最大幅で計算）
-        var maxNum = Math.min(Math.floor(maxWidth / (enemyBitmapWidth)), $_tona_randomBattleCreateTemorary.maxWidth);
+        var maxNum = Math.min(Math.floor(maxWidth / (enemyBitmapWidth)), $tona_randomBattleCreateTemorary.maxWidth);
         // クエストごとの配置最大数で制限（同じくまずはデフォルトの最大数で計算）
-        maxNum = Math.min(maxNum, $_tona_randomBattleCreateTemorary.maxEnemyNum);
+        maxNum = Math.min(maxNum, $tona_randomBattleCreateTemorary.maxEnemyNum);
         // エネミーごとの配置最大数で制限
         if (enemy.json !== undefined && enemy.json['numMax'] !== undefined) {
             maxNum = Math.min(maxNum, enemy.json['numMax']);
         }
         // 配置する数を決める
-        var num = _tona_SquareIntegerRand(maxNum) + 1;
+        var num = tona_squareIntegerRand(maxNum) + 1;
         // 配置数を画面の残り幅で制限
-        num = Math.min(num, Math.floor((maxWidth - $_tona_randomBattleCreateTemorary.totalWidth) / (enemyBitmapWidth)));
+        num = Math.min(num, Math.floor((maxWidth - $tona_randomBattleCreateTemorary.totalWidth) / (enemyBitmapWidth)));
         // 配置数を残り配置数で制限
-        num = Math.min(num, $_tona_randomBattleCreateTemorary.maxEnemyNum - $_tona_randomBattleCreateTemorary.result.length);
+        num = Math.min(num, $tona_randomBattleCreateTemorary.maxEnemyNum - $tona_randomBattleCreateTemorary.result.length);
         // 配置する
         for (var i = 0; i < num; i++) {
-            $_tona_randomBattleCreateTemorary.result.push([enemyId, enemyBitmapWidth, $_tona_randomBattleCreateTemorary.totalWidth]);
-            $_tona_randomBattleCreateTemorary.totalWidth += enemyBitmapWidth;
+            $tona_randomBattleCreateTemorary.result.push([enemyId, enemyBitmapWidth, $tona_randomBattleCreateTemorary.totalWidth]);
+            $tona_randomBattleCreateTemorary.totalWidth += enemyBitmapWidth;
         }
         // ５匹以上配置した場合は抜ける
-        if ($_tona_randomBattleCreateTemorary.result >= 5) {
-            $_tona_randomBattleCreateTemorary.step = 4;
+        if ($tona_randomBattleCreateTemorary.result >= 5) {
+            $tona_randomBattleCreateTemorary.step = 4;
         }
         // 画面占有率の確率でも抜ける
-        else if (Math.floor(Math.random() * maxWidth) < $_tona_randomBattleCreateTemorary.totalWidth) {
-            $_tona_randomBattleCreateTemorary.step = 4;
+        else if (Math.floor(Math.random() * maxWidth) < $tona_randomBattleCreateTemorary.totalWidth) {
+            $tona_randomBattleCreateTemorary.step = 4;
         }
         else {
-            $_tona_randomBattleCreateTemorary.step = 1;  // 次の候補へ
+            $tona_randomBattleCreateTemorary.step = 1;  // 次の候補へ
         }
     }
-    if ($_tona_randomBattleCreateTemorary.step == 4) {
+    if ($tona_randomBattleCreateTemorary.step == 4) {
 
         // 左端の位置を求める
-        var offsetX = (Graphics.boxWidth - $_tona_randomBattleCreateTemorary.totalWidth) / 2;
+        var offsetX = (Graphics.boxWidth - $tona_randomBattleCreateTemorary.totalWidth) / 2;
         // トループにエネミーを作成していく
-        $dataTroops[$_tona_Const_TroopId_RandomEnemy].members = [];
-        for (var i = 0; i < $_tona_randomBattleCreateTemorary.result.length; i++) {
-            var enemyId = $_tona_randomBattleCreateTemorary.result[i][0];
+        $dataTroops[$tona_TroopId_RandomEnemy].members = [];
+        for (var i = 0; i < $tona_randomBattleCreateTemorary.result.length; i++) {
+            var enemyId = $tona_randomBattleCreateTemorary.result[i][0];
             var enemy = $dataEnemies[enemyId];
-            var x = Math.floor(offsetX + $_tona_randomBattleCreateTemorary.result[i][2] + $_tona_randomBattleCreateTemorary.result[i][1] / 2);
-            var y = 436 - (enemy.meta._tona_pos_y != null ? enemy.meta._tona_pos_y : 0);
-            $dataTroops[$_tona_Const_TroopId_RandomEnemy].members.push({"enemyId": enemyId, "x": x ,"y": y, "hidden": false});
+            var x = Math.floor(offsetX + $tona_randomBattleCreateTemorary.result[i][2] + $tona_randomBattleCreateTemorary.result[i][1] / 2);
+            var y = 436 - (enemy.meta.tona_pos_y != null ? enemy.meta.tona_pos_y : 0);
+            $dataTroops[$tona_TroopId_RandomEnemy].members.push({"enemyId": enemyId, "x": x ,"y": y, "hidden": false});
         }
-        $_tona_randomBattleCreateTemorary.step = 99;
+        $tona_randomBattleCreateTemorary.step = 99;
         // 処理終了
-        $_tona_randomBattleCreateTemorary.done = 1;
+        $tona_randomBattleCreateTemorary.done = 1;
     }
 }
 
@@ -361,13 +366,13 @@ Game_Interpreter.prototype._tona_Quest_CreateRandomBattle_Update = function() {
 // Interpreter：ランダム Gold
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_CreateRandomGold = function() {
-    $_tona_resultAction = [];
+Game_Interpreter.prototype.tona_quest_createRandomGold = function() {
+    $tona_resultAction = [];
 
-    var gold = $_tona_questNow.getWaveNow().gold;
+    var gold = $tona_questNow.wave()._gold;
     $gameParty.gainGold(gold);
 
-    $_tona_questNow.gotGold += gold;
-    $_tona_resultAction.push([$_tona_Const_ActionType_Message, gold + " Gold 手に入れた！"]);
+    $tona_questNow._gotGold += gold;
+    $tona_resultAction.push([$tona_ActionType_Message, gold + " Gold 手に入れた！"]);
 }
 

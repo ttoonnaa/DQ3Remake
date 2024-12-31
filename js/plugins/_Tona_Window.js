@@ -67,7 +67,7 @@ Scene_PubStatus.prototype.create = function() {
     this.createStatusEquipWindow();
     this.createCommandWindow();
 
-	var actor = $gameActors.actor($_tona_PubInviteData.actorId);
+	var actor = $gameActors.actor($tona_pub_inviteData.actorId);
     this.setActor(actor);
     this.refreshActor();
 };
@@ -112,14 +112,14 @@ Scene_PubStatus.prototype.refreshActor = function() {
 
 Scene_PubStatus.prototype.onCommandYes = function() {
 
-	$_tona_result = 1;
+	$tona_result = 1;
 
 	this.popScene();
 }
 
 Scene_PubStatus.prototype.onCommandNo = function() {
 
-	$_tona_result = 0;
+	$tona_result = 0;
 
 	this.popScene();
 }

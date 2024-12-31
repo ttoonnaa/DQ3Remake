@@ -1,32 +1,18 @@
 
 // ****************************************************************************************************************************
-// Tona_Command
-// ----------------------------------------------------------------------------------------------------------------------------
-
-
-// ****************************************************************************************************************************
-// 汎用：テスト
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Interpreter.prototype._tona_Action_Test = function() {
-
-	$_tona_resultAction.push([$_tona_Const_ActionType_Message, "めっせーじ"]);
-}
-
-// ****************************************************************************************************************************
 // 汎用：次のアクションを取得
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Action_GetNextAction = function() {
+Game_Interpreter.prototype.tona_action_getNextAction = function() {
     
-    if ($_tona_resultAction.length == 0) {
-        $_tona_result = 0;
+    if ($tona_resultAction.length == 0) {
+        $tona_result = 0;
     }
     else {
-        var action = $_tona_resultAction.shift();
+        var action = $tona_resultAction.shift();
 
-        $_tona_result = action[0];
-        if ($_tona_result == $_tona_Const_ActionType_Message) {
+        $tona_result = action[0];
+        if ($tona_result == $tona_ActionType_Message) {
             $gameVariables.setValue(1, action[1]);
         }
     }

@@ -4,51 +4,51 @@
 // ----------------------------------------------------------------------------------------------------------------------------
 
 // データ数
-var $_tona_Const_ClassCount = 10;
+var $tona_ClassCount = 10;
+
+// バランス
+var $tona_MaxParty = 10;
+var $tona_MaxActorId = 10;
 
 // アクション
-var $_tona_Const_ActionType_Message = 1;
-var $_tona_Const_ActionType_SoundItem2 = 2;
+var $tona_ActionType_Message = 1;
+var $tona_ActionType_SoundItem2 = 2;
 
 // クエストイベント
-var $_tona_Const_QuestEventType_None = 0;
-var $_tona_Const_QuestEventType_NextWave = 1;
-var $_tona_Const_QuestEventType_Goal = 2;
-var $_tona_Const_QuestEventType_Battle = 10;
-var $_tona_Const_QuestEventType_Boss = 11;
-var $_tona_Const_QuestEventType_Gold = 12;
-var $_tona_Const_QuestEventType_Item = 13;
+var $tona_QuestEventType_None = 0;
+var $tona_QuestEventType_NextWave = 1;
+var $tona_QuestEventType_Goal = 2;
+var $tona_QuestEventType_Battle = 10;
+var $tona_QuestEventType_Boss = 11;
+var $tona_QuestEventType_Gold = 12;
+var $tona_QuestEventType_Item = 13;
 
 // トループ
-var $_tona_Const_TroopId_RandomEnemy = 1;
-
-// ステート
-var $_tona_Const_StateId_Nifuramu = 16;
-var $_tona_Const_StateId_Bashiruura = 15;
-var $_tona_Const_StateId_Mahokanta = 28;
-var $_tona_Const_StateId_Ukenagashi = 36;
+var $tona_TroopId_RandomEnemy = 1;
 
 // 特徴コード
-var $_tona_TRAIT_GREAT_DEFENCE = 101;
+var $tona_Trait_Nifuramu = 101;
+var $tona_Trait_Bashirura = 102;
+var $tona_Trait_Mahokanta = 103;
+var $tona_Trait_Ukenagashi = 104;
+var $tona_Trait_GreatDefence = 105;
 
 // ****************************************************************************************************************************
 // データベース読み込み後の編集
 // ----------------------------------------------------------------------------------------------------------------------------
 
-(function() {
+var tona_DataManager_onLoad = DataManager.onLoad;
 
-	var DataManager_onLoad = DataManager.onLoad;
-	DataManager.onLoad = function(object) {
-		DataManager_onLoad.call(this, object);
-		_tona_OverrideDatabase(object);
-	}
-})();
+DataManager.onLoad = function(object) {
+	tona_DataManager_onLoad.call(this, object);
+	tona_overrideDatabase(object);
+}
 
 // ****************************************************************************************************************************
 // マップデータをグローバルに読み込んでおくシステム
 // ----------------------------------------------------------------------------------------------------------------------------
 
-DataManager._tona_OnLoadMapData = function(object) {
+DataManager.tona_onLoadMapData = function(object) {
     var array;
     this.extractMetadata(object);
     array = object.events;
@@ -62,7 +62,7 @@ DataManager._tona_OnLoadMapData = function(object) {
     }
 };
 
-DataManager._tona_LoadMapData = function(name, src) {
+DataManager.tona_loadMapData = function(name, src) {
     var xhr = new XMLHttpRequest();
     var url = 'data/' + src;
     xhr.open('GET', url);
@@ -70,7 +70,7 @@ DataManager._tona_LoadMapData = function(name, src) {
     xhr.onload = function() {
         if (xhr.status < 400) {
             window[name] = JSON.parse(xhr.responseText);
-            DataManager._tona_OnLoadMapData(window[name]);
+            DataManager.tona_onLoadMapData(window[name]);
         }
     };
     xhr.onerror = function() {
@@ -80,40 +80,36 @@ DataManager._tona_LoadMapData = function(name, src) {
     xhr.send();
 };
 
-function _tona_StoreLoadMapData(mapId, name) {
+function tona_storeLoadMapData(mapId, name) {
     var fileName = 'Map%1.json'.format(mapId.padZero(3));
-    DataManager._tona_LoadMapData(name, fileName);
+    DataManager.tona_loadMapData(name, fileName);
 };
 
 // ****************************************************************************************************************************
-// セーブロードを拡張し、$_tona_saveData をセーブロードの対象にする
+// セーブロードを拡張し、$tona_saveData をセーブロードの対象にする
 // ----------------------------------------------------------------------------------------------------------------------------
 
-(function() {
+var tona_DataManager_makeSaveContents = DataManager.makeSaveContents;
 
-    _DataManager_makeSaveContents = DataManager.makeSaveContents;
-    DataManager.makeSaveContents = function() {
-        var contents = _DataManager_makeSaveContents.call(this);
-        contents._tona_saveData = $_tona_saveData;
-        return contents;
-    }
-})();
+DataManager.makeSaveContents = function() {
+    var contents = tona_DataManager_makeSaveContents.call(this);
+    contents.tona_saveData = $tona_saveData;
+    return contents;
+}
 
-(function() {
+var tona_DataManager_extractSaveContents = DataManager.extractSaveContents;
 
-    _DataManager_extractSaveContents = DataManager.extractSaveContents;
-    DataManager.extractSaveContents = function(contents) {
-        _DataManager_extractSaveContents.call(this, contents);
-        $_tona_saveData = contents._tona_saveData;
-        _tona_CreateSaveData();   // セーブデータを構築することで増えたパラメータを補正
-    }
-})();
+DataManager.extractSaveContents = function(contents) {
+    tona_DataManager_extractSaveContents.call(this, contents);
+    $tona_saveData = contents.tona_saveData;
+    tona_updateSaveData();   // セーブデータを構築することで増えたパラメータを補正
+}
 
 // ****************************************************************************************************************************
 // 汎用：イベントを追加
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_CopyMapEvent(srcEventId, dstX, dstY) {
+function tona_copyMapEvent(srcEventId, dstX, dstY) {
 
     // 出力先のマップID
     var dstMapId = $gameMap.mapId();
@@ -129,12 +125,12 @@ function _tona_CopyMapEvent(srcEventId, dstX, dstY) {
     // イベントをマップに追加
     $gameMap._events.push(event);
     // イベント用のスプライトを追加
-    SceneManager._scene._spriteset._tona_AddEventSprite(event);
+    SceneManager._scene._spriteset.tona_addEventSprite(event);
 
     return event;
 };
 
-function _tona_AddEmptyEvent(dstX, dstY) {
+function tona_addEmptyEvent(dstX, dstY) {
     var event;
 
     // コピー元の空のイベントID
@@ -144,7 +140,7 @@ function _tona_AddEmptyEvent(dstX, dstY) {
     // 出力先のイベントIDを決定
     var dstEventId = $dataMap.events.length;
     // イベントデータをコピーする
-    $dataMap.events.push($_tona_mapDataStore.events[srcEventId]);
+    $dataMap.events.push($tona_mapDataStore.events[srcEventId]);
 
     // イベントを作成
     event = new Game_Event(dstMapId, dstEventId);
@@ -153,7 +149,7 @@ function _tona_AddEmptyEvent(dstX, dstY) {
     // イベントをマップに追加
     $gameMap._events.push(event);
     // イベント用のスプライトを追加
-    SceneManager._scene._spriteset._tona_AddEventSprite(event);
+    SceneManager._scene._spriteset.tona_addEventSprite(event);
 
     return event;
 };
@@ -162,16 +158,16 @@ function _tona_AddEmptyEvent(dstX, dstY) {
 // 汎用：パーティーが満員かを判定する
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_PartyIsFull() {
+function tona_partyIsFull() {
 
-	return $gameParty.size() == $_tona_PubMaxParty;
+	return $gameParty.size() == $tonat_MaxParty;
 }
 
 // ****************************************************************************************************************************
 // 汎用：マップのスプライトセットにイベントのスプライトを追加
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Spriteset_Map.prototype._tona_AddEventSprite = function(event) {
+Spriteset_Map.prototype.tona_addEventSprite = function(event) {
     var sprite = new Sprite_Character(event)
     this._characterSprites.push(sprite);
     this._tilemap.addChild(sprite);
@@ -181,7 +177,7 @@ Spriteset_Map.prototype._tona_AddEventSprite = function(event) {
 // 汎用：BGM を再生
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_PlayBgm(name) {
+function tona_playBgm(name) {
     AudioManager.playBgm({name:name, pan: 0, volume:100, pitch:90});
 };
 
@@ -189,7 +185,7 @@ function _tona_PlayBgm(name) {
 // 汎用：Limit
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_Limit(value, min, max) {
+function tona_limit(value, min, max) {
 	return Math.max(Math.min(value, max), min);
 };
 
@@ -197,7 +193,7 @@ function _tona_Limit(value, min, max) {
 // 汎用：偏った乱数
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_SquareIntegerRand(value) {
+function tona_squareIntegerRand(value) {
     return Math.floor(Math.pow(Math.random(), 2) * value);
 };
 
@@ -205,7 +201,7 @@ function _tona_SquareIntegerRand(value) {
 // 汎用：シャッフル
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_ArrayShuffle(arr) {
+function tona_arrayShuffle(arr) {
 	var newArr = [];
 
 	while (arr.length > 0) {
@@ -217,6 +213,24 @@ function _tona_ArrayShuffle(arr) {
 	return newArr;
 };
 
+// ****************************************************************************************************************************
+// 汎用：数値を取得
+// ----------------------------------------------------------------------------------------------------------------------------
 
+function tona_toNum(value, default) {
+
+	if (typeof value === 'number' && isFinite(value)) {
+		return value;
+	}
+
+	if (typeof value === 'string') {
+		const parsed = parseFloat(value.trim());
+		if (isFinite(parsed)) {
+			return parsed;
+		}
+	}
+
+	return default;
+}
 
 

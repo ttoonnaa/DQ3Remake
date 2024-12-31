@@ -3,17 +3,14 @@
 // Tona_Lobby
 // ----------------------------------------------------------------------------------------------------------------------------
 
-var $_tona_PubMaxActorId = 16;
-var $_tona_PubMaxParty = 10;
-var $_tona_PubInviteData = {};
 
 // ****************************************************************************************************************************
 // 酒場：actorId を決める
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_Pub_NewActorId() {
+function tona_pub_newActorId() {
 
-	for (var i = 2; i <= $_tona_PubMaxActorId; i++) {
+	for (var i = 2; i <= $tona_MaxActorId; i++) {
 		if ($gameActors.actor(i).name() == "") {
 			return i;
 		}
@@ -26,19 +23,19 @@ function _tona_Pub_NewActorId() {
 // 酒場：name を決める
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_Pub_NewName() {
+function tona_pub_newName() {
 
-	let name;
+	var name;
 
-	_tona_Pub_NewNameId_Loop: while (true) {
+	tona_pub_newNameId_loop: while (true) {
 
-		name = $_tona_Name[Math.randomInt($_tona_Name.length - 1) + 1];
+		name = $tona_name[Math.randomInt($tona_Name.length - 1) + 1];
 
-		for (var i = 1; i <= $_tona_PubMaxActorId; i++) {
-			let actor = $gameActors.actor(i);
+		for (var i = 1; i <= $tona_MaxActorId; i++) {
+			var actor = $gameActors.actor(i);
 			if (actor.name() == "") {
 				if (actor.name() == name.name) {
-					continue _tona_Pub_NewNameId_Loop;
+					continue tona_pub_newNameId_loop;
 				}
 			}
 		}
@@ -53,19 +50,19 @@ function _tona_Pub_NewName() {
 // 酒場：face を決める
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_Pub_NewFace() {
+function tona_pub_newFace() {
 
-	let face;
+	var face;
 
-	_tona_Pub_NewFace_Loop: while (true) {
+	tona_pub_newFace_loop: while (true) {
 
-		face = $_tona_Face[Math.randomInt($_tona_Face.length - 1) + 1];
+		face = $tona_Face[Math.randomInt($tona_Face.length - 1) + 1];
 
-		for (var i = 1; i <= $_tona_PubMaxActorId; i++) {
-			let actor = $gameActors.actor(i);
+		for (var i = 1; i <= $tona_MaxActorId; i++) {
+			var actor = $gameActors.actor(i);
 			if (actor.name() == "") {
 				if (actor.faceName() == face.name && actor.faceIndex() == face.index) {
-					continue _tona_Pub_NewFace_Loop;
+					continue tona_pub_newFace_loop;
 				}
 			}
 		}
@@ -80,19 +77,19 @@ function _tona_Pub_NewFace() {
 // 酒場：性格を決める
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_Pub_NewPersonality() {
+function tona_pub_newPersonality() {
 
-	let personalityId;
+	var personalityId;
 
-	_tona_Pub_NewPersonality_Loop: while (true) {
+	tona_pub_newPersonality_loop: while (true) {
 
-		personalityId = Math.randomInt($_tona_Personality.length - 1) + 1;
+		personalityId = Math.randomInt($tona_personality.length - 1) + 1;
 
-		for (var i = 1; i <= $_tona_PubMaxActorId; i++) {
-			let actor = $gameActors.actor(i);
+		for (var i = 1; i <= $tona_MaxActorId; i++) {
+			var actor = $gameActors.actor(i);
 			if (actor.name() == "") {
-				if (actor._personalityId == personalityId) {
-					continue _tona_Pub_NewPersonality_Loop;
+				if (actor._tona_personalityId == personalityId) {
+					continue tona_pub_newPersonality_loop;
 				}
 			}
 		}
@@ -107,42 +104,42 @@ function _tona_Pub_NewPersonality() {
 // 酒場：勧誘：作成
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteCreate = function() {
+Game_Interpreter.prototype.tona_pub_inviteCreate = function() {
 
 	// actorId を決める
 	// 枠がいっぱいだったら 0 を返す
 
-	var actorId = _tona_Pub_NewActorId();
+	var actorId = tona_pub_NewActorId();
 	if (actorId == 0) {
-		$_tona_result = 0;
+		$tona_result = 0;
 		return;
 	}
 
 	// 勧誘データを作成
-	$_tona_PubInviteData = {};
-	$_tona_PubInviteData.actorId = actorId;
+	$tona_pub_inviteData = {};
+	$tona_pub_inviteData.actorId = actorId;
 
 	// 成功を返す
-	$_tona_result = 1;
+	$tona_result = 1;
 }
 
 // ****************************************************************************************************************************
 // 酒場：勧誘：作成（勇者）
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteCreateHero = function() {
+Game_Interpreter.prototype.tona_pub_inviteCreateHero = function() {
 
 	// 勧誘データを作成
-	$_tona_PubInviteData = {};
-	$_tona_PubInviteData.actorId = 1;
-	$_tona_PubInviteData.classId = 1;
+	$tona_pub_inviteData = {};
+	$tona_pub_inviteData.actorId = 1;
+	$tona_pub_inviteData.classId = 1;
 }
 
 // ****************************************************************************************************************************
 // 酒場：勧誘：職業を選択する
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteSelectClass = function() {
+Game_Interpreter.prototype.tona_pub_inviteSelectClass = function() {
 	var resultList = [];
     var choices = [];
 
@@ -160,8 +157,8 @@ Game_Interpreter.prototype._tona_Pub_InviteSelectClass = function() {
     $gameMessage.setChoiceBackground(1);
     $gameMessage.setChoicePositionType(0);
     $gameMessage.setChoiceCallback(function(n) {
-		$_tona_result = resultList[n];
-        $_tona_PubInviteData.classId = resultList[n];
+		$tona_result = resultList[n];
+        $tona_pub_inviteData.classId = resultList[n];
     }.bind(this));
 
     this.setWaitMode('message');
@@ -171,29 +168,29 @@ Game_Interpreter.prototype._tona_Pub_InviteSelectClass = function() {
 // 酒場：勧誘：職業を設定する
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteSetClassId = function(classId) {
+Game_Interpreter.prototype.tona_pub_inviteSetClassId = function(classId) {
 
-	$_tona_PubInviteData.classId = classId;
+	$tona_pub_inviteData.classId = classId;
 }
 
 // ****************************************************************************************************************************
 // 酒場：勧誘：アクターを作成する
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
-	var actorId = $_tona_PubInviteData.actorId;
+Game_Interpreter.prototype.tona_Pub_inviteCreateActor = function() {
+	var actorId = $tona_pub_inviteData.actorId;
 	var actor = $gameActors.actor(actorId);
-	var classId = $_tona_PubInviteData.classId;
+	var classId = $tona_pub_inviteData.classId;
 
 	// 職業からアクターを作成
-	actor._tona_setupWithClass(actorId, classId);
+	actor.tona_setupWithClass(actorId, classId);
 
 	// 名前を決める
-	var name = _tona_Pub_NewName();
+	var name = tona_pub_newName();
 	actor.setName(name.name);
 
 	// 顔グラを決める
-	var face = _tona_Pub_NewFace();
+	var face = tona_pub_newFace();
 	actor.setFaceImage(face.name, face.index);
 
 	// 歩行グラは透明にする（勇者のみデフォルト）
@@ -205,18 +202,18 @@ Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
 	}
 
 	// 性格を決める
-	var personalityId = _tona_Pub_NewPersonality();
-	actor.setPersonalityId(personalityId);
+	var personalityId = tona_pub_newPersonality();
+	actor.setPersonality(personalityId);
 
 	// 種を与える
 	for (var i = 0; i < 5; i++) {
 		var paramId = Math.randomInt(6) + 2;
 		var value = Math.randomInt(3) + 1;
-		actor._tona_addParamPlus(paramId, value);
+		actor.tona_addParamPlus(paramId, value);
 	}
 
 	// パラメーターを補正
-	actor._tona_refreshParam();
+	actor.tona_refreshParam();
 
 	// 全回復
 	actor.recoverAll();
@@ -229,8 +226,8 @@ Game_Interpreter.prototype._tona_Pub_InviteCreateActor = function() {
 // 酒場：勧誘：仲間に加える
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteThis = function() {
-	var actorId = $_tona_PubInviteData.actorId;
+Game_Interpreter.prototype.tona_pub_inviteThis = function() {
+	var actorId = $tona_pub_inviteData.actorId;
 
 	$gameParty.addActor(actorId);
 }
@@ -239,32 +236,32 @@ Game_Interpreter.prototype._tona_Pub_InviteThis = function() {
 // 酒場：勧誘：仲間を破棄
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteDelete = function() {
-	var actorId = $_tona_PubInviteData.actorId;
+Game_Interpreter.prototype.tona_pub_inviteDelete = function() {
+	var actorId = $tona_pub_inviteData.actorId;
 	var actor = $gameActors.actor(actorId);
 
 	// アクターを初期化する
 	actor.setup(actorId);
 
 	// 勧誘情報を初期化する
-	$_tona_PubInviteData = {};
+	$tona_pub_inviteData = {};
 }
 
 // ****************************************************************************************************************************
 // 酒場：勧誘：クリア
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteClear = function() {
+Game_Interpreter.prototype.tona_pub_inviteClear = function() {
 
 	// 勧誘情報を初期化する
-	$_tona_PubInviteData = {};
+	$tona_pub_inviteData = {};
 }
 
 // ****************************************************************************************************************************
 // 酒場：勧誘：ウィンドウを表示する
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Pub_InviteShowWindow = function() {
+Game_Interpreter.prototype.tona_pub_inviteShowWindow = function() {
 	var resultList = [];
     var choices = [];
 
@@ -272,10 +269,10 @@ Game_Interpreter.prototype._tona_Pub_InviteShowWindow = function() {
 };
 
 // ****************************************************************************************************************************
-// ショップ：メニューを表示
+// ロビー：ショップメニューを表示
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Shop_ShowMenu = function() {
+Game_Interpreter.prototype.tona_lobby_showShopMenu = function() {
 	var resultList = [];
     var choices = [];
 
@@ -288,23 +285,23 @@ Game_Interpreter.prototype._tona_Shop_ShowMenu = function() {
     $gameMessage.setChoiceBackground(1);
     $gameMessage.setChoicePositionType(0);
     $gameMessage.setChoiceCallback(function(n) {
-        $_tona_result = resultList[n];
+        $tona_result = resultList[n];
     }.bind(this));
 
     this.setWaitMode('message');
 };
 
 // ****************************************************************************************************************************
-// ショップ：ショップを開く
+// ロビー：ショップを開く
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Lobby_OpenWeaponShop = function() {
-    var kouho = $_tona_shopWeaponList;
+Game_Interpreter.prototype.tona_lobby_openWeaponShop = function() {
+    var kouho = $tona_shopWeaponList;
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
         var weaponId = kouho[i];
-        if ($_tona_saveData.weaponAppearState[weaponId]) {
+        if ($tona_saveData.weaponAppearState[weaponId]) {
             goods.push([1, weaponId, 0, 0]);
         }
     }
@@ -312,13 +309,13 @@ Game_Interpreter.prototype._tona_Lobby_OpenWeaponShop = function() {
     SceneManager.prepareNextScene(goods, false);
 }
 
-Game_Interpreter.prototype._tona_Lobby_OpenArmorShop = function() {
-    var kouho = $_tona_shopArmorList;
+Game_Interpreter.prototype.tona_lobby_openArmorShop = function() {
+    var kouho = $tona_shopArmorList;
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
         var armorId = kouho[i];
-        if ($_tona_saveData.armorAppearState[armorId]) {
+        if ($tona_saveData.armorAppearState[armorId]) {
             goods.push([2, armorId, 0, 0]);
         }
     }
@@ -326,13 +323,13 @@ Game_Interpreter.prototype._tona_Lobby_OpenArmorShop = function() {
     SceneManager.prepareNextScene(goods, false);
 }
 
-Game_Interpreter.prototype._tona_Lobby_OpenItemShop = function() {
-    var kouho = $_tona_shopItemList;
+Game_Interpreter.prototype.tona_lobby_openItemShop = function() {
+    var kouho = $tona_shopItemList;
     var goods = [];
 
     for (var i = 0; i < kouho.length; i++) {
         var itemId = kouho[i];
-//        if ($_tona_saveData.itemAppearState[itemId]) {
+//        if ($tona_saveData.itemAppearState[itemId]) {
             goods.push([0, itemId, 0, 0]);
 //        }
     }
@@ -341,17 +338,17 @@ Game_Interpreter.prototype._tona_Lobby_OpenItemShop = function() {
 }
 
 // ****************************************************************************************************************************
-// クエスト：メニューを表示
+// ロビー：クエストメニューを表示
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype._tona_Quest_ShowMenu = function() {
+Game_Interpreter.prototype.tona_lobby_showQuestMenu = function() {
 	var resultList = [];
     var choices = [];
 
 	// クエスト解禁
-	for (let questId = $_tona_quest.length - 1; questId >= 1 ; questId--) {
-		var quest = $_tona_quest[questId];
-		if ($_tona_saveData.questAppearState[questId]) {
+	for (var questId = $tona_quest.length - 1; questId >= 1 ; questId--) {
+		var quest = $tona_quest[questId];
+		if ($tona_saveData.questAppearState[questId]) {
 		    choices.push(quest.name);		resultList.push(questId);
 		}
 	}
@@ -362,7 +359,7 @@ Game_Interpreter.prototype._tona_Quest_ShowMenu = function() {
     $gameMessage.setChoiceBackground(1);
     $gameMessage.setChoicePositionType(0);
     $gameMessage.setChoiceCallback(function(n) {
-        $_tona_result = resultList[n];
+        $tona_result = resultList[n];
     }.bind(this));
 
     this.setWaitMode('message');

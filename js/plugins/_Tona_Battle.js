@@ -1,520 +1,18 @@
 
 // ****************************************************************************************************************************
-// バトラー：物理攻撃のダメージ計算式（非幅ダメージ）
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype._tona_physicalDamage = function(target) {
-
-	// https://hyperwiki.jp/dq3rhd2d/damage-calc/
-
-	// 運の良さによるダメージ補正は無しにする
-
-	let atk = Math.min(this.atk, 850);
-	let def = target.def;
-	let rate = Math.random() * 0.2 + 0.9;
-	let base = atk * (1700 - atk) / 2000 * (1700 - def) / 2000 * 0.7 * rate;
-	let add = (atk - def) * (1700 - Math.max(atk, def)) / 2000 * 0.6;
-
-	return base + add;
-}
-
-// ****************************************************************************************************************************
-// バトラー：攻撃呪文のダメージ計算式
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype._tona_magicalDamage = function(target, min, max) {
-
-	// https://hyperwiki.jp/dq3rhd2d/damage-calc/
-
-	// 元の計算式はレベルごとに設定された基準を採用してるがやめる
-	// 代わりに、呪文ごとに設定された基準を採用する
-	// 「呪文ごとに設定された基準」= その呪文のダメージの中央値（つまりメラなら10程度）
-
-	let mat = this.mat;
-
-	let center = (min + max) / 2;
-	let rate = _tona_Limit(((mat - center) / 2 + center) / center, 1, 1.3);
-	let value = (max - min + 1) * Math.random() + min;
-
-	return value * rate;
-}
-
-// ****************************************************************************************************************************
-// バトラー：回復呪文のダメージ計算式
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype._tona_healDamage = function(target, min, max) {
-
-	let value = (max - min + 1) * Math.random() + min;
-
-	return value;
-}
-
-// ****************************************************************************************************************************
-// バトラー：範囲ダメージ計算式
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype._tona_rangeDamage = function(target, min, max) {
-
-	let value = (max - min + 1) * Math.random() + min;
-
-	return value;
-}
-
-// ****************************************************************************************************************************
-// バトラー：計算式のエイリアス（エディターで指定する計算式で使う）
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype.PD = function(target) {
-	return BattleManager._tona_physicalDamage(target);
-}
-
-Game_BattlerBase.prototype.MD = function(target, min, max) {
-	return BattleManager._tona_magicalDamage(target, min, max);
-}
-
-Game_BattlerBase.prototype.HD = function(target, min, max) {
-	return BattleManager._tona_healDamage(target, min, max);
-}
-
-Game_BattlerBase.prototype.RD = function(target, min, max) {
-	return BattleManager._tona_rangeDamage(target, min, max);
-}
-
-// ****************************************************************************************************************************
-// バトラー：パラメータ上昇・下降率を 25% → 50% に変更
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype.paramBuffRate = function(paramId) {
-
-	// やっぱり 25% でいいや…（リメイク計算式の都合）
-
-    switch (paramId) {
-    case 0:  return this._buffs[paramId] * 0.25 + 1.0;
-    case 1:  return this._buffs[paramId] * 0.25 + 1.0;
-    case 2:  return this._buffs[paramId] * 0.25 + 1.0;
-    case 3:  return this._buffs[paramId] * 0.25 + 1.0;
-    case 4:  return this._buffs[paramId] * 0.25 + 1.0;
-    case 5:  return this._buffs[paramId] * 0.25 + 1.0;
-    case 6:  return this._buffs[paramId] * 0.25 + 1.0;
-    case 7:  return this._buffs[paramId] * 0.25 + 1.0;
-    default: return this._buffs[paramId] * 0.25 + 1.0;
-    }
-};
-
-// ****************************************************************************************************************************
-// バトラー：ステートを与える
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype.addNewState = function(stateId) {
-    if (stateId === this.deathStateId()) {
-        this.die();
-    }
-	this._tona_eraseConflictState(stateId);		// 追加：衝突するステートを消去
-    var restricted = this.isRestricted();
-    this._states.push(stateId);
-    this.sortStates();
-    if (!restricted && this.isRestricted()) {
-        this.onRestrict();
-    }
-};
-
-// ****************************************************************************************************************************
-// バトラー：衝突するステートを解除する
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype._tona_eraseConflictState = function(stateId) {
-
-	var groups = [
-	];
-
-	for (var g = 0; g < groups.length; g++) {
-		if (groups[g].indexOf(stateId) >= 0) {
-			for (var i = 0; i < groups[g].length; i++) {
-				if (groups[g][i] != stateId) {
-					this.eraseState(groups[g][i]);
-				}
-			}
-		}
-	}
-}
-
-// ****************************************************************************************************************************
-// バトラー：ターン回復のバグを修正
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype.updateStateTurns = function(timing) {
-    for (const stateId of this._states) {
-        let state = $dataStates[stateId];
-        if (state.autoRemovalTiming === timing && this._stateTurns[stateId] > 0) {
-            this._stateTurns[stateId]--;
-        }
-    };
-};
-
-Game_Battler.prototype.onAllActionsEnd = function() {
-    this.clearResult();
-    this.updateStateTurns(1);
-    this.removeStatesAuto(1);
-    this.removeBuffsAuto();
-};
-
-Game_Battler.prototype.onTurnEnd = function() {
-    this.clearResult();
-    this.regenerateAll();
-    this.updateStateTurns(2);
-    this.updateBuffTurns();
-    this.removeStatesAuto(2);
-};
-
-// ****************************************************************************************************************************
-// バトラー：Hidden の判定にニフラム・バシルーラ状態を加える
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype.isHidden = function() {
-    return this._hidden || this.isStateAffected($_tona_Const_StateId_Nifuramu) || this.isStateAffected($_tona_Const_StateId_Bashiruura);
-};
-
-// ****************************************************************************************************************************
-// バトラー：受け流し状態を判定
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype._tona_isUkenagashi = function() {
-
-	return this._states.includes($_tona_Const_StateId_Ukenagashi) && this.canMove();
-};
-
-// ****************************************************************************************************************************
-// エネミー：アクションのターン条件がおかしかったので修正
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Enemy.prototype.meetsTurnCondition = function(param1, param2) {
-    var n = $gameTroop.turnCount();
-    if (param2 === 0) {
-        return n === param1;
-    } else {
-        return n >= 0 && n >= param1 && n % param2 === param1 % param2;
-    }
-};
-
-// ****************************************************************************************************************************
-// アクション：攻撃順位の決定方法をＤＱ３形式に変更
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.speed = function() {
-
-    if (this.item()) {
-        if (this.item().speed >= 1000) {         // 1000 以上の場合は必ず先行（防御・疾風突きなど）
-	        return this.item().speed;
-        }
-    }
-
-    let speed = this.subject().agi;
-
-    if (this.item()) {
-        speed += this.item().speed;
-    }
-    if (this.isAttack()) {
-        speed += this.subject().attackSpeed();
-    }
-
-    let x = 136;
-    for (let i = 0; i < 16; i++) {
-        x += Math.randomInt(32);
-    }
-    x %= 256;
-
-    speed = (speed + 20) * x / 256;
-
-    return speed;
-};
-
-// ****************************************************************************************************************************
-// アクション：グループ攻撃を判定
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype._tona_isForGroup = function() {
-
-	return this.item().meta._tona_groupRange != null;
-}
-
-// ****************************************************************************************************************************
-// アクション：グループ攻撃のターゲットをスムースに選ぶ
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype._tona_targetsForTroopSmoothGroup = function(troop) {
-
-	let target;
-	let targets = [];
-
-	// 単体の Smooth ターゲットを取得する
-    if (this._targetIndex < 0) {
-        target = troop.randomTarget();
-    } else {
-        target = troop.smoothTarget(this._targetIndex);
-    }
-
-	// 隣合う同じ種類の敵をターゲットに追加する
-	let targetIndex = target.index();
-	let targetEnemyId = target.enemyId();
-	let members = troop.members();
-
-	for (let i = targetIndex; i >= 0 && members[i].enemyId() === targetEnemyId; i--) {
-		if (members[i].isAlive()) {
-			targets.push(members[i]);
-		}
-	}
-	for (let i = targetIndex + 1; i < members.length && members[i].enemyId() === targetEnemyId; i++) {
-		if (members[i].isAlive()) {
-			targets.push(members[i]);
-		}
-	}
-	targets.sort((a, b) => a.index() - b.index());
-	return targets;
-}
-
-// ****************************************************************************************************************************
-// アクション：ターゲットの選択をグループ攻撃に対応
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.targetsForAlive = function(unit) {
-
-	// グループ攻撃は「敵単体」指定になっています
-	// コマンド時にターゲットを選択できるようにするためです
-	// なので isForOne の手前で判定します
-
-	// ★ここからグループ処理追加
-    if (this._tona_isForGroup()) {
-
-		// ターゲットが Troop のときのみ処理
-		if (unit === $gameTroop) {
-			return this._tona_targetsForTroopSmoothGroup(unit);
-		}
-		else {
-
-			// ターゲットが Party の場合は全員をターゲット
-			return unit.aliveMembers();
-		}
-	}
-
-	// ★ここから元の処理
-    else if (this.isForOne()) {
-
-        if (this._targetIndex < 0) {
-            return [unit.randomTarget()];
-        } else {
-            return [unit.smoothTarget(this._targetIndex)];
-        }
-    } else {
-        return unit.aliveMembers();
-    }
-};
-
-// ****************************************************************************************************************************
-// アクション：運の良さ補正値
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.lukEffectAdd = function(target) {
-    return (this.subject().luk - target.luk) * 0.001;
-};
-
-// ****************************************************************************************************************************
-// アクション：クリティカル率
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.itemCri = function(target) {
-
-	// 回避を基準に考える
-	if (this.item().damage.critical) {
-		let chance = 1 - this.subject().cri * (1 - target.cev);
-		if (chance < 1) {
-		    chance -= Math.max(this.lukEffectAdd(target), 0.0);		// ★引き算に変更
-			return 1 - chance;
-		}
-	}
-
-	return 0;
-};
-
-// ****************************************************************************************************************************
-// アクション：回避率（サブ）
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype._tona_itemEvaValue = function(target) {
-    if (this.isPhysical()) {
-        return target.eva;
-    } else if (this.isMagical()) {
-        return target.mev;
-    } else {
-        return 0;
-    }
-};
-
-// ****************************************************************************************************************************
-// アクション：回避率
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.itemEva = function(target) {
-
-	let chance = 1 - this._tona_itemEvaValue(target);
-	if (chance < 1) {
-	    chance += Math.min(this.lukEffectAdd(target), 0.0);		// ★足し算に変更
-		return 1 - chance;
-	}
-
-	return 0;
-};
-
-// ****************************************************************************************************************************
-// アクション：魔法反射率
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.itemMrf = function(target) {
-    if (this.isMagical()) {
-        if (target.states().map(function(state) {
-            return state.id;
-        }).contains($_tona_Const_StateId_Mahokanta)) {
-            return 1;
-        }
-        else {
-            return target.mrf;
-        }
-    } else {
-        return 0;
-    }
-};
-
-// ****************************************************************************************************************************
-// アクション：クリティカルを反映
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.applyCritical = function(target, value) {
-
-	// https://hyperwiki.jp/dq3rhd2d/damage-calc/
-
-	let subject = this.subject();
-	let atk = Math.min(subject.atk, 850);
-	let def = target.def;
-	let base = atk * (2000 - atk) / 2000 * 0.7 * 1.2;
-	let add = (atk - def) * (1700 - Math.max(atk, def)) / 2000 * 0.6;
-
-	return Math.max(value * 1.2, base + Math.max(0, add));
-}
-
-// ****************************************************************************************************************************
-// アクション：ダメージ計算
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.makeDamageValue = function(target, critical) {
-    const item = this.item();
-    const baseValue = this.evalDamageFormula(target);
-
-	// ダメージ倍率を求める
-	let rate = this.calcElementRate(target);
-    if (this.isPhysical()) {
-        rate *= target.pdr;
-    }
-    if (this.isMagical()) {
-        rate *= target.mdr;
-    }
-    if (baseValue < 0) {
-        rate *= target.rec;
-    }
-
-	// ダメージ倍率を適用
-	let value = baseValue * rate;
-
-	// ダメージ倍率が 0 でなく、ダメージが 1 以下の場合は 50% で 1 ダメージ
-	if (rate > 0 && value >= 0 && value < 1) {
-		value = Math.randomInt(2);
-	}
-
-	// ▲メタル系の処理
-
-	// クリティカルはこの後に計算（場合により属性などが上書きされる）
-    if (critical) {
-        value = this.applyCritical(value);
-    }
-
-    value = this.applyGuard(value, target);
-    value = Math.round(value);
-    return value;
-};
-
-// ****************************************************************************************************************************
-// アクション：状態異常を与える
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.itemEffectAddAttackState = function(target, effect) {
-    for (const stateId of this.subject().attackStates()) {
-        let chance = effect.value1;
-        chance *= target.stateRate(stateId);
-        chance *= this.subject().attackStatesRate(stateId);
-        chance += Math.min(this.lukEffectAdd(target), 0.0);		// ★足し算に変更
-        if (Math.random() < chance) {
-            target.addState(stateId);
-            this.makeSuccess(target);
-        }
-    }
-};
-
-Game_Action.prototype.itemEffectAddNormalState = function(target, effect) {
-    let chance = effect.value1;
-    if (!this.isCertainHit()) {
-        chance *= target.stateRate(effect.dataId);
-        chance += Math.min(this.lukEffectAdd(target), 0.0);		// ★足し算に変更
-    }
-    if (Math.random() < chance) {
-        target.addState(effect.dataId);
-        this.makeSuccess(target);
-    }
-};
-
-Game_Action.prototype.itemEffectAddDebuff = function(target, effect) {
-	let change = 1;
-    chance *= target.debuffRate(effect.dataId);
-    chance += Math.min(this.lukEffectAdd(target), 0.0);			// ★足し算に変更
-    if (Math.random() < chance) {
-        target.addDebuff(effect.dataId, effect.value1);
-        this.makeSuccess(target);
-    }
-};
-
-// ****************************************************************************************************************************
-// アクション：開始処理
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.applyGlobal = function() {
-    for (const effect of this.item().effects) {
-        if (effect.code === Game_Action.EFFECT_COMMON_EVENT) {
-            $gameTemp.reserveCommonEvent(effect.dataId);
-        }
-    }
-    this.updateLastUsed();
-    this.updateLastSubject();
-
-    // ★ここから追加
-    if (this.isSkill()) {
-        if (this.item().meta._tona_callEnemy != null) {
-			this._tona_CallEnemy_Start(parseInt(this.item().meta._tona_callEnemy));
-        }
-    }
-}
-
-// ****************************************************************************************************************************
 // バトル：仲間呼び
 // ----------------------------------------------------------------------------------------------------------------------------
 
-var $_tona_Battle_CallEnemyTemorary = 0;
+var $tona_battle_callEnemyTemorary = 0;
 
-function _tona_Battle_CallEnemyTemorary() {
+function tona_battle_callEnemyTemorary() {
     this.enemyId = 0;
     this.enemyIdList = 0;
     this.enemyBitmap = 0;
     this.intervalId = 0;
 };
 
-Game_Action.prototype._tona_CallEnemy_Start = function(param) {
+Game_Action.prototype.tona_callEnemy_start = function(param) {
     var subject = BattleManager._subject;
     if (subject instanceof Game_Enemy) {
 
@@ -522,19 +20,19 @@ Game_Action.prototype._tona_CallEnemy_Start = function(param) {
         BattleManager._logWindow._waitCount = 100000;
         if ((typeof param) === 'number') {
             var enemyId = param > 0 ? param : subject._enemyId;
-            $_tona_Battle_CallEnemyTemorary = new _tona_Battle_CallEnemyTemorary();
-            $_tona_Battle_CallEnemyTemorary.enemyId = enemyId;
-            $_tona_Battle_CallEnemyTemorary.enemyIdList = [];
-            $_tona_Battle_CallEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
-            $_tona_Battle_CallEnemyTemorary.intervalId = setInterval("_tona_Battle_CallEnemy_Update()", 30);
+            $tona_battle_callEnemyTemorary = new tona_battle_callEnemyTemorary();
+            $tona_battle_callEnemyTemorary.enemyId = enemyId;
+            $tona_battle_callEnemyTemorary.enemyIdList = [];
+            $tona_battle_callEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
+            $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_Battle_CallEnemy_Update()", 30);
         }
         else if (param.length > 0) {
             var enemyId = param[0];
-            $_tona_Battle_CallEnemyTemorary = new _tona_Battle_CallEnemyTemorary();
-            $_tona_Battle_CallEnemyTemorary.enemyId = enemyId;
-            $_tona_Battle_CallEnemyTemorary.enemyIdList = param.slice(1);
-            $_tona_Battle_CallEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
-            $_tona_Battle_CallEnemyTemorary.intervalId = setInterval("_tona_Battle_CallEnemy_Update()", 30);
+            $tona_battle_callEnemyTemorary = new tona_battle_callEnemyTemorary();
+            $tona_battle_callEnemyTemorary.enemyId = enemyId;
+            $tona_battle_callEnemyTemorary.enemyIdList = param.slice(1);
+            $tona_battle_callEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
+            $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_Battle_CallEnemy_Update()", 30);
         }
         else {
             console.log("仲間呼びに失敗");
@@ -542,19 +40,19 @@ Game_Action.prototype._tona_CallEnemy_Start = function(param) {
     }
 }
 
-function _tona_Battle_CallEnemy_Update() {
+function tona_battle_callEnemy_update() {
 
     // 読み込みが終わっていない場合は何もしない
-    if (!($_tona_Battle_CallEnemyTemorary.enemyBitmap.width > 0)) {
+    if (!($tona_battle_callEnemyTemorary.enemyBitmap.width > 0)) {
         return;
     }
 
-    var dataEnemy = $dataEnemies[$_tona_Battle_CallEnemyTemorary.enemyId];
+    var dataEnemy = $dataEnemies[$tona_battle_callEnemyTemorary.enemyId];
 
     var resultX = -1;
     var resultY = 436;
-    var resultY = 436 - (dataEnemy.meta._tona_pos_y != null ? dataEnemy.meta._tona_pos_y : 0);
-    var enemySprite = $_tona_Battle_CallEnemyTemorary.enemyBitmap;
+    var resultY = 436 - (dataEnemy.meta.tona_pos_y != null ? dataEnemy.meta.tona_pos_y : 0);
+    var enemySprite = $tona_battle_callEnemyTemorary.enemyBitmap;
 
     // 現在のエネミーの配置を調べる
     var poses = [[0, 0]];
@@ -587,11 +85,11 @@ function _tona_Battle_CallEnemy_Update() {
     // 配置できた場合
     if (resultX >= 0) {
         // エネミーデータを追加
-        $dataTroops[$_tona_Const_TroopId_RandomEnemy].members.push(
-            { "enemyId": $_tona_Battle_CallEnemyTemorary.enemyId, "x": resultX, "y": resultY, "hidden": false }
+        $dataTroops[$tona_TroopId_RandomEnemy].members.push(
+            { "enemyId": $tona_battle_callEnemyTemorary.enemyId, "x": resultX, "y": resultY, "hidden": false }
         );
         // エネミーをセットアップ
-        var enemy = new Game_Enemy($_tona_Battle_CallEnemyTemorary.enemyId, resultX, resultY);
+        var enemy = new Game_Enemy($tona_battle_callEnemyTemorary.enemyId, resultX, resultY);
         $gameTroop._enemies.push(enemy);
         $gameTroop.makeUniqueNames();
         // スプライトを追加
@@ -601,24 +99,24 @@ function _tona_Battle_CallEnemy_Update() {
     }
 
     // まだ呼ぶべきエネミーがいる場合
-    if ($_tona_Battle_CallEnemyTemorary.enemyIdList.length > 0) {
-        var enemyId = $_tona_Battle_CallEnemyTemorary.enemyId;
-        $_tona_Battle_CallEnemyTemorary.enemyId = $_tona_Battle_CallEnemyTemorary.enemyIdList[0];
-        $_tona_Battle_CallEnemyTemorary.enemyIdList = $_tona_Battle_CallEnemyTemorary.enemyIdList.slice(1);
-        $_tona_Battle_CallEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
+    if ($tona_battle_callEnemyTemorary.enemyIdList.length > 0) {
+        var enemyId = $tona_battle_callEnemyTemorary.enemyId;
+        $tona_battle_callEnemyTemorary.enemyId = $tona_battle_callEnemyTemorary.enemyIdList[0];
+        $tona_battle_callEnemyTemorary.enemyIdList = $tona_battle_callEnemyTemorary.enemyIdList.slice(1);
+        $tona_battle_callEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
     }
     // もうエネミーがいない場合
     else {
         // ウェイト終了
         BattleManager._logWindow._waitCount = 0;
-        clearInterval($_tona_Battle_CallEnemyTemorary.intervalId);
+        clearInterval($tona_battle_callEnemyTemorary.intervalId);
         // テンポラリを削除
-        $_tona_Battle_CallEnemyTemorary = 0;
+        $tona_battle_callEnemyTemorary = 0;
     }
 };
 
 // ****************************************************************************************************************************
-// バトル：身代わり
+// バトル：身代わりや受け流しによる対象移動
 // ----------------------------------------------------------------------------------------------------------------------------
 
 BattleManager.applySubstitute = function(target) {
@@ -634,22 +132,22 @@ BattleManager.applySubstitute = function(target) {
     }
 
 	// 受け流し
-	if (target._tona_isUkenagashi()) {
+	if (target.tona_isUkenagashi()) {
 		const rand = Math.randomInt(8);
 
 		// 5/8 で敵に受け流し
 		if (rand < 5) {
-	        var substitute = target.opponentsUnit()._tona_ukenagashiBattler(target);
+	        var substitute = target.opponentsUnit().tona_ukenagashiBattler(target);
 	        if (substitute && target !== substitute) {
-	            this._logWindow._tona_displayUkenagashi(substitute, target);
+	            this._logWindow.tona_displayUkenagashi(substitute, target);
 	            return substitute;
 	        }
 	    }
 		// 2/8 で味方に受け流し
 		else if (rand < 7) {
-	        var substitute = target.friendsUnit()._tona_ukenagashiBattler(target);
+	        var substitute = target.friendsUnit().tona_ukenagashiBattler(target);
 	        if (substitute && target !== substitute) {
-	            this._logWindow._tona_displayUkenagashi(substitute, target);
+	            this._logWindow.tona_displayUkenagashi(substitute, target);
 	            return substitute;
 	        }
 	    }
@@ -657,6 +155,10 @@ BattleManager.applySubstitute = function(target) {
 
     return target;
 };
+
+// ****************************************************************************************************************************
+// バトル：身代わりが発動するアクションかどうか判定（Game_Action に入れるべきでは？）
+// ----------------------------------------------------------------------------------------------------------------------------
 
 BattleManager.checkSubstitute = function(target) {
 
@@ -668,52 +170,17 @@ BattleManager.checkSubstitute = function(target) {
     return target.isDying() && this._action.isForOpponent() && (this._action.isForOne() || this._action.isForRandom());
 };
 
-Game_Unit.prototype.substituteBattler = function(target) {
-
-	// かばう候補に自分が入ってたので修正
-
-    var members = this.members();
-    for (var i = 0; i < members.length; i++) {
-        if (members[i] !== target && members[i].isSubstitute()) {
-            return members[i];
-        }
-    }
-    return null;
-};
-
 // ****************************************************************************************************************************
-// バトル：受け流し
+// ウィンドウ：受け流し結果を表示
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Unit.prototype._tona_ukenagashiBattler = function(target) {
-
-    var members = this.members().filter(member => member !== target && member.isAlive());
-	if (members.length > 0) {
-		return members[Math.randomInt(members.length)];
-	}
-
-    return null;
-};
-
-Window_BattleLog.prototype._tona_displayUkenagashi = function(substitute, target) {
+Window_BattleLog.prototype.tona_displayUkenagashi = function(substitute, target) {
     const targetName = target.name();
     const text = targetName + "は攻撃を受け流した！";
     this.push("performSubstitute", substitute, target);
     this.push("addText", text);
 };
 
-// ****************************************************************************************************************************
-// トループ：もらえる経験値
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Troop.prototype.expTotal = function() {
-
-	// パーティー人数で分割
-
-    return Math.ceil(this.deadMembers().reduce(function(r, enemy) {
-        return r + enemy.exp();
-    }, 0) / $gameParty.size());
-};
 
 
 

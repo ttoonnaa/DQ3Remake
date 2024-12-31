@@ -3,146 +3,146 @@
 // データベースを作成する
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_CreateDatabase() {
+function tona_createDatabase() {
 
-	$_tona_Name = [];
-	$_tona_Name[1] = { name: "ソラ" };
-	$_tona_Name[2] = { name: "ロボコ" };
-	$_tona_Name[3] = { name: "ミコ" };
-	$_tona_Name[4] = { name: "スイセイ" };
-	$_tona_Name[5] = { name: "アズキ" };
-	$_tona_Name[6] = { name: "メル" };
-	$_tona_Name[7] = { name: "アキ" };
-	$_tona_Name[8] = { name: "ハアト" };
-	$_tona_Name[9] = { name: "フブキ" };
-	$_tona_Name[10] = { name: "マツリ" };
-	$_tona_Name[11] = { name: "コロネ" };
-	$_tona_Name[12] = { name: "オカユ" };
-	$_tona_Name[13] = { name: "ミオ" };
-	$_tona_Name[14] = { name: "アクア" };
-	$_tona_Name[15] = { name: "シオン" };
-	$_tona_Name[16] = { name: "アヤメ" };
-	$_tona_Name[17] = { name: "チョコ" };
-	$_tona_Name[18] = { name: "スバル" };
-	$_tona_Name[19] = { name: "ペコラ" };
-	$_tona_Name[20] = { name: "マリン" };
-	$_tona_Name[21] = { name: "ノエル" };
-	$_tona_Name[22] = { name: "フレア" };
-	$_tona_Name[23] = { name: "カナタ" };
-	$_tona_Name[24] = { name: "トワ" };
-	$_tona_Name[25] = { name: "ワタメ" };
-	$_tona_Name[26] = { name: "ルーナ" };
-	$_tona_Name[27] = { name: "ラミィ" };
-	$_tona_Name[28] = { name: "ポルカ" };
-	$_tona_Name[29] = { name: "ボタン" };
-	$_tona_Name[30] = { name: "ネネ" };
-	$_tona_Name[31] = { name: "ラプラス" };
-	$_tona_Name[32] = { name: "ルイ" };
-	$_tona_Name[33] = { name: "コヨリ" };
-	$_tona_Name[34] = { name: "クロエ" };
-	$_tona_Name[35] = { name: "イロハ" };
+	$tona_name = [];
+	$tona_name[1] = { name: "ソラ" };
+	$tona_name[2] = { name: "ロボコ" };
+	$tona_name[3] = { name: "ミコ" };
+	$tona_name[4] = { name: "スイセイ" };
+	$tona_name[5] = { name: "アズキ" };
+	$tona_name[6] = { name: "メル" };
+	$tona_name[7] = { name: "アキ" };
+	$tona_name[8] = { name: "ハアト" };
+	$tona_name[9] = { name: "フブキ" };
+	$tona_name[10] = { name: "マツリ" };
+	$tona_name[11] = { name: "コロネ" };
+	$tona_name[12] = { name: "オカユ" };
+	$tona_name[13] = { name: "ミオ" };
+	$tona_name[14] = { name: "アクア" };
+	$tona_name[15] = { name: "シオン" };
+	$tona_name[16] = { name: "アヤメ" };
+	$tona_name[17] = { name: "チョコ" };
+	$tona_name[18] = { name: "スバル" };
+	$tona_name[19] = { name: "ペコラ" };
+	$tona_name[20] = { name: "マリン" };
+	$tona_name[21] = { name: "ノエル" };
+	$tona_name[22] = { name: "フレア" };
+	$tona_name[23] = { name: "カナタ" };
+	$tona_name[24] = { name: "トワ" };
+	$tona_name[25] = { name: "ワタメ" };
+	$tona_name[26] = { name: "ルーナ" };
+	$tona_name[27] = { name: "ラミィ" };
+	$tona_name[28] = { name: "ポルカ" };
+	$tona_name[29] = { name: "ボタン" };
+	$tona_name[30] = { name: "ネネ" };
+	$tona_name[31] = { name: "ラプラス" };
+	$tona_name[32] = { name: "ルイ" };
+	$tona_name[33] = { name: "コヨリ" };
+	$tona_name[34] = { name: "クロエ" };
+	$tona_name[35] = { name: "イロハ" };
 
-	$_tona_Face = [];
-	$_tona_Face[1] = { name: "_Chara001", index: 0 };
-	$_tona_Face[2] = { name: "_Chara002", index: 0 };
-	$_tona_Face[3] = { name: "_Chara003", index: 0 };
-	$_tona_Face[4] = { name: "_Chara004", index: 0 };
-	$_tona_Face[5] = { name: "_Chara005", index: 0 };
-	$_tona_Face[6] = { name: "_Chara006", index: 0 };
-	$_tona_Face[7] = { name: "_Chara007", index: 0 };
-	$_tona_Face[8] = { name: "_Chara008", index: 0 };
-	$_tona_Face[9] = { name: "_Chara009", index: 0 };
-	$_tona_Face[10] = { name: "_Chara010", index: 0 };
-	$_tona_Face[11] = { name: "_Chara011", index: 0 };
-	$_tona_Face[12] = { name: "_Chara012", index: 0 };
-	$_tona_Face[13] = { name: "_Chara013", index: 0 };
-	$_tona_Face[14] = { name: "_Chara014", index: 0 };
-	$_tona_Face[15] = { name: "_Chara015", index: 0 };
-	$_tona_Face[16] = { name: "_Chara016", index: 0 };
-	$_tona_Face[17] = { name: "_Chara017", index: 0 };
-	$_tona_Face[18] = { name: "_Chara018", index: 0 };
+	$tona_face = [];
+	$tona_face[1] = { name: "_Chara001", index: 0 };
+	$tona_face[2] = { name: "_Chara002", index: 0 };
+	$tona_face[3] = { name: "_Chara003", index: 0 };
+	$tona_face[4] = { name: "_Chara004", index: 0 };
+	$tona_face[5] = { name: "_Chara005", index: 0 };
+	$tona_face[6] = { name: "_Chara006", index: 0 };
+	$tona_face[7] = { name: "_Chara007", index: 0 };
+	$tona_face[8] = { name: "_Chara008", index: 0 };
+	$tona_face[9] = { name: "_Chara009", index: 0 };
+	$tona_face[10] = { name: "_Chara010", index: 0 };
+	$tona_face[11] = { name: "_Chara011", index: 0 };
+	$tona_face[12] = { name: "_Chara012", index: 0 };
+	$tona_face[13] = { name: "_Chara013", index: 0 };
+	$tona_face[14] = { name: "_Chara014", index: 0 };
+	$tona_face[15] = { name: "_Chara015", index: 0 };
+	$tona_face[16] = { name: "_Chara016", index: 0 };
+	$tona_face[17] = { name: "_Chara017", index: 0 };
+	$tona_face[18] = { name: "_Chara018", index: 0 };
 
 	// [HP、MP、力、守、魔、体、速、運]
 
-	$_tona_Personality = [];
-	$_tona_Personality[1] = { name: "あたまでっかち", params: [0,0,-1,1,2,-1,0,-2] };
-	$_tona_Personality[2] = { name: "あまえんぼう", params: [0,0,-1,-2,0,-1,0,1] };
-	$_tona_Personality[3] = { name: "いくじなし", params: [0,0,-1,-2,2,-1,-2,2] };
-	$_tona_Personality[4] = { name: "いっぴきおおかみ", params: [0,0,1,2,1,2,1,-2] };
-	$_tona_Personality[5] = { name: "いのちしらず", params: [0,0,1,-3,0,2,2,1] };
-	$_tona_Personality[6] = { name: "うっかりもの", params: [0,0,-1,-1,-2,0,2,-2] };
-	$_tona_Personality[7] = { name: "おおぐらい", params: [0,0,1,2,-3,1,-3,-2] };
-	$_tona_Personality[8] = { name: "おせっかい", params: [0,0,0,0,-2,1,-1,0] };
-	$_tona_Personality[9] = { name: "おちょうしもの", params: [0,0,0,0,1,-1,2,1] };
-	$_tona_Personality[10] = { name: "おっちょこちょい", params: [0,0,-1,0,-2,-2,2,-1] };
-	$_tona_Personality[11] = { name: "がんこもの", params: [0,0,1,2,-3,2,-3,-2] };
-	$_tona_Personality[12] = { name: "がんばりや", params: [0,0,1,1,0,1,-1,-2] };
-	$_tona_Personality[13] = { name: "きれもの", params: [0,0,0,-1,3,-2,2,-2] };
-	$_tona_Personality[14] = { name: "くろうにん", params: [0,0,1,2,-1,2,-2,-2] };
-	$_tona_Personality[15] = { name: "ごうけつ", params: [0,0,3,0,-2,0,-2,-2] };
-	$_tona_Personality[16] = { name: "さびしがりや", params: [0,0,0,-2,1,-2,-1,1] };
-	$_tona_Personality[17] = { name: "しあわせもの", params: [0,0,-1,-1,0,-1,0,2] };
-	$_tona_Personality[18] = { name: "しょうじきもの", params: [0,0,0,0,0,0,-1,-1] };
-	$_tona_Personality[19] = { name: "ずのうめいせき", params: [0,0,-1,-1,2,0,0,-1] };
-	$_tona_Personality[20] = { name: "すばしっこい", params: [0,0,-1,-1,0,-1,2,-2] };
-	$_tona_Personality[21] = { name: "セクシーギャル", params: [0,0,1,0,1,1,2,2] };
-	$_tona_Personality[22] = { name: "せけんしらず", params: [0,0,0,-2,-2,-1,-1,2] };
-	$_tona_Personality[23] = { name: "タフネス", params: [0,0,2,2,-2,3,-1,-2] };
-	$_tona_Personality[24] = { name: "ちからじまん", params: [0,0,2,-1,-2,0,-2,-2] };
-	$_tona_Personality[25] = { name: "つよき", params: [0,0,2,1,-2,0,-1,-2] };
-	$_tona_Personality[26] = { name: "てつじん", params: [0,0,1,3,0,2,-2,-2] };
-	$_tona_Personality[27] = { name: "でんこうせっか", params: [0,0,0,-1,0,0,3,0] };
-	$_tona_Personality[28] = { name: "なきむし", params: [0,0,-1,-2,1,0,-1,2] };
-	$_tona_Personality[29] = { name: "なまけもの", params: [0,0,1,-2,-2,2,-3,1] };
-	$_tona_Personality[30] = { name: "ぬけめがない", params: [0,0,-1,1,2,-1,1,0] };
-	$_tona_Personality[31] = { name: "ねっけつ", params: [0,0,1,2,-1,1,0,-3] };
-	$_tona_Personality[32] = { name: "のんきもの", params: [0,0,0,1,0,1,-2,0] };
-	$_tona_Personality[33] = { name: "ひっこみじあん", params: [0,0,1,-2,1,2,-3,-1] };
-	$_tona_Personality[34] = { name: "ひねくれもの", params: [0,0,-2,1,1,-2,2,2] };
-	$_tona_Personality[35] = { name: "ふつう", params: [0,0,0,0,0,0,0,0] };
-	$_tona_Personality[36] = { name: "ブルジョワ", params: [0,0,0,-2,1,-1,-2,3] };
-	$_tona_Personality[37] = { name: "へこたれない", params: [0,0,0,-1,-1,2,0,0] };
-	$_tona_Personality[38] = { name: "まけずぎらい", params: [0,0,-1,0,-1,1,1,-1] };
-	$_tona_Personality[39] = { name: "みえっぱり", params: [0,0,1,1,0,-1,1,-1] };
-	$_tona_Personality[40] = { name: "むっつりスケベ", params: [0,0,1,1,1,2,-1,-1] };
-	$_tona_Personality[41] = { name: "やさしいひと", params: [0,0,1,1,1,1,-1,-1] };
-	$_tona_Personality[42] = { name: "ラッキーパーソン", params: [0,0,0,0,0,0,1,3] };
-	$_tona_Personality[43] = { name: "らんぼうもの", params: [0,0,2,1,-3,-1,-1,-2] };
-	$_tona_Personality[44] = { name: "ロマンチスト", params: [0,0,0,-1,1,0,1,0] };
-	$_tona_Personality[45] = { name: "わがまま", params: [0,0,-1,-1,-1,-1,1,-1] };
-	$_tona_Personality[46] = { name: "わんぱく", params: [0,0,1,-2,-2,-2,1,-1] };
+	$tona_personality = [];
+	$tona_personality[1] = { name: "あたまでっかち", params: [0,0,-1,1,2,-1,0,-2] };
+	$tona_personality[2] = { name: "あまえんぼう", params: [0,0,-1,-2,0,-1,0,1] };
+	$tona_personality[3] = { name: "いくじなし", params: [0,0,-1,-2,2,-1,-2,2] };
+	$tona_personality[4] = { name: "いっぴきおおかみ", params: [0,0,1,2,1,2,1,-2] };
+	$tona_personality[5] = { name: "いのちしらず", params: [0,0,1,-3,0,2,2,1] };
+	$tona_personality[6] = { name: "うっかりもの", params: [0,0,-1,-1,-2,0,2,-2] };
+	$tona_personality[7] = { name: "おおぐらい", params: [0,0,1,2,-3,1,-3,-2] };
+	$tona_personality[8] = { name: "おせっかい", params: [0,0,0,0,-2,1,-1,0] };
+	$tona_personality[9] = { name: "おちょうしもの", params: [0,0,0,0,1,-1,2,1] };
+	$tona_personality[10] = { name: "おっちょこちょい", params: [0,0,-1,0,-2,-2,2,-1] };
+	$tona_personality[11] = { name: "がんこもの", params: [0,0,1,2,-3,2,-3,-2] };
+	$tona_personality[12] = { name: "がんばりや", params: [0,0,1,1,0,1,-1,-2] };
+	$tona_personality[13] = { name: "きれもの", params: [0,0,0,-1,3,-2,2,-2] };
+	$tona_personality[14] = { name: "くろうにん", params: [0,0,1,2,-1,2,-2,-2] };
+	$tona_personality[15] = { name: "ごうけつ", params: [0,0,3,0,-2,0,-2,-2] };
+	$tona_personality[16] = { name: "さびしがりや", params: [0,0,0,-2,1,-2,-1,1] };
+	$tona_personality[17] = { name: "しあわせもの", params: [0,0,-1,-1,0,-1,0,2] };
+	$tona_personality[18] = { name: "しょうじきもの", params: [0,0,0,0,0,0,-1,-1] };
+	$tona_personality[19] = { name: "ずのうめいせき", params: [0,0,-1,-1,2,0,0,-1] };
+	$tona_personality[20] = { name: "すばしっこい", params: [0,0,-1,-1,0,-1,2,-2] };
+	$tona_personality[21] = { name: "セクシーギャル", params: [0,0,1,0,1,1,2,2] };
+	$tona_personality[22] = { name: "せけんしらず", params: [0,0,0,-2,-2,-1,-1,2] };
+	$tona_personality[23] = { name: "タフネス", params: [0,0,2,2,-2,3,-1,-2] };
+	$tona_personality[24] = { name: "ちからじまん", params: [0,0,2,-1,-2,0,-2,-2] };
+	$tona_personality[25] = { name: "つよき", params: [0,0,2,1,-2,0,-1,-2] };
+	$tona_personality[26] = { name: "てつじん", params: [0,0,1,3,0,2,-2,-2] };
+	$tona_personality[27] = { name: "でんこうせっか", params: [0,0,0,-1,0,0,3,0] };
+	$tona_personality[28] = { name: "なきむし", params: [0,0,-1,-2,1,0,-1,2] };
+	$tona_personality[29] = { name: "なまけもの", params: [0,0,1,-2,-2,2,-3,1] };
+	$tona_personality[30] = { name: "ぬけめがない", params: [0,0,-1,1,2,-1,1,0] };
+	$tona_personality[31] = { name: "ねっけつ", params: [0,0,1,2,-1,1,0,-3] };
+	$tona_personality[32] = { name: "のんきもの", params: [0,0,0,1,0,1,-2,0] };
+	$tona_personality[33] = { name: "ひっこみじあん", params: [0,0,1,-2,1,2,-3,-1] };
+	$tona_personality[34] = { name: "ひねくれもの", params: [0,0,-2,1,1,-2,2,2] };
+	$tona_personality[35] = { name: "ふつう", params: [0,0,0,0,0,0,0,0] };
+	$tona_personality[36] = { name: "ブルジョワ", params: [0,0,0,-2,1,-1,-2,3] };
+	$tona_personality[37] = { name: "へこたれない", params: [0,0,0,-1,-1,2,0,0] };
+	$tona_personality[38] = { name: "まけずぎらい", params: [0,0,-1,0,-1,1,1,-1] };
+	$tona_personality[39] = { name: "みえっぱり", params: [0,0,1,1,0,-1,1,-1] };
+	$tona_personality[40] = { name: "むっつりスケベ", params: [0,0,1,1,1,2,-1,-1] };
+	$tona_personality[41] = { name: "やさしいひと", params: [0,0,1,1,1,1,-1,-1] };
+	$tona_personality[42] = { name: "ラッキーパーソン", params: [0,0,0,0,0,0,1,3] };
+	$tona_personality[43] = { name: "らんぼうもの", params: [0,0,2,1,-3,-1,-1,-2] };
+	$tona_personality[44] = { name: "ロマンチスト", params: [0,0,0,-1,1,0,1,0] };
+	$tona_personality[45] = { name: "わがまま", params: [0,0,-1,-1,-1,-1,1,-1] };
+	$tona_personality[46] = { name: "わんぱく", params: [0,0,1,-2,-2,-2,1,-1] };
 
 	// 性格のパラメーターを実際に値に修正する
 
-	for (var i = 1; i <= 46; i++) {
-		for (var p = 0; p < 9; p++) {
-			switch ($_tona_Personality[i][p]) {
-			case -3:	$_tona_Personality[i][p] = -6;
-			case -2:	$_tona_Personality[i][p] = -3;
-			case -1:	$_tona_Personality[i][p] = 0;
-			case  0:	$_tona_Personality[i][p] = 0;
-			case  1:	$_tona_Personality[i][p] = 3;
-			case  2:	$_tona_Personality[i][p] = 6;
-			case  3:	$_tona_Personality[i][p] = 9;
+	for (var i = 1; i < $tona_personality.length; i++) {
+		for (var p = 0; p < 8; p++) {
+			switch ($tona_personality[i].params[p]) {
+			case -3:	$tona_personality[i].params[p] = -6;
+			case -2:	$tona_personality[i].params[p] = -3;
+			case -1:	$tona_personality[i].params[p] = 0;
+			case  0:	$tona_personality[i].params[p] = 0;
+			case  1:	$tona_personality[i].params[p] = 3;
+			case  2:	$tona_personality[i].params[p] = 6;
+			case  3:	$tona_personality[i].params[p] = 9;
 			}
 		}
 	}
 
 	// クエスト
-	_tona_CreateQuestDatabase();
+	tona_createQuestDatabase();
 
 	// エネミー
-	_tona_CreateEnemyDatabase();
+	tona_createEnemyDatabase();
 
 	// ショップ
-	_tona_CreateShopDatabase();
+	tona_createShopDatabase();
 }
 
 // ****************************************************************************************************************************
 // データベースを作成する：クエスト
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_CreateQuestDatabase() {
+function tona_createQuestDatabase() {
 
     var quests = [];
 	var hagureFull = [];
@@ -178,7 +178,7 @@ function _tona_CreateQuestDatabase() {
 	quests[12] = { name: "イシス周辺", level: 12, waves: [], levelResult: 13 };
 
 	// レベルから Gold を設定
-	for (var questId in quests) {
+	for (var questId = 1; questId < quests.length; questId++) {
 		var quest = quests[questId];
 		for (var waveId = 1; waveId < quest.waves.length; waveId++) {
 			var wave = quest.waves[waveId];
@@ -188,16 +188,16 @@ function _tona_CreateQuestDatabase() {
 		}
 	}
 
-	$_tona_quest = quests;
+	$tona_quest = quests;
 }
 
 // ****************************************************************************************************************************
 // データベースを作成する：エネミー
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_CreateEnemyDatabase() {
+function tona_createEnemyDatabase() {
 
-	let enemies = [];
+	var enemies = [];
 
 	// リメイク攻略本の順に並べます
 
@@ -234,23 +234,23 @@ function _tona_CreateEnemyDatabase() {
 
 	//enemies[99]  = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,3,3,3,3,3,3,3], regist2: [3,3,3,3,3,3,3,3,3] };	// 
 
-	$_tona_enemy = enemies;
+	$tona_enemy = enemies;
 }
 
 // ****************************************************************************************************************************
 // データベースを作成する：ショップ
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_CreateShopDatabase() {
+function tona_createShopDatabase() {
 
-	$_tona_shopWeaponList = [
+	$tona_shopWeaponList = [
 		 71,  72,  27,   1,  28,  54,  55,  39,  21,  31,
 		 56,   3,  45,  41,   2,  22,  17,  73,  43,  76,
 		 58,  33,  23,  74,  59,  42,  18,  75,   5,  52,
 		 24,  60,  34,  35,  47,  10,  13,  11,
 	];
 
-	$_tona_shopArmorList = [
+	$tona_shopArmorList = [
 		116, 117, 138, 101, 102, 103, 104, 139, 144, 118,
 		119, 105, 106, 121, 129, 107, 127, 124, 146, 109,
 		110, 130, 112,
@@ -260,7 +260,7 @@ function _tona_CreateShopDatabase() {
 		 52,  54,  56,  57,  58,  79,
 	];
 
-	$_tona_shopItemList = [
+	$tona_shopItemList = [
 		11,
 	];
 }
@@ -269,29 +269,29 @@ function _tona_CreateShopDatabase() {
 // データベースを上書きする
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_OverrideDatabase(object) {
+function tona_overrideDatabase(object) {
 
     if (false) {}
 
 	// アクター
 	//else if (object === $dataActors) {
-    //    _tona_OverrideActorDatabase();
+    //    tona_overrideActorDatabase();
     //}
 	// エネミー
 	else if (object === $dataEnemies) {
-        _tona_OverrideEnemyDatabase();
+        tona_overrideEnemyDatabase();
     }
     // クラス
 	else if (object === $dataClasses) {
-        _tona_OverrideClassDatabase();
+        tona_overrideClassDatabase();
     }
     // 武器
 	else if (object === $dataWeapons) {
-        _tona_OverrideWeaponDatabase();
+        tona_overrideWeaponDatabase();
     }
     // 防具
 	else if (object === $dataArmors) {
-        _tona_OverrideArmorDatabase();
+        tona_overrideArmorDatabase();
     }
 }
 
@@ -299,60 +299,60 @@ function _tona_OverrideDatabase(object) {
 // エネミーのデータベースを上書き
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_OverrideEnemyDatabase() {
+function tona_overrideEnemyDatabase() {
 
     var attrRate = [0, 10, 70, 100, 130, 160];
     var statRate = [0, 0, 30, 70, 100, 100];
 
-	for (var i = 1; i < $_tona_enemy.length; i++) {
-		var tonaEnemy = $_tona_enemy[i];
+	for (var i = 1; i < $tona_enemy.length; i++) {
+		var enemy = $tona_enemy[i];
 
 		// レベルを設定する
-		$dataEnemies[i]._tona_level = parseInt($dataEnemies[i].meta._tona_level);
+		$dataEnemies[i].tona_level = tona_toNum($dataEnemies[i].meta.tona_level);
 
 		// 守備力を調整する
 		$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 2 / 3);
 
 		// 運の良さを設定する
-		$dataEnemies[i].params[7] = Math.floor($dataEnemies[i]._tona_level * 2.5);
+		$dataEnemies[i].params[7] = Math.floor($dataEnemies[i].tona_level * 2.5);
 
 		// 経験値を調整する
-		$dataEnemies[i].gold = Math.ceil($dataEnemies[i].gold / 2);
+		$dataEnemies[i].exp = Math.ceil($dataEnemies[i].exp / 8);
 
 		// 特徴を設定する
 		$dataEnemies[i].traits = [];
 	    $dataEnemies[i].traits.push({ "code": 31, "dataId":  1, "value": 0 });				// 攻撃持続性：物理
 	    $dataEnemies[i].traits.push({ "code": 22, "dataId":  0, "value": 1 });				// 命中率＋１００％
 
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  1, "value": attrRate[tonaEnemy.attr[8]] / 100 });		// 物理
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  2, "value": attrRate[tonaEnemy.attr[0]] / 100 });		// メラ
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  3, "value": attrRate[tonaEnemy.attr[1]] / 100 });		// ギラ
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  4, "value": attrRate[tonaEnemy.attr[2]] / 100 });		// イオ
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  5, "value": attrRate[tonaEnemy.attr[3]] / 100 });		// ヒャド
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  6, "value": attrRate[tonaEnemy.attr[4]] / 100 });		// バギ
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  7, "value": attrRate[tonaEnemy.attr[5]] / 100 });		// デイン
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  9, "value": attrRate[tonaEnemy.attr[6]] / 100 });		// 炎
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 10, "value": attrRate[tonaEnemy.attr[7]] / 100 });		// 氷
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 11, "value": attrRate[tonaEnemy.regist1[5]] / 100 });	// MP吸収
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  1, "value": attrRate[enemy.attr[8]] / 100 });		// 物理
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  2, "value": attrRate[enemy.attr[0]] / 100 });		// メラ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  3, "value": attrRate[enemy.attr[1]] / 100 });		// ギラ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  4, "value": attrRate[enemy.attr[2]] / 100 });		// イオ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  5, "value": attrRate[enemy.attr[3]] / 100 });		// ヒャド
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  6, "value": attrRate[enemy.attr[4]] / 100 });		// バギ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  7, "value": attrRate[enemy.attr[5]] / 100 });		// デイン
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  9, "value": attrRate[enemy.attr[6]] / 100 });		// 炎
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 10, "value": attrRate[enemy.attr[7]] / 100 });		// 氷
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 11, "value": attrRate[enemy.regist1[5]] / 100 });	// MP吸収
 
-	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  2, "value": statRate[tonaEnemy.regist2[0]] / 100 });	// 攻撃力↓
-	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  3, "value": statRate[tonaEnemy.regist2[1]] / 100 });	// 防御力↓
-	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  6, "value": statRate[tonaEnemy.regist2[2]] / 100 });	// 敏捷性↓
+	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  2, "value": statRate[enemy.regist2[0]] / 100 });	// 攻撃力↓
+	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  3, "value": statRate[enemy.regist2[1]] / 100 });	// 防御力↓
+	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  6, "value": statRate[enemy.regist2[2]] / 100 });	// 敏捷性↓
 
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  1, "value": statRate[tonaEnemy.regist1[0]] / 100 });	// 戦闘不能
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  7, "value": statRate[tonaEnemy.regist2[4]] / 100 });	// 麻痺
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  8, "value": statRate[tonaEnemy.regist2[5]] / 100 });	// ラリホー
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  9, "value": statRate[tonaEnemy.regist2[6]] / 100 });	// メダパニ
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 10, "value": statRate[tonaEnemy.regist2[7]] / 100 });	// マヌーサ
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 11, "value": statRate[tonaEnemy.regist2[8]] / 100 });	// マホトーン
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 12, "value": statRate[tonaEnemy.regist1[0]] / 100 });	// ザキ
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 13, "value": statRate[tonaEnemy.regist1[1]] / 100 });	// 急所
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 14, "value": statRate[tonaEnemy.regist1[2]] / 100 });	// メガンテ
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 15, "value": statRate[tonaEnemy.regist1[3]] / 100 });	// バシルーラ
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 16, "value": statRate[tonaEnemy.regist1[4]] / 100 });	// ニフラム
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 17, "value": statRate[tonaEnemy.regist1[6]] / 100 });	// おたけび
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 18, "value": statRate[tonaEnemy.regist1[7]] / 100 });	// 転倒
-	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 19, "value": statRate[tonaEnemy.regist2[3]] / 100 });	// 呪文耐性ダウン
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  1, "value": statRate[enemy.regist1[0]] / 100 });	// 戦闘不能
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  7, "value": statRate[enemy.regist2[4]] / 100 });	// 麻痺
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  8, "value": statRate[enemy.regist2[5]] / 100 });	// ラリホー
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId":  9, "value": statRate[enemy.regist2[6]] / 100 });	// メダパニ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 10, "value": statRate[enemy.regist2[7]] / 100 });	// マヌーサ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 11, "value": statRate[enemy.regist2[8]] / 100 });	// マホトーン
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 12, "value": statRate[enemy.regist1[0]] / 100 });	// ザキ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 13, "value": statRate[enemy.regist1[1]] / 100 });	// 急所
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 14, "value": statRate[enemy.regist1[2]] / 100 });	// メガンテ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 15, "value": statRate[enemy.regist1[3]] / 100 });	// バシルーラ
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 16, "value": statRate[enemy.regist1[4]] / 100 });	// ニフラム
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 17, "value": statRate[enemy.regist1[6]] / 100 });	// おたけび
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 18, "value": statRate[enemy.regist1[7]] / 100 });	// 転倒
+	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 19, "value": statRate[enemy.regist2[3]] / 100 });	// 呪文耐性ダウン
 	}
 }
 
@@ -360,7 +360,7 @@ function _tona_OverrideEnemyDatabase() {
 // クラスのデータベースを上書き
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_OverrideClassDatabase() {
+function tona_overrideClassDatabase() {
 
     // ゆうしゃ
 	$dataClasses[1].params[2] = [0,10,13,17,20,24,27,31,34,38,41,45,48,52,55,59,62,66,69,73,76,80,84,88,92,96,100,104,108,112,116,120,124,128,132,136,140,144,148,152,156];
@@ -458,7 +458,7 @@ function _tona_OverrideClassDatabase() {
     var attrRate = [0, 10, 70, 100, 130, 160];
     var statRate = [0, 0, 30, 70, 100, 100];
 
-	for (var i = 1; i <= $_tona_Const_ClassCount; i++) {
+	for (var i = 1; i <= $tona_Const_ClassCount; i++) {
 
 	    $dataClasses[i].traits.push({ "code": 13, "dataId":  1, "value": statRate[3] / 100 });	// 戦闘不能
 	    $dataClasses[i].traits.push({ "code": 13, "dataId":  7, "value": statRate[3] / 100 });	// 麻痺
@@ -481,23 +481,23 @@ function _tona_OverrideClassDatabase() {
 // 武器のデータベースを上書き
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_OverrideWeaponDatabase() {
+function tona_overrideWeaponDatabase() {
 
 	var cnt = $dataWeapons.length;
 
 	// 初期化
 	for (var i = 1; i < cnt; i++) {
 		var weapon = $dataWeapons[i];
-		weapon._tona_level = 0;
-		weapon._tona_canEquipClasses = [];
+		weapon.tona_level = 0;
+		weapon.tona_canEquipClasses = [];
 
 		// レベル
-		weapon._tona_level = eval(weapon.meta._tona_level);
+		weapon.tona_level = eval(weapon.meta.tona_level);
 
 		// 装備可能クラス
-		var equip = weapon.meta._tona_equip;
+		var equip = weapon.meta.tona_equip;
 		if (equip != null) {
-			weapon._tona_canEquipClasses = eval(equip);
+			weapon.tona_canEquipClasses = eval(equip);
 		}
 	}
 }
@@ -506,65 +506,65 @@ function _tona_OverrideWeaponDatabase() {
 // 防具のデータベースを上書き
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_OverrideArmorDatabase() {
+function tona_overrideArmorDatabase() {
 
 	var cnt = $dataArmors.length;
 
 	// 初期化
 	for (var i = 1; i < cnt; i++) {
 		var armor = $dataArmors[i];
-		armor._tona_level = 0;
-		armor._tona_canEquipClasses = [];
+		armor.tona_level = 0;
+		armor.tona_canEquipClasses = [];
 
 		// レベル
-		armor._tona_level = eval(armor.meta._tona_level);
+		armor.tona_level = eval(armor.meta.tona_level);
 
 		// 装備可能クラス
-		var equip = armor.meta._tona_equip;
+		var equip = armor.meta.tona_equip;
 		if (equip != null) {
-			armor._tona_canEquipClasses = eval(equip);
+			armor.tona_canEquipClasses = eval(equip);
 		}
 	}
 }
 
 // ****************************************************************************************************************************
-// セーブデータを構築
+// セーブデータを更新
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_CreateSaveData() {
+function tona_updateSaveData() {
 
-    if (typeof($_tona_saveData) === 'undefined') {
-        $_tona_saveData = {};
+    if (typeof $tona_saveData === 'undefined') {
+        $tona_saveData = {};
     }
 
     // パーティー
-    if ($_tona_saveData.partyLevel == null) {
-        $_tona_saveData.partyLevel = 1;
+    if ($tona_saveData.partyLevel == null) {
+        $tona_saveData.partyLevel = 1;
     }
 
     // 武器解禁
-    if ($_tona_saveData.weaponAppearState == null) {
-        $_tona_saveData.weaponAppearState = {};
+    if ($tona_saveData.weaponAppearState == null) {
+        $tona_saveData.weaponAppearState = {};
     }
 
     // 防具解禁
-    if ($_tona_saveData.armorAppearState == null) {
-        $_tona_saveData.armorAppearState = {};
+    if ($tona_saveData.armorAppearState == null) {
+        $tona_saveData.armorAppearState = {};
     }
 
     // 道具解禁
-    if ($_tona_saveData.itemAppearState == null) {
-        $_tona_saveData.itemAppearState = {};
+    if ($tona_saveData.itemAppearState == null) {
+        $tona_saveData.itemAppearState = {};
     }
 
     // クエストクリア
-    if ($_tona_saveData.questClearFlag == null) {
-        $_tona_saveData.questClearFlag = {};
+    if ($tona_saveData.questClearFlag == null) {
+        $tona_saveData.questClearFlag = {};
     }
 
     // クエスト登場
-    if ($_tona_saveData.questAppearState == null) {
-        $_tona_saveData.questAppearState = {};
+    if ($tona_saveData.questAppearState == null) {
+        $tona_saveData.questAppearState = {};
     }
 }
 
@@ -572,16 +572,14 @@ function _tona_CreateSaveData() {
 // Lv 付近のモンスターを探す
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_FindLevelEnemies(level) {
+function tona_findLevelEnemies(level) {
 
 	var enemyIds = [];
 
-	for (var i = 1; i < $_tona_enemy.length; i++) {
+	for (var i = 1; i < $tona_enemy.length; i++) {
 		var enemy = $dataEnemies[i];
-		if (enemy._tona_level != null) {
-			if (level - 2 <= enemy._tona_level && enemy._tona_level <= level) {
-				enemyIds.push(i);
-			}
+		if (level - 2 <= enemy.tona_level && enemy.tona_level <= level) {
+			enemyIds.push(i);
 		}
 	}
 
@@ -592,25 +590,25 @@ function _tona_FindLevelEnemies(level) {
 // データを更新
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function _tona_UpdateData(showMessage) {
+function tona_UpdateData(showMessage) {
 
 	// 武器解禁
-	for (let i = 0; i < $_tona_shopWeaponList.length; i++) {
-		var weaponId = $_tona_shopWeaponList[i];
+	for (var i = 0; i < $tona_shopWeaponList.length; i++) {
+		var weaponId = $tona_shopWeaponList[i];
 
 		// レベルが設定されている武器について
-		if ($dataWeapons[weaponId]._tona_level > 0) {
+		if ($dataWeapons[weaponId].tona_level > 0) {
 
 			// まだ解禁していない武器の場合
-			if (!$_tona_saveData.weaponAppearState[weaponId]) {
+			if (!$tona_saveData.weaponAppearState[weaponId]) {
 
 	            // 条件を満たしているかを判定
-	            if ($dataWeapons[weaponId]._tona_level <= $_tona_saveData.partyLevel) {
-					$_tona_saveData.weaponAppearState[weaponId] = 2;
+	            if ($dataWeapons[weaponId].tona_level <= $tona_saveData.partyLevel) {
+					$tona_saveData.weaponAppearState[weaponId] = 2;
 
 					if (showMessage) {
-						$_tona_resultAction.push([$_tona_Const_ActionType_SoundItem2]);
-						$_tona_resultAction.push([$_tona_Const_ActionType_Message, "武器屋に『" + $dataWeapons[weaponId].name + "』が追加されました！"]);
+						$tona_resultAction.push([$tona_ActionType_SoundItem2]);
+						$tona_resultAction.push([$tona_ActionType_Message, "武器屋に『" + $dataWeapons[weaponId].name + "』が追加されました！"]);
 					}
 				}
 			}
@@ -618,22 +616,22 @@ function _tona_UpdateData(showMessage) {
 	}
 
 	// 防具解禁
-	for (let i = 0; i < $_tona_shopArmorList.length; i++) {
-		var armorId = $_tona_shopArmorList[i];
+	for (var i = 0; i < $tona_shopArmorList.length; i++) {
+		var armorId = $tona_shopArmorList[i];
 
 		// レベルが設定されている防具について
-		if ($dataArmors[armorId]._tona_level > 0) {
+		if ($dataArmors[armorId].tona_level > 0) {
 
 			// まだ解禁していない武器の場合
-			if (!$_tona_saveData.armorAppearState[armorId]) {
+			if (!$tona_saveData.armorAppearState[armorId]) {
 
 	            // 条件を満たしているかを判定
-	            if ($dataArmors[armorId]._tona_level <= $_tona_saveData.partyLevel) {
-					$_tona_saveData.armorAppearState[armorId] = 2;
+	            if ($dataArmors[armorId].tona_level <= $tona_saveData.partyLevel) {
+					$tona_saveData.armorAppearState[armorId] = 2;
 
 					if (showMessage) {
-						$_tona_resultAction.push([$_tona_Const_ActionType_SoundItem2]);
-						$_tona_resultAction.push([$_tona_Const_ActionType_Message, "防具屋に『" + $dataArmors[armorId].name + "』が追加されました！"]);
+						$tona_resultAction.push([$tona_ActionType_SoundItem2]);
+						$tona_resultAction.push([$tona_ActionType_Message, "防具屋に『" + $dataArmors[armorId].name + "』が追加されました！"]);
 					}
 				}
 			}
@@ -641,22 +639,22 @@ function _tona_UpdateData(showMessage) {
 	}
 
 	// 道具解禁
-	for (let i = 0; i < $_tona_shopItemList.length; i++) {
-		var itemId = $_tona_shopItemList[i];
+	for (var i = 0; i < $tona_shopItemList.length; i++) {
+		var itemId = $tona_shopItemList[i];
 
 		// レベルが設定されている道具について
-		if ($dataItems[itemId]._tona_level > 0) {
+		if ($dataItems[itemId].tona_level > 0) {
 
 			// まだ解禁していない道具の場合
-			if (!$_tona_saveData.itemAppearState[itemId]) {
+			if (!$tona_saveData.itemAppearState[itemId]) {
 
 	            // 条件を満たしているかを判定
-	            if ($dataItems[itemId]._tona_level <= $_tona_saveData.partyLevel) {
-					$_tona_saveData.itemAppearState[itemId] = 2;
+	            if ($dataItems[itemId].tona_level <= $tona_saveData.partyLevel) {
+					$tona_saveData.itemAppearState[itemId] = 2;
 
 					if (showMessage) {
-						$_tona_resultAction.push([$_tona_Const_ActionType_SoundItem2]);
-						$_tona_resultAction.push([$_tona_Const_ActionType_Message, "道具屋に『" + $dataItems[itemId].name + "』が追加されました！"]);
+						$tona_resultAction.push([$tona_ActionType_SoundItem2]);
+						$tona_resultAction.push([$tona_ActionType_Message, "道具屋に『" + $dataItems[itemId].name + "』が追加されました！"]);
 					}
 				}
 			}
@@ -664,19 +662,19 @@ function _tona_UpdateData(showMessage) {
 	}
 
 	// クエスト解禁
-	for (let questId = 1; questId < $_tona_quest.length; questId++) {
-		var quest = $_tona_quest[questId];
+	for (var questId = 1; questId < $tona_quest.length; questId++) {
+		var quest = $tona_quest[questId];
 
 		// まだ解禁していないクエストの場合
-		if (!$_tona_saveData.questAppearState[questId]) {
+		if (!$tona_saveData.questAppearState[questId]) {
 
             // 条件を満たしているかを判定
-            if (quest.level <= $_tona_saveData.partyLevel) {
-				$_tona_saveData.questAppearState[questId] = 2;
+            if (quest.level <= $tona_saveData.partyLevel) {
+				$tona_saveData.questAppearState[questId] = 2;
 
 				if (showMessage) {
-					$_tona_resultAction.push([$_tona_Const_ActionType_SoundItem2]);
-					$_tona_resultAction.push([$_tona_Const_ActionType_Message, "クエスト『" + quest.name + "』が追加されました！"]);
+					$tona_resultAction.push([$tona_ActionType_SoundItem2]);
+					$tona_resultAction.push([$tona_ActionType_Message, "クエスト『" + quest.name + "』が追加されました！"]);
 				}
 			}
 		}

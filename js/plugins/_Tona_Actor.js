@@ -10,6 +10,7 @@
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	var Game_Actor_initMembers = Game_Actor.prototype.initMembers;
+
 	Game_Actor.prototype.initMembers = function() {
 		Game_Actor_initMembers.call(this);
 		this.clearParamBase();
@@ -20,11 +21,12 @@
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	var Game_Actor_setup = Game_Actor.prototype.setup;
+
 	Game_Actor.prototype.setup = function(actorId) {
 		Game_Actor_setup.call(this, actorId);
 
 		// 性格を設定して改めてセットアップ
-		this.setPersonalityId(1);
+		this.tona_setPersonalityId(1);
 		this.setupParamBase();
 	    this.recoverAll();
 	};
@@ -33,7 +35,7 @@
 	// アクター：職業を指定してセットアップ
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	Game_Actor.prototype._tona_setupWithClass = function(actorId, classId) {
+	Game_Actor.prototype.tona_setupWithClass = function(actorId, classId) {
 	    const actor = $dataActors[actorId];
 	    this._actorId = actorId;
 	    this._name = actor.name;
@@ -49,7 +51,7 @@
 	    this.recoverAll();
 
 		// 性格を設定して改めてセットアップ
-		this.setPersonalityId(1);
+		this.tona_setPersonalityId(1);
 		this.setupParamBase();
 	    this.recoverAll();
 	};
@@ -58,16 +60,16 @@
 	// アクター：性格
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	Game_Actor.prototype.personality = function() {
-		return $_tona_Personality[this._personalityId];
+	Game_Actor.prototype.tona_personality = function() {
+		return $tona_personality[this._tona_personalityId];
 	};
 
-	Game_Actor.prototype.personalityName = function() {
-		return $_tona_Personality[this._personalityId].name;
+	Game_Actor.prototype.tona_setPersonality = function(personalityId) {
+	    this._tona_personalityId = personalityId;
 	};
 
-	Game_Actor.prototype.setPersonalityId = function(personalityId) {
-	    this._personalityId = personalityId;
+	Game_Actor.prototype.tona_personalityName = function() {
+		return this.tona_personality().name;
 	};
 
 	// ****************************************************************************************************************************
@@ -86,13 +88,13 @@
 	Game_Actor.prototype.setupParamBase = function() {
 		var klass = this.currentClass();
 
-		// レベル１の値で初期化する
+		// レベル１の値で初期化する（HP、MP を除く）
 		for (var i = 2; i < 8; i++) {
 			this._paramBase[i] = klass.params[i][1];
 		}
 
 		// パラメーターを補正
-		this._tona_refreshParam();
+		this.tona_refreshParam();
 	}
 
 	// ****************************************************************************************************************************
@@ -110,7 +112,6 @@
 		for (let i = 0; i < 8; i++) {
 			params1[i] = this._paramBase[i] + this._paramPlus[i];
 		}
-
 	    while (!this.isMaxLevel() && this.currentExp() >= this.nextLevelExp()) {
 	        this.levelUp();
 	    }
@@ -133,14 +134,15 @@
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	var Game_Actor_levelUp = Game_Actor.prototype.levelUp;
+
 	Game_Actor.prototype.levelUp = function() {
 		Game_Actor_levelUp.call(this);
 
-		// レベル 0 -> 1 は成長しない
+		// レベル 0 -> 1 は成長しない（レベル 0 の値がダミーのため）
 		if (this.level >= 2) {
 
 			var klass = this.currentClass();
-			var personality = this.personality();
+			var personality = this.tona_personality();
 
 			// 性格を考慮して paramBase を計算
 			for (var i = 2; i < 8; i++) {
@@ -151,7 +153,7 @@
 		}
 
 		// パラメーターを補正
-		this._tona_refreshParam();
+		this.tona_refreshParam();
 	    this.refresh();
 	};
 
@@ -186,7 +188,7 @@
 	// アクター：パラメーターを補正
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	Game_Actor.prototype._tona_refreshParam = function() {
+	Game_Actor.prototype.tona_refreshParam = function() {
 
 		// HPを計算（体力の2倍、種の分も含む）
 		this._paramBase[0] = (this._paramBase[5] + this._paramPlus[5]) * 2;
@@ -209,7 +211,7 @@
 	// アクター：種を与える
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	Game_Actor.prototype._tona_addParamPlus = function(paramId, value) {
+	Game_Actor.prototype.tona_addParamPlus = function(paramId, value) {
 		this._paramPlus[paramId] += value;
 	}
 
@@ -217,12 +219,15 @@
 	// アクター：転職
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	Game_Actor.prototype._tona_changeClass = function(classId) {
+	var Game_Actor_changeClass = Game_Actor.prototype.changeClass;
 
-		// 新しいクラスの経験値を 0 にしてから元の処理を呼ぶ
+	Game_Actor.prototype.tona_changeClass = function(classId) {
+
+		// 新しいクラスの経験値を 0 にする
 		this._exp[classId] = 0;
 
-		Game_Actor_changeClass.call(this, classId, false);
+		// クラスチェンジ
+		this.changeClass(classId, false);
 
 		// paramBase を半分にする（切り上げ）
 		for (var i = 0; i < 8; i++) {
@@ -246,7 +251,7 @@
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	Game_Actor.prototype.canEquipWeapon = function(item) {
-		return item._tona_canEquipClasses.includes(this._classId);
+		return item.tona_canEquipClasses.includes(this._classId);
 	};
 
 	// ****************************************************************************************************************************
@@ -254,7 +259,7 @@
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	Game_Actor.prototype.canEquipArmor = function(item) {
-		return item._tona_canEquipClasses.includes(this._classId);
+		return item.tona_canEquipClasses.includes(this._classId);
 	};
 
 })();
