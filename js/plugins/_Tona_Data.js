@@ -458,7 +458,7 @@ function tona_overrideClassDatabase() {
     var attrRate = [0, 10, 70, 100, 130, 160];
     var statRate = [0, 0, 30, 70, 100, 100];
 
-	for (var i = 1; i <= $tona_Const_ClassCount; i++) {
+	for (var i = 1; i <= $tona_ClassCount; i++) {
 
 	    $dataClasses[i].traits.push({ "code": 13, "dataId":  1, "value": statRate[3] / 100 });	// 戦闘不能
 	    $dataClasses[i].traits.push({ "code": 13, "dataId":  7, "value": statRate[3] / 100 });	// 麻痺
@@ -528,10 +528,10 @@ function tona_overrideArmorDatabase() {
 }
 
 // ****************************************************************************************************************************
-// セーブデータを更新
+// セーブデータを作成
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function tona_updateSaveData() {
+function tona_createSaveData() {
 
     if (typeof $tona_saveData === 'undefined') {
         $tona_saveData = {};
@@ -590,7 +590,7 @@ function tona_findLevelEnemies(level) {
 // データを更新
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function tona_UpdateData(showMessage) {
+function tona_updateData(showMessage) {
 
 	// 武器解禁
 	for (var i = 0; i < $tona_shopWeaponList.length; i++) {

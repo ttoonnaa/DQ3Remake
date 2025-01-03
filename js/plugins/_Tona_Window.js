@@ -10,7 +10,7 @@
 	Window_StatusBase.prototype.drawActorPersonality = function(actor, x, y, width) {
 	    width = width || 270;
 	    this.resetTextColor();
-	    this.drawText(actor.personalityName(), x, y, width);
+	    this.drawText(actor.tona_personalityName(), x, y, width);
 	};
 
 	Window_Status.prototype.drawBlock1 = function() {

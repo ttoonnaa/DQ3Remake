@@ -160,7 +160,7 @@ function tona_addEmptyEvent(dstX, dstY) {
 
 function tona_partyIsFull() {
 
-	return $gameParty.size() == $tonat_MaxParty;
+	return $gameParty.size() == $tona_MaxParty;
 }
 
 // ****************************************************************************************************************************
@@ -217,7 +217,7 @@ function tona_arrayShuffle(arr) {
 // 汎用：数値を取得
 // ----------------------------------------------------------------------------------------------------------------------------
 
-function tona_toNum(value, default) {
+function tona_toNum(value, def) {
 
 	if (typeof value === 'number' && isFinite(value)) {
 		return value;
@@ -230,7 +230,7 @@ function tona_toNum(value, default) {
 		}
 	}
 
-	return default;
+	return def;
 }
 
 

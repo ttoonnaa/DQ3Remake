@@ -26,7 +26,7 @@
 		Game_Actor_setup.call(this, actorId);
 
 		// 性格を設定して改めてセットアップ
-		this.tona_setPersonalityId(1);
+		this.tona_setPersonality(1);
 		this.setupParamBase();
 	    this.recoverAll();
 	};
@@ -51,7 +51,7 @@
 	    this.recoverAll();
 
 		// 性格を設定して改めてセットアップ
-		this.tona_setPersonalityId(1);
+		this.tona_setPersonality(1);
 		this.setupParamBase();
 	    this.recoverAll();
 	};

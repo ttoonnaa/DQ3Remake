@@ -29,7 +29,7 @@ function tona_pub_newName() {
 
 	tona_pub_newNameId_loop: while (true) {
 
-		name = $tona_name[Math.randomInt($tona_Name.length - 1) + 1];
+		name = $tona_name[Math.randomInt($tona_name.length - 1) + 1];
 
 		for (var i = 1; i <= $tona_MaxActorId; i++) {
 			var actor = $gameActors.actor(i);
@@ -56,7 +56,7 @@ function tona_pub_newFace() {
 
 	tona_pub_newFace_loop: while (true) {
 
-		face = $tona_Face[Math.randomInt($tona_Face.length - 1) + 1];
+		face = $tona_face[Math.randomInt($tona_face.length - 1) + 1];
 
 		for (var i = 1; i <= $tona_MaxActorId; i++) {
 			var actor = $gameActors.actor(i);
@@ -109,7 +109,7 @@ Game_Interpreter.prototype.tona_pub_inviteCreate = function() {
 	// actorId を決める
 	// 枠がいっぱいだったら 0 を返す
 
-	var actorId = tona_pub_NewActorId();
+	var actorId = tona_pub_newActorId();
 	if (actorId == 0) {
 		$tona_result = 0;
 		return;
@@ -177,7 +177,7 @@ Game_Interpreter.prototype.tona_pub_inviteSetClassId = function(classId) {
 // 酒場：勧誘：アクターを作成する
 // ----------------------------------------------------------------------------------------------------------------------------
 
-Game_Interpreter.prototype.tona_Pub_inviteCreateActor = function() {
+Game_Interpreter.prototype.tona_pub_inviteCreateActor = function() {
 	var actorId = $tona_pub_inviteData.actorId;
 	var actor = $gameActors.actor(actorId);
 	var classId = $tona_pub_inviteData.classId;
@@ -203,7 +203,7 @@ Game_Interpreter.prototype.tona_Pub_inviteCreateActor = function() {
 
 	// 性格を決める
 	var personalityId = tona_pub_newPersonality();
-	actor.setPersonality(personalityId);
+	actor.tona_setPersonality(personalityId);
 
 	// 種を与える
 	for (var i = 0; i < 5; i++) {
