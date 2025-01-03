@@ -205,32 +205,32 @@ function tona_createEnemyDatabase() {
 	// regist1: [ザキ, 急所, メガ, バシ, ニフ, MP, おたけび, 転倒]
 	// regist2: [攻Ｄ, 防Ｄ, 速Ｄ, 耐Ｄ, マヒ, 眠り, 混乱, 幻惑, 封印]
 
-	enemies[1]   = { name: "", attr: [5,4,3,3,3,2,4,3,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,4,4,4,4,4,4,4,0] };	// スライム
-	enemies[2]   = { name: "", attr: [3,3,3,3,4,3,3,3,3], regist1: [4,4,4,4,3,4,4,0], regist2: [4,4,4,4,4,4,4,4,0] };	// おおがらす
-	enemies[3]   = { name: "", attr: [3,3,3,1,3,3,3,1,3], regist1: [4,4,4,4,3,4,4,3], regist2: [4,4,4,4,4,4,4,4,0] };	// 
-	enemies[4]   = { name: "", attr: [5,4,3,3,3,3,4,3,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,4,4,4,4,4,4,4,0] };	// 
-	enemies[5]   = { name: "", attr: [3,3,4,3,4,3,3,3,3], regist1: [4,4,4,4,3,4,2,0], regist2: [4,4,4,4,4,4,4,2,4] };	// 
-	enemies[6]   = { name: "", attr: [2,2,3,4,3,4,2,4,3], regist1: [4,4,4,4,3,4,3,3], regist2: [4,4,4,4,4,4,4,4,0] };	// 
-	enemies[7]   = { name: "", attr: [3,3,3,3,3,2,3,3,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,4,4,4,3,3,3,4,0] };	// 
-	enemies[8]   = { name: "", attr: [2,2,2,2,2,3,2,3,3], regist1: [3,4,4,4,3,4,4,4], regist2: [4,4,4,4,4,4,3,4,4] };	// 
-	enemies[9]   = { name: "", attr: [3,3,3,3,4,3,3,3,3], regist1: [4,4,4,4,3,4,2,0], regist2: [4,4,4,4,4,4,4,4,0] };	// 
-	enemies[10]  = { name: "", attr: [1,1,1,1,1,2,1,1,3], regist1: [2,3,4,4,0,2,3,0], regist2: [4,4,4,4,3,2,3,4,3] };	// 
-	enemies[11]  = { name: "", attr: [3,3,3,1,3,3,3,1,3], regist1: [4,4,4,3,3,4,4,3], regist2: [4,4,3,4,4,2,3,4,4] };	// 
-	enemies[12]  = { name: "", attr: [3,3,3,2,2,3,3,1,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,3,4,4,4,4,4,4,0] };	// 
-	enemies[13]  = { name: "", attr: [3,3,4,3,3,3,3,3,3], regist1: [4,4,4,4,3,3,2,4], regist2: [4,4,4,4,4,4,4,4,4] };	// 
-	enemies[14]  = { name: "", attr: [2,2,3,4,3,4,1,4,3], regist1: [4,4,4,4,3,4,3,3], regist2: [4,4,4,4,4,4,4,4,0] };	// 
-	enemies[15]  = { name: "", attr: [3,3,4,2,4,4,3,2,3], regist1: [4,4,4,4,3,4,4,0], regist2: [4,3,4,4,4,4,4,4,2] };	// 
-	enemies[16]  = { name: "", attr: [5,4,3,3,3,4,4,3,3], regist1: [0,0,4,4,4,4,0,4], regist2: [4,4,4,4,0,0,4,4,4] };	// 
-	enemies[17]  = { name: "", attr: [2,2,2,4,4,3,1,4,3], regist1: [4,4,4,3,3,4,4,0], regist2: [4,4,3,4,0,4,4,4,0] };	// 
-	enemies[18]  = { name: "", attr: [3,3,2,3,2,4,3,3,2], regist1: [4,4,4,2,3,4,2,4], regist2: [4,4,2,4,4,4,3,4,0] };	// 
-	enemies[19]  = { name: "", attr: [2,2,2,3,3,4,1,3,3], regist1: [0,0,4,4,4,4,0,3], regist2: [4,3,4,4,0,2,0,4,0] };	// 
-	enemies[20]  = { name: "", attr: [2,2,4,4,4,2,1,4,2], regist1: [3,4,4,3,3,4,4,0], regist2: [4,4,3,4,0,3,4,0,4] };	// 
-	enemies[21]  = { name: "", attr: [5,4,3,3,3,3,4,3,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,3,4,4,4,2,4,4,0] };	// 
-	enemies[22]  = { name: "", attr: [2,2,2,3,3,3,1,3,3], regist1: [4,4,4,4,3,4,2,4], regist2: [4,4,4,4,4,4,4,4,0] };	// 
-	enemies[23]  = { name: "", attr: [3,3,3,2,4,4,3,2,3], regist1: [4,4,4,3,3,4,4,0], regist2: [4,4,3,4,4,4,4,3,0] };	// 
-	enemies[24]  = { name: "", attr: [5,4,2,3,3,4,5,3,3], regist1: [0,0,4,3,4,3,0,4], regist2: [4,3,3,4,0,0,3,4,3] };	// 
-	enemies[25]  = { name: "", attr: [3,3,3,3,3,3,3,3,2], regist1: [0,0,4,2,3,0,0,0], regist2: [4,4,2,4,0,4,0,4,0] };	// 
-	enemies[26]  = { name: "", attr: [2,2,2,3,3,3,1,3,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,3,4,4,4,2,4,4,0] };	// 
+	enemies[11]  = { name: "", attr: [5,4,3,3,3,2,4,3,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,4,4,4,4,4,4,4,0] };	// スライム
+	enemies[12]  = { name: "", attr: [3,3,3,3,4,3,3,3,3], regist1: [4,4,4,4,3,4,4,0], regist2: [4,4,4,4,4,4,4,4,0] };	// おおがらす
+	enemies[13]  = { name: "", attr: [3,3,3,1,3,3,3,1,3], regist1: [4,4,4,4,3,4,4,3], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[14]  = { name: "", attr: [5,4,3,3,3,3,4,3,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[15]  = { name: "", attr: [3,3,4,3,4,3,3,3,3], regist1: [4,4,4,4,3,4,2,0], regist2: [4,4,4,4,4,4,4,2,4] };	// 
+	enemies[16]  = { name: "", attr: [2,2,3,4,3,4,2,4,3], regist1: [4,4,4,4,3,4,3,3], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[17]  = { name: "", attr: [3,3,3,3,3,2,3,3,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,4,4,4,3,3,3,4,0] };	// 
+	enemies[18]  = { name: "", attr: [2,2,2,2,2,3,2,3,3], regist1: [3,4,4,4,3,4,4,4], regist2: [4,4,4,4,4,4,3,4,4] };	// 
+	enemies[19]  = { name: "", attr: [3,3,3,3,4,3,3,3,3], regist1: [4,4,4,4,3,4,2,0], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[20]  = { name: "", attr: [1,1,1,1,1,2,1,1,3], regist1: [2,3,4,4,0,2,3,0], regist2: [4,4,4,4,3,2,3,4,3] };	// 
+	enemies[21]  = { name: "", attr: [3,3,3,1,3,3,3,1,3], regist1: [4,4,4,3,3,4,4,3], regist2: [4,4,3,4,4,2,3,4,4] };	// 
+	enemies[22]  = { name: "", attr: [3,3,3,2,2,3,3,1,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,3,4,4,4,4,4,4,0] };	// 
+	enemies[23]  = { name: "", attr: [3,3,4,3,3,3,3,3,3], regist1: [4,4,4,4,3,3,2,4], regist2: [4,4,4,4,4,4,4,4,4] };	// 
+	enemies[24]  = { name: "", attr: [2,2,3,4,3,4,1,4,3], regist1: [4,4,4,4,3,4,3,3], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[25]  = { name: "", attr: [3,3,4,2,4,4,3,2,3], regist1: [4,4,4,4,3,4,4,0], regist2: [4,3,4,4,4,4,4,4,2] };	// 
+	enemies[26]  = { name: "", attr: [5,4,3,3,3,4,4,3,3], regist1: [0,0,4,4,4,4,0,4], regist2: [4,4,4,4,0,0,4,4,4] };	// 
+	enemies[27]  = { name: "", attr: [2,2,2,4,4,3,1,4,3], regist1: [4,4,4,3,3,4,4,0], regist2: [4,4,3,4,0,4,4,4,0] };	// 
+	enemies[28]  = { name: "", attr: [3,3,2,3,2,4,3,3,2], regist1: [4,4,4,2,3,4,2,4], regist2: [4,4,2,4,4,4,3,4,0] };	// 
+	enemies[29]  = { name: "", attr: [2,2,2,3,3,4,1,3,3], regist1: [0,0,4,4,4,4,0,3], regist2: [4,3,4,4,0,2,0,4,0] };	// 
+	enemies[30]  = { name: "", attr: [2,2,4,4,4,2,1,4,2], regist1: [3,4,4,3,3,4,4,0], regist2: [4,4,3,4,0,3,4,0,4] };	// 
+	enemies[31]  = { name: "", attr: [5,4,3,3,3,3,4,3,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,3,4,4,4,2,4,4,0] };	// 
+	enemies[32]  = { name: "", attr: [2,2,2,3,3,3,1,3,3], regist1: [4,4,4,4,3,4,2,4], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[33]  = { name: "", attr: [3,3,3,2,4,4,3,2,3], regist1: [4,4,4,3,3,4,4,0], regist2: [4,4,3,4,4,4,4,3,0] };	// 
+	enemies[34]  = { name: "", attr: [5,4,2,3,3,4,5,3,3], regist1: [0,0,4,3,4,3,0,4], regist2: [4,3,3,4,0,0,3,4,3] };	// 
+	enemies[35]  = { name: "", attr: [3,3,3,3,3,3,3,3,2], regist1: [0,0,4,2,3,0,0,0], regist2: [4,4,2,4,0,4,0,4,0] };	// 
+	enemies[36]  = { name: "", attr: [2,2,2,3,3,3,1,3,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,3,4,4,4,2,4,4,0] };	// 
 
 	//enemies[99]  = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,3,3,3,3,3,3,3], regist2: [3,3,3,3,3,3,3,3,3] };	// 
 
@@ -306,9 +306,12 @@ function tona_overrideEnemyDatabase() {
 
 	for (var i = 1; i < $tona_enemy.length; i++) {
 		var enemy = $tona_enemy[i];
+		if (enemy == null) {
+			continue;
+		}
 
 		// レベルを設定する
-		$dataEnemies[i].tona_level = tona_toNum($dataEnemies[i].meta.tona_level);
+		$dataEnemies[i].tona_level = tona_evalNum($dataEnemies[i].meta.tona_level);
 
 		// 守備力を調整する
 		$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 2 / 3);
@@ -492,12 +495,13 @@ function tona_overrideWeaponDatabase() {
 		weapon.tona_canEquipClasses = [];
 
 		// レベル
-		weapon.tona_level = eval(weapon.meta.tona_level);
+		if (weapon.meta.tona_level != null) {
+			weapon.tona_level = eval(weapon.meta.tona_level);
+		}
 
 		// 装備可能クラス
-		var equip = weapon.meta.tona_equip;
-		if (equip != null) {
-			weapon.tona_canEquipClasses = eval(equip);
+		if (weapon.meta.tona_equip != null) {
+			weapon.tona_canEquipClasses = eval(weapon.meta.tona_equip);
 		}
 	}
 }
@@ -517,12 +521,13 @@ function tona_overrideArmorDatabase() {
 		armor.tona_canEquipClasses = [];
 
 		// レベル
-		armor.tona_level = eval(armor.meta.tona_level);
+		if (armor.meta.tona_level != null) {
+			armor.tona_level = eval(armor.meta.tona_level);
+		}
 
 		// 装備可能クラス
-		var equip = armor.meta.tona_equip;
-		if (equip != null) {
-			armor.tona_canEquipClasses = eval(equip);
+		if (armor.meta.tona_equip != null) {
+			armor.tona_canEquipClasses = eval(armor.meta.tona_equip);
 		}
 	}
 }
@@ -536,6 +541,15 @@ function tona_createSaveData() {
     if (typeof $tona_saveData === 'undefined') {
         $tona_saveData = {};
     }
+
+	tona_updateSaveData();
+}
+
+// ****************************************************************************************************************************
+// セーブデータを更新
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function tona_updateSaveData() {
 
     // パーティー
     if ($tona_saveData.partyLevel == null) {

@@ -66,19 +66,19 @@ Game_BattlerBase.prototype.tona_rangeDamage = function(target, min, max) {
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_BattlerBase.prototype.PD = function(target) {
-	return BattleManager.tona_physicalDamage(target);
+	return this.tona_physicalDamage(target);
 }
 
 Game_BattlerBase.prototype.MD = function(target, min, max) {
-	return BattleManager.tona_magicalDamage(target, min, max);
+	return this.tona_magicalDamage(target, min, max);
 }
 
 Game_BattlerBase.prototype.HD = function(target, min, max) {
-	return BattleManager.tona_healDamage(target, min, max);
+	return this.tona_healDamage(target, min, max);
 }
 
 Game_BattlerBase.prototype.RD = function(target, min, max) {
-	return BattleManager.tona_rangeDamage(target, min, max);
+	return this.tona_rangeDamage(target, min, max);
 }
 
 // ****************************************************************************************************************************
@@ -172,7 +172,7 @@ Game_Battler.prototype.onTurnEnd = function() {
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_BattlerBase.prototype.isHidden = function() {
-    return this._hidden || this.isStateAffected($tona_StateId_Nifuramu) || this.isStateAffected($tona_StateId_Bashiruura);
+    return this._hidden || this.isStateAffected($tona_StateId_Nifuramu) || this.isStateAffected($tona_StateId_Bashirura);
 };
 
 // ****************************************************************************************************************************
@@ -183,6 +183,13 @@ Game_BattlerBase.prototype.tona_isUkenagashi = function() {
 	return this.isStateAffected($tona_StateId_Ukenagashi) && this.canMove();
 };
 
+// ****************************************************************************************************************************
+// バトラー：大防御状態を判定
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_BattlerBase.prototype.tona_isGreatGuard = function() {
+	return this.isStateAffected($tona_StateId_GreatGuard) && this.canMove();
+};
 
 
 

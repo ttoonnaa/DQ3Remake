@@ -24,7 +24,7 @@ Game_Action.prototype.tona_callEnemy_start = function(param) {
             $tona_battle_callEnemyTemorary.enemyId = enemyId;
             $tona_battle_callEnemyTemorary.enemyIdList = [];
             $tona_battle_callEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
-            $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_Battle_CallEnemy_Update()", 30);
+            $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_battle_callEnemy_update()", 30);
         }
         else if (param.length > 0) {
             var enemyId = param[0];
@@ -32,7 +32,7 @@ Game_Action.prototype.tona_callEnemy_start = function(param) {
             $tona_battle_callEnemyTemorary.enemyId = enemyId;
             $tona_battle_callEnemyTemorary.enemyIdList = param.slice(1);
             $tona_battle_callEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
-            $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_Battle_CallEnemy_Update()", 30);
+            $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_battle_callEnemy_update()", 30);
         }
         else {
             console.log("仲間呼びに失敗");
@@ -50,7 +50,6 @@ function tona_battle_callEnemy_update() {
     var dataEnemy = $dataEnemies[$tona_battle_callEnemyTemorary.enemyId];
 
     var resultX = -1;
-    var resultY = 436;
     var resultY = 436 - (dataEnemy.meta.tona_pos_y != null ? dataEnemy.meta.tona_pos_y : 0);
     var enemySprite = $tona_battle_callEnemyTemorary.enemyBitmap;
 

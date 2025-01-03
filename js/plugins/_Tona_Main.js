@@ -16,7 +16,7 @@
 	// データベースを作成
 	tona_createDatabase();
 
-	// セーブデータ
+	// セーブデータを作成
     tona_createSaveData();
 
 	// 一時データ：結果

@@ -26,12 +26,11 @@ var $tona_QuestEventType_Item = 13;
 // トループ
 var $tona_TroopId_RandomEnemy = 1;
 
-// 特徴コード
-var $tona_Trait_Nifuramu = 101;
-var $tona_Trait_Bashirura = 102;
-var $tona_Trait_Mahokanta = 103;
-var $tona_Trait_Ukenagashi = 104;
-var $tona_Trait_GreatDefence = 105;
+// ステート
+var $tona_StateId_Nifuramu = 16;
+var $tona_StateId_Bashirura = 15;
+var $tona_StateId_Ukenagashi = 36;
+var $tona_StateId_GreatGuard = 39;
 
 // ****************************************************************************************************************************
 // データベース読み込み後の編集
@@ -214,10 +213,23 @@ function tona_arrayShuffle(arr) {
 };
 
 // ****************************************************************************************************************************
+// 汎用：数値を取得（eval）
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function tona_evalNum(value, def) {
+
+	value = eval(value);
+
+	return tona_toNum(value, def);
+}
+
+// ****************************************************************************************************************************
 // 汎用：数値を取得
 // ----------------------------------------------------------------------------------------------------------------------------
 
 function tona_toNum(value, def) {
+
+	def = def ?? 0;
 
 	if (typeof value === 'number' && isFinite(value)) {
 		return value;
