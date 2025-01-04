@@ -60,77 +60,6 @@ Game_Action.prototype.isMagical = function() {
 }
 
 // ****************************************************************************************************************************
-// アクション：グループ攻撃のターゲットをスムースに選ぶ
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.tona_targetsForTroopSmoothGroup = function(troop) {
-	var target;
-	var targets = [];
-
-	// 単体の Smooth ターゲットを取得する
-    if (this._targetIndex < 0) {
-        target = troop.randomTarget();
-    } else {
-        target = troop.smoothTarget(this._targetIndex);
-    }
-
-	// 隣合う同じ種類の敵をターゲットに追加する
-	var targetIndex = target.index();
-	var targetEnemyId = target.enemyId();
-	var members = troop.members();
-
-	for (var i = targetIndex; i >= 0 && members[i].enemyId() === targetEnemyId; i--) {
-		if (members[i].isAlive()) {
-			targets.push(members[i]);
-		}
-	}
-	for (var i = targetIndex + 1; i < members.length && members[i].enemyId() === targetEnemyId; i++) {
-		if (members[i].isAlive()) {
-			targets.push(members[i]);
-		}
-	}
-	targets.sort((a, b) => a.index() - b.index());
-	return targets;
-}
-
-// ****************************************************************************************************************************
-// アクション：ターゲットの選択をグループ攻撃に対応
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.targetsForAlive = function(unit) {
-
-	// グループ攻撃は「敵単体」指定になっています
-	// コマンド時にターゲットを選択できるようにするためです
-	// なので isForOne の手前で判定します
-
-	// ★ここからグループ処理追加
-    if (this.tona_isForGroup()) {
-
-		// ターゲットが Troop のときのみ処理
-		if (unit === $gameTroop) {
-			return this.tona_targetsForTroopSmoothGroup(unit);
-		}
-		else {
-
-			// ターゲットが Party の場合は全員をターゲット
-			return unit.aliveMembers();
-		}
-	}
-
-	// ★ここから元の処理
-    else if (this.isForOne()) {
-
-        if (this._targetIndex < 0) {
-            return [unit.randomTarget()];
-        } else {
-            return [unit.smoothTarget(this._targetIndex)];
-        }
-    } else {
-        return unit.aliveMembers();
-    }
-};
-
-// ****************************************************************************************************************************
 // アクション：運の良さ補正値
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -215,6 +144,80 @@ Game_Action.prototype.tona_isSutemi = function() {
 
 	return false;
 }
+
+// ****************************************************************************************************************************
+// アクション：グループ攻撃のターゲットをスムースに選ぶ
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.tona_targetsForTroopSmoothGroup = function(troop) {
+	var target;
+	var targets = [];
+
+	// 単体の Smooth ターゲットを取得する
+    if (this._targetIndex < 0) {
+        target = troop.randomTarget();
+    }
+    else {
+        target = troop.smoothTarget(this._targetIndex);
+    }
+
+	// 隣合う同じ種類の敵をターゲットに追加する
+	var targetIndex = target.index();
+	var targetEnemyId = target.enemyId();
+	var members = troop.members();
+
+	for (var i = targetIndex; i >= 0 && members[i].enemyId() === targetEnemyId; i--) {
+		if (members[i].isAlive()) {
+			targets.push(members[i]);
+		}
+	}
+	for (var i = targetIndex + 1; i < members.length && members[i].enemyId() === targetEnemyId; i++) {
+		if (members[i].isAlive()) {
+			targets.push(members[i]);
+		}
+	}
+	targets.sort((a, b) => a.index() - b.index());
+	return targets;
+}
+
+// ****************************************************************************************************************************
+// アクション：ターゲットの選択をグループ攻撃に対応
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.targetsForAlive = function(unit) {
+
+	// グループ攻撃は「敵単体」指定になっています
+	// コマンド時にターゲットを選択できるようにするためです
+	// なので isForOne の手前で判定します
+
+	// ★ここからグループ処理追加
+    if (this.tona_isForGroup()) {
+
+		// ターゲットが Troop のときのみ処理
+		if (unit === $gameTroop) {
+			return this.tona_targetsForTroopSmoothGroup(unit);
+		}
+		else {
+
+			// ターゲットが Party の場合は全員をターゲット
+			return unit.aliveMembers();
+		}
+	}
+
+	// ★ここから元の処理
+    else if (this.isForOne()) {
+
+        if (this._targetIndex < 0) {
+            return [unit.randomTarget()];
+        }
+        else {
+            return [unit.smoothTarget(this._targetIndex)];
+        }
+    }
+    else {
+        return unit.aliveMembers();
+    }
+};
 
 // ****************************************************************************************************************************
 // アクション：ダメージ計算
