@@ -36,8 +36,27 @@ Game_Action.prototype.speed = function() {
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_Action.prototype.tona_isForGroup = function() {
-
 	return this.item().meta.tona_groupRange != null;
+}
+
+// ****************************************************************************************************************************
+// アクション：命中タイプ
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.tona_isStateHit = function() {
+	return this.item().meta.tona_hitType === $tona_HitType_State;
+}
+
+Game_Action.prototype.isCertainHit = function() {
+	return this.item().hitType === Game_Action.HITTYPE_CERTAIN && !this.tona_isStateHit();
+}
+
+Game_Action.prototype.isPhysical = function() {
+	return this.item().hitType === Game_Action.HITTYPE_PHYSICAL && !this.tona_isStateHit();
+}
+
+Game_Action.prototype.isMagical = function() {
+	return this.item().hitType === Game_Action.HITTYPE_MAGICAL && !this.tona_isStateHit();
 }
 
 // ****************************************************************************************************************************
@@ -326,11 +345,13 @@ Game_Action.prototype.apply = function(target) {
 
 	// ★チェインスキル
 	if (this.item().meta.tona_chainSkill != null) {
-		var skillId = eval(this.item().meta.tona_chainSkill);
-		var chainAction = new Game_Action(this.subject());
-		chainAction.setSkill(skillId);
-		chainAction.setTarget(target);
-		this.subject()._actions.push(chainAction);
+	    if (result.isHit()) {
+			var skillId = eval(this.item().meta.tona_chainSkill);
+			var chainAction = new Game_Action(this.subject());
+			chainAction.setSkill(skillId);
+			chainAction.setTarget(target);
+			this.subject()._actions.push(chainAction);
+		}
 	}
 };
 
