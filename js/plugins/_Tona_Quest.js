@@ -278,7 +278,7 @@ Game_Interpreter.prototype.tona_quest_createRandomBattle_start = function() {
     }
 
     // はぐれを作っておく
-    //tona_createHagureEnemy($tona_questNow.wave()._level);
+    tona_createHagureEnemy($tona_questNow.wave().level);
 };
 
 Game_Interpreter.prototype.tona_quest_createRandomBattle_isFinish = function() {

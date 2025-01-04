@@ -10,6 +10,7 @@ var $plugins =
 {"name":"_Tona_Unit","status":true,"description":"","parameters":{}},
 {"name":"_Tona_Action","status":true,"description":"","parameters":{}},
 {"name":"_Tona_Battle","status":true,"description":"","parameters":{}},
+{"name":"_Tona_Hagure","status":true,"description":"","parameters":{}},
 {"name":"_Tona_Quest","status":true,"description":"","parameters":{}},
 {"name":"_Tona_Window","status":true,"description":"","parameters":{}},
 {"name":"_Tona_Command","status":true,"description":"","parameters":{}},

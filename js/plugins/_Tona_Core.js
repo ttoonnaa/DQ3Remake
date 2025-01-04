@@ -23,6 +23,10 @@ var $tona_QuestEventType_Boss = 11;
 var $tona_QuestEventType_Gold = 12;
 var $tona_QuestEventType_Item = 13;
 
+// エネミー
+var $tona_EnemyId_Kage = 35;
+var $tona_EnemyId_KageTemp = 201;
+
 // トループ
 var $tona_TroopId_RandomEnemy = 1;
 

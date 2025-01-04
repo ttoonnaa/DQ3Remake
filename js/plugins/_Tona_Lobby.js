@@ -342,7 +342,8 @@ Game_Interpreter.prototype.tona_lobby_showQuestMenu = function() {
 	for (var questId = $tona_quest.length - 1; questId >= 1 ; questId--) {
 		var quest = $tona_quest[questId];
 		if ($tona_saveData.questAppearState[questId]) {
-		    choices.push(quest.name);		resultList.push(questId);
+			var text = quest.name + " (Lv." + quest.level + ")";
+		    choices.push(text);	resultList.push(questId);
 		}
 	}
 
