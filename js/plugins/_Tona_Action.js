@@ -127,7 +127,8 @@ Game_Action.prototype.itemCri = function(target) {
 
 	// 回避を基準に考える
 	if (this.item().damage.critical) {
-		var chance = 1 - this.subject().cri * (1 - target.cev);
+
+		var chance = 1 - this.subject().tona_cri() * (1 - target.cev);
 		if (chance < 1) {
 		    chance -= Math.max(this.lukEffectAdd(target), 0.0);		// ★引き算に変更
 			return 1 - chance;
@@ -228,7 +229,7 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
 
 	// クリティカルはこの後に計算（場合により属性などが上書きされる）
     if (critical) {
-        value = this.applyCritical(value);
+        value = this.applyCritical(target, value);
     }
 
     value = this.tona_applySutemi(value, target);	// ★すてみの処理

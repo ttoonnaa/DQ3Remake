@@ -262,6 +262,74 @@
 		return item.tona_canEquipClasses.includes(this._classId);
 	};
 
+	// ****************************************************************************************************************************
+	// アクター：会心率
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+	Game_Actor.prototype.tona_cri = function() {
+		var cri = 0;
+
+		// クラスとレベルによって分岐
+		switch (this._classId) {
+
+		case 1:		// ゆうしゃ
+			if (this._level <= 9)       { cri = 2;   }
+			else if (this._level <= 20) { cri = 2.5; }
+			else if (this._level <= 30) { cri = 3;   }
+			else if (this._level <= 40) { cri = 3.5; }
+			else if (this._level <= 50) { cri = 4;   }
+			else if (this._level <= 60) { cri = 4.5; }
+			else if (this._level <= 99) { cri = 5;   }
+			break;
+
+		case 2:		// せんし
+			cri = 2;
+			break;
+
+		case 3:		// ぶとうか
+			if (this._level <= 4)       { cri = 4;  }
+			else if (this._level <= 10) { cri = 5;  }
+			else if (this._level <= 26) { cri = 6;  }
+			else if (this._level <= 33) { cri = 7;  }
+			else if (this._level <= 71) { cri = 8;  }
+			else if (this._level <= 80) { cri = 9;  }
+			else if (this._level <= 99) { cri = 10; }
+			break;
+
+		case 4:		// まほうつかい
+			cri = 3;
+			break;
+
+		case 5:		// そうりょ
+			cri = 2;
+			break;
+
+		case 6:		// しょうにん
+			cri = 2;
+			break;
+
+		case 7:		// あそびにん
+			if (this._level <= 9)       { cri = 3; }
+			else if (this._level <= 20) { cri = 4; }
+			else if (this._level <= 30) { cri = 5; }
+			else if (this._level <= 99) { cri = 6; }
+			break;
+
+		case 8:		// とうぞく
+			cri = 2;
+			break;
+
+		case 9:		// まものつかい
+			cri = 3;
+			break;
+
+		case 10:	// けんじゃ
+			cri = 2;
+			break;
+		}
+
+		return cri / 100;
+	}
 })();
 
 
