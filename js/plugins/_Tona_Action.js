@@ -225,6 +225,55 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
 };
 
 // ****************************************************************************************************************************
+// アクション：追加属性を取得する
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.tona_additionalElements = function() {
+
+	if (this.isSkill()) {
+		if (this.item().meta.tona_additionalElements != null) {
+			return eval(this.item().meta.tona_additionalElements);
+		}
+	}
+
+	return [];
+}
+
+// ****************************************************************************************************************************
+// アクション：属性を取得する
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.tona_elements = function() {
+	var elements = [];
+
+	// 「通常攻撃」属性の場合は使用者の属性
+    if (this.item().damage.elementId < 0) {
+		elements = this.subject().attackElements();
+	}
+    else {
+        elements.push(this.item().damage.elementId);
+    }
+
+	// 追加属性を加える
+	if (this.item().meta.tona_additionalElements != null) {
+		elements = elements.concat(this.tona_additionalElements());
+	}
+
+	return elements;
+}
+
+// ****************************************************************************************************************************
+// アクション：ダメージの属性補正を計算
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.calcElementRate = function(target) {
+	var elements = this.tona_elements();
+
+	// 最も効果の高い属性を選ぶ（★重要）
+    return this.elementsMaxRate(target, elements);
+};
+
+// ****************************************************************************************************************************
 // アクション：反映
 // ----------------------------------------------------------------------------------------------------------------------------
 

@@ -323,7 +323,6 @@ function tona_overrideEnemyDatabase() {
 		$dataEnemies[i].exp = Math.ceil($dataEnemies[i].exp / 8);
 
 		// 特徴を設定する
-		$dataEnemies[i].traits = [];
 	    $dataEnemies[i].traits.push({ "code": 31, "dataId":  1, "value": 0 });				// 攻撃持続性：物理
 	    $dataEnemies[i].traits.push({ "code": 22, "dataId":  0, "value": 1 });				// 命中率＋１００％
 
@@ -356,6 +355,17 @@ function tona_overrideEnemyDatabase() {
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 17, "value": statRate[enemy.regist1[6]] / 100 });	// おたけび
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 18, "value": statRate[enemy.regist1[7]] / 100 });	// 転倒
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 19, "value": statRate[enemy.regist2[3]] / 100 });	// 呪文耐性ダウン
+
+		// 特効を設定する
+		if ($dataEnemies[i].meta.tona_attr != null) {
+			var tona_attr = eval($dataEnemies[i].meta.tona_attr);
+			for (const attr of tona_attr) {
+				switch (attr) {
+		    	case (21)	$dataEnemies[i].traits.push({ "code": 11, "dataId": attr, "value": 1.3 });	// ゾンビ特効
+		    	case (22)	$dataEnemies[i].traits.push({ "code": 11, "dataId": attr, "value": 1.3 });	// ドラゴン特効
+		    	case (23)	$dataEnemies[i].traits.push({ "code": 11, "dataId": attr, "value": 1.3 });	// 飛行特効
+			}
+		}
 	}
 }
 
