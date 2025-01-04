@@ -103,6 +103,25 @@ Game_BattlerBase.prototype.paramBuffRate = function(paramId) {
 };
 
 // ****************************************************************************************************************************
+// バトラー：リフレッシュ
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Battler.prototype.refresh = function() {
+    Game_BattlerBase.prototype.refresh.call(this);
+
+    if (this.hp === 0) {
+        this.addState(this.deathStateId());
+    }
+	// ★追加：ザキや急所状態なら死亡させる
+    else if (this.isStateAffected($tona_StateId_Zaki) || this.isStateAffected($tona_StateId_VitalPoint)) {
+        this.addState(this.deathStateId());
+    }
+    else {
+        this.removeState(this.deathStateId());
+    }
+};
+
+// ****************************************************************************************************************************
 // バトラー：ステートを与える
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -110,7 +129,7 @@ Game_BattlerBase.prototype.addNewState = function(stateId) {
     if (stateId === this.deathStateId()) {
         this.die();
     }
-	this.tona_eraseConflictState(stateId);		// 追加：衝突するステートを消去
+	this.tona_eraseConflictState(stateId);		// ★追加：衝突するステートを消去
     var restricted = this.isRestricted();
     this._states.push(stateId);
     this.sortStates();
