@@ -323,6 +323,15 @@ Game_Action.prototype.apply = function(target) {
     }
 
     this.updateLastTarget(target);
+
+	// ★チェインスキル
+	if (this.item().meta.tona_chainSkill != null) {
+		var skillId = eval(this.item().meta.tona_chainSkill);
+		var chainAction = new Game_Action(this.subject());
+		chainAction.setSkill(skillId);
+		chainAction.setTarget(target);
+		this.subject()._actions.push(chainAction);
+	}
 };
 
 // ****************************************************************************************************************************
