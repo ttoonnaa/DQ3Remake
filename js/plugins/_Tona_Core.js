@@ -33,6 +33,7 @@ var $tona_StateId_Nifuramu = 16;
 var $tona_StateId_Bashirura = 15;
 var $tona_StateId_Ukenagashi = 36;
 var $tona_StateId_GreatGuard = 39;
+var $tona_StateId_Sutemi = 40;
 
 // ****************************************************************************************************************************
 // データベース読み込み後の編集

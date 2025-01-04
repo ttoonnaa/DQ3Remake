@@ -173,16 +173,28 @@ Game_Action.prototype.itemEva = function(target) {
 Game_Action.prototype.tona_isMoroha = function() {
 
 	// スキル：もろば斬り
-	if (this.isSkill()) {
-		if (this.item().meta.tona_moroha != null) {
-			return true;
-		}
+	if (this.item().meta.tona_moroha != null) {
+		return true;
 	}
 
 	// ▲もろはのつるぎ
 
 	return false;
 };
+
+// ****************************************************************************************************************************
+// アクション：すてみ判定
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.tona_isSutemi = function() {
+
+	// スキル：すてみ
+	if (this.item().meta.tona_sutemi != null) {
+		return true;
+	}
+
+	return false;
+}
 
 // ****************************************************************************************************************************
 // アクション：ダメージ計算
@@ -219,6 +231,7 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
         value = this.applyCritical(value);
     }
 
+    value = this.tona_applySutemi(value, target);	// ★すてみの処理
     value = this.applyGuard(value, target);
     value = Math.round(value);
     return value;
@@ -287,6 +300,7 @@ Game_Action.prototype.apply = function(target) {
     result.physical = this.isPhysical();
     result.drain = this.isDrain();
     result.moroha = this.tona_isMoroha();	// ★もろはの処理を追加
+    result.sutemi = this.tona_isSutemi();	// ★すてみの処理を追加
 
     if (result.isHit()) {
         if (this.item().damage.type > 0) {
@@ -299,6 +313,14 @@ Game_Action.prototype.apply = function(target) {
         }
         this.applyItemUserEffect(target);
     }
+
+	// ★すてみの処理を追加
+    if (result.sutemi) {
+	    if (result.used) {
+	    	this.subject().addState($tona_StateId_Sutemi);
+		}
+    }
+
     this.updateLastTarget(target);
 };
 
@@ -331,6 +353,21 @@ Game_Action.prototype.applyGuard = function(damage, target) {
 		}
 		else if (target.isGuard()) {
 			return damage / (2 * target.grd);
+		}
+	}
+
+	return damage;
+}
+
+// ****************************************************************************************************************************
+// アクション：すてみを反映
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.tona_applySutemi = function(damage, target) {
+
+	if (damage > 0) {
+		if (target.tona_isSutemi()) {
+			return damage * 2;
 		}
 	}
 

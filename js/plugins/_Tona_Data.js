@@ -117,13 +117,13 @@ function tona_createDatabase() {
 	for (var i = 1; i < $tona_personality.length; i++) {
 		for (var p = 0; p < 8; p++) {
 			switch ($tona_personality[i].params[p]) {
-			case -3:	$tona_personality[i].params[p] = -6;
-			case -2:	$tona_personality[i].params[p] = -3;
-			case -1:	$tona_personality[i].params[p] = 0;
-			case  0:	$tona_personality[i].params[p] = 0;
-			case  1:	$tona_personality[i].params[p] = 3;
-			case  2:	$tona_personality[i].params[p] = 6;
-			case  3:	$tona_personality[i].params[p] = 9;
+			case -3:	$tona_personality[i].params[p] = -6;	break;
+			case -2:	$tona_personality[i].params[p] = -3;	break;
+			case -1:	$tona_personality[i].params[p] = 0;		break;
+			case  0:	$tona_personality[i].params[p] = 0;		break;
+			case  1:	$tona_personality[i].params[p] = 3;		break;
+			case  2:	$tona_personality[i].params[p] = 6;		break;
+			case  3:	$tona_personality[i].params[p] = 9;		break;
 			}
 		}
 	}
@@ -301,7 +301,7 @@ function tona_overrideDatabase(object) {
 
 function tona_overrideEnemyDatabase() {
 
-    var attrRate = [0, 10, 70, 100, 130, 160];
+    var elemRate = [0, 10, 70, 100, 130, 160];
     var statRate = [0, 0, 30, 70, 100, 100];
 
 	for (var i = 1; i < $tona_enemy.length; i++) {
@@ -326,16 +326,16 @@ function tona_overrideEnemyDatabase() {
 	    $dataEnemies[i].traits.push({ "code": 31, "dataId":  1, "value": 0 });				// 攻撃持続性：物理
 	    $dataEnemies[i].traits.push({ "code": 22, "dataId":  0, "value": 1 });				// 命中率＋１００％
 
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  1, "value": attrRate[enemy.attr[8]] / 100 });		// 物理
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  2, "value": attrRate[enemy.attr[0]] / 100 });		// メラ
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  3, "value": attrRate[enemy.attr[1]] / 100 });		// ギラ
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  4, "value": attrRate[enemy.attr[2]] / 100 });		// イオ
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  5, "value": attrRate[enemy.attr[3]] / 100 });		// ヒャド
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  6, "value": attrRate[enemy.attr[4]] / 100 });		// バギ
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  7, "value": attrRate[enemy.attr[5]] / 100 });		// デイン
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  9, "value": attrRate[enemy.attr[6]] / 100 });		// 炎
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 10, "value": attrRate[enemy.attr[7]] / 100 });		// 氷
-    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 11, "value": attrRate[enemy.regist1[5]] / 100 });	// MP吸収
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  1, "value": elemRate[enemy.attr[8]] / 100 });		// 物理
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  2, "value": elemRate[enemy.attr[0]] / 100 });		// メラ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  3, "value": elemRate[enemy.attr[1]] / 100 });		// ギラ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  4, "value": elemRate[enemy.attr[2]] / 100 });		// イオ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  5, "value": elemRate[enemy.attr[3]] / 100 });		// ヒャド
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  6, "value": elemRate[enemy.attr[4]] / 100 });		// バギ
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  7, "value": elemRate[enemy.attr[5]] / 100 });		// デイン
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId":  9, "value": elemRate[enemy.attr[6]] / 100 });		// 炎
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 10, "value": elemRate[enemy.attr[7]] / 100 });		// 氷
+    	$dataEnemies[i].traits.push({ "code": 11, "dataId": 11, "value": elemRate[enemy.regist1[5]] / 100 });	// MP吸収
 
 	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  2, "value": statRate[enemy.regist2[0]] / 100 });	// 攻撃力↓
 	    $dataEnemies[i].traits.push({ "code": 12, "dataId":  3, "value": statRate[enemy.regist2[1]] / 100 });	// 防御力↓
@@ -357,13 +357,14 @@ function tona_overrideEnemyDatabase() {
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 19, "value": statRate[enemy.regist2[3]] / 100 });	// 呪文耐性ダウン
 
 		// 特効を設定する
-		if ($dataEnemies[i].meta.tona_attr != null) {
-			var tona_attr = eval($dataEnemies[i].meta.tona_attr);
-			for (const attr of tona_attr) {
-				switch (attr) {
-		    	case (21)	$dataEnemies[i].traits.push({ "code": 11, "dataId": attr, "value": 1.3 });	// ゾンビ特効
-		    	case (22)	$dataEnemies[i].traits.push({ "code": 11, "dataId": attr, "value": 1.3 });	// ドラゴン特効
-		    	case (23)	$dataEnemies[i].traits.push({ "code": 11, "dataId": attr, "value": 1.3 });	// 飛行特効
+		if ($dataEnemies[i].meta.tona_elements != null) {
+			var tona_elements = eval($dataEnemies[i].meta.tona_elements);
+			for (const element of tona_elements) {
+				switch (element) {
+		    	case 21:	$dataEnemies[i].traits.push({ "code": 11, "dataId": element, "value": 1.3 });	break;	// ゾンビ特効
+		    	case 22:	$dataEnemies[i].traits.push({ "code": 11, "dataId": element, "value": 1.3 });	break;	// ドラゴン特効
+		    	case 23:	$dataEnemies[i].traits.push({ "code": 11, "dataId": element, "value": 1.3 });	break;	// 飛行特効
+		    	}
 			}
 		}
 	}
@@ -468,25 +469,22 @@ function tona_overrideClassDatabase() {
 	$dataClasses[10].expTable = [0,0,20,60,140,260,440,710,1115,1722,2633,3999,6047,8607,11807,15807,20807,27057,34869,43657,53543,64664,77175,91250,107083,124895,144933,167475,192835,221365,253461,289568,330188,375885,427293,485126,550188,623383,705726,798362,902577,1019818,1151714,1300096,1448478,1596860,1745242,1893624,2042006,2190388,2338770,2487152,2635534,2783916,2932298,3080680,3229062,3377444,3525826,3674208,3822590,3970972,4119354,4267736,4416118,4564500,4712882,4861264,5009646,5158028,5306410,5454792,5603174,5751556,5899938,6048320,6196702,6345084,6493466,6641848,6790230,6938612,7086994,7235376,7383758,7532140,7680522,7828904,7977286,8125668,8274050,8422432,8570814,8719196,8867578,9015960,9164342,9312724,9461106,9609488];
 
 	// 特徴
-    var attrRate = [0, 10, 70, 100, 130, 160];
-    var statRate = [0, 0, 30, 70, 100, 100];
-
 	for (var i = 1; i <= $tona_ClassCount; i++) {
 
-	    $dataClasses[i].traits.push({ "code": 13, "dataId":  1, "value": statRate[3] / 100 });	// 戦闘不能
-	    $dataClasses[i].traits.push({ "code": 13, "dataId":  7, "value": statRate[3] / 100 });	// 麻痺
-	    $dataClasses[i].traits.push({ "code": 13, "dataId":  8, "value": statRate[3] / 100 });	// ラリホー
-	    $dataClasses[i].traits.push({ "code": 13, "dataId":  9, "value": statRate[3] / 100 });	// メダパニ
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 10, "value": statRate[3] / 100 });	// マヌーサ
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 11, "value": statRate[3] / 100 });	// マホトーン
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 12, "value": statRate[3] / 100 });	// ザキ
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 13, "value": statRate[3] / 100 });	// 急所
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 14, "value": statRate[3] / 100 });	// メガンテ
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 15, "value": statRate[3] / 100 });	// バシルーラ
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 16, "value": statRate[3] / 100 });	// ニフラム
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 17, "value": statRate[3] / 100 });	// おたけび
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 18, "value": statRate[3] / 100 });	// 転倒
-	    $dataClasses[i].traits.push({ "code": 13, "dataId": 19, "value": statRate[3] / 100 });	// 呪文耐性ダウン
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  1, "value": 0.7 });	// 戦闘不能
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  7, "value": 0.7 });	// 麻痺
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  8, "value": 0.7 });	// ラリホー
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  9, "value": 0.7 });	// メダパニ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 10, "value": 0.7 });	// マヌーサ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 11, "value": 0.7 });	// マホトーン
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 12, "value": 0.7 });	// ザキ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 13, "value": 0.7 });	// 急所
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 14, "value": 0.7 });	// メガンテ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 15, "value": 0.7 });	// バシルーラ
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 16, "value": 0.7 });	// ニフラム
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 17, "value": 0.7 });	// おたけび
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 18, "value": 0.7 });	// 転倒
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 19, "value": 0.7 });	// 呪文耐性ダウン
 	}
 }
 
