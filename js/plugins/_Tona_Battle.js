@@ -1,5 +1,30 @@
 
 // ****************************************************************************************************************************
+// バトル：影を作る
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function tona_createKageEnemy(level) {
+
+	// 正体となるエネミーを選択（レベル+2までのエネミーが登場）
+	var enemyIds = tona_findLevelEnemies(level + 2);
+	var enemyId = enemyIds[Math.randomInt(enemyIds.length)];
+	var src = $dataEnemies[enemyId];
+
+	// Temp 枠に正体のデータをコピー
+	var dst = $dataEnemies[$tona_EnemyId_KageTemp];
+
+	// データは固定なのでシャローコピーで問題ない
+	dst.tona_level = src.tona_level;
+	dst.params = src.params;
+	dst.exp = src.exp;
+	dst.gold = src.gold;
+	dst.dropItems = src.dropItems;
+	dst.actions = src.actions;
+	dst.trais = src.traits;
+	dst.meta = src.meta;
+}
+
+// ****************************************************************************************************************************
 // バトル：仲間呼び
 // ----------------------------------------------------------------------------------------------------------------------------
 

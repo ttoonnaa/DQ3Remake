@@ -277,6 +277,9 @@ Game_Interpreter.prototype.tona_quest_createRandomBattle_start = function() {
         $tona_randomBattleCreateTemorary.maxEnemyNum = 5;
     }
 
+    // 謎の影を作っておく
+    tona_createKageEnemy($tona_questNow.wave().level);
+
     // はぐれを作っておく
     tona_createHagureEnemy($tona_questNow.wave().level);
 };
@@ -299,6 +302,10 @@ Game_Interpreter.prototype.tona_quest_createRandomBattle_update = function() {
             var index = Math.floor(Math.random() * $tona_randomBattleCreateTemorary.monsters.length);
             $tona_randomBattleCreateTemorary.enemyId = $tona_randomBattleCreateTemorary.monsters[index];
         }
+		// 謎の影の場合は Temp に変換
+		if ($tona_randomBattleCreateTemorary.enemyId == $tona_EnemyId_Kage) {
+			$tona_randomBattleCreateTemorary.enemyId = $tona_EnemyId_KageTemp;
+		}
 		// 画像読み込み開始
         var enemy = $dataEnemies[$tona_randomBattleCreateTemorary.enemyId];
         $tona_randomBattleCreateTemorary.enemyBitmap = ImageManager.loadEnemy(enemy.battlerName, enemy.battlerHue);  // Loading...
@@ -327,8 +334,8 @@ Game_Interpreter.prototype.tona_quest_createRandomBattle_update = function() {
         // クエストごとの配置最大数で制限（同じくまずはデフォルトの最大数で計算）
         maxNum = Math.min(maxNum, $tona_randomBattleCreateTemorary.maxEnemyNum);
         // エネミーごとの配置最大数で制限
-        if (enemy.json !== undefined && enemy.json['numMax'] !== undefined) {
-            maxNum = Math.min(maxNum, enemy.json['numMax']);
+        if (enemy.meta.tona_maxNum != null) {
+            maxNum = Math.min(maxNum, eval(enemy.meta.tona_maxNum));
         }
         // 配置する数を決める
         var num = tona_squareIntegerRand(maxNum) + 1;
@@ -385,4 +392,3 @@ Game_Interpreter.prototype.tona_quest_createRandomGold = function() {
     $tona_questNow._gotGold += gold;
     $tona_resultAction.push([$tona_ActionType_Message, gold + " Gold 手に入れた！"]);
 }
-
