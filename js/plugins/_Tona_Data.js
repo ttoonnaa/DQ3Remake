@@ -148,11 +148,11 @@ function tona_createQuestDatabase() {
 	var hagureFull = [];
 
 	quests[1] = { name: "アリアハン周辺", level: 1, waves: [], levelResult: 2, reward: { kind: 1, dataId: 1 } };
-    quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, maxEnemyNum: 3, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
 	quests[2] = { name: "レーベ周辺", level: 2, waves: [], levelResult: 3, reward: { kind: 1, dataId: 1 } };
-    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
-    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 4, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 4, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
 	quests[3] = { name: "岬の洞窟", level: 3, waves: [], levelResult: 4, reward: { kind: 1, dataId: 1 } };
     quests[3].waves[1] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };

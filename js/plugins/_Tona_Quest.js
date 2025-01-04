@@ -379,7 +379,7 @@ Game_Interpreter.prototype.tona_quest_createRandomBattle_update = function() {
 Game_Interpreter.prototype.tona_quest_createRandomGold = function() {
     $tona_resultAction = [];
 
-    var gold = $tona_questNow.wave()._gold;
+    var gold = $tona_questNow.wave().gold;
     $gameParty.gainGold(gold);
 
     $tona_questNow._gotGold += gold;

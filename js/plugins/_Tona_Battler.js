@@ -17,11 +17,11 @@ Game_BattlerBase.prototype.tona_physicalDamage = function(target) {
 
 	// 運の良さによるダメージ補正は無しにする
 
-	let atk = Math.min(this.atk, 850);
-	let def = target.def;
-	let rate = Math.random() * 0.2 + 0.9;
-	let base = atk * (1700 - atk) / 2000 * (1700 - def) / 2000 * 0.7 * rate;
-	let add = (atk - def) * (1700 - Math.max(atk, def)) / 2000 * 0.6;
+	var atk = Math.min(this.atk, 850);
+	var def = target.def;
+	var rate = Math.random() * 0.2 + 0.9;
+	var base = atk * (1700 - atk) / 2000 * (1700 - def) / 2000 * 0.7 * rate;
+	var add = (atk - def) * (1700 - Math.max(atk, def)) / 2000 * 0.6;
 
 	return base + add;
 }
@@ -38,11 +38,10 @@ Game_BattlerBase.prototype.tona_magicalDamage = function(target, min, max) {
 	// 代わりに、呪文ごとに設定された基準を採用する
 	// 「呪文ごとに設定された基準」= その呪文のダメージの中央値（つまりメラなら10程度）
 
-	let mat = this.mat;
-
-	let center = (min + max) / 2;
-	let rate = tona_Limit(((mat - center) / 2 + center) / center, 1, 1.3);
-	let value = (max - min + 1) * Math.random() + min;
+	var mat = this.mat;
+	var center = (min + max) / 2;
+	var rate = tona_limit(((mat - center) / 2 + center) / center, 1, 1.3);
+	var value = (max - min + 1) * Math.random() + min;
 
 	return value * rate;
 }
@@ -53,7 +52,7 @@ Game_BattlerBase.prototype.tona_magicalDamage = function(target, min, max) {
 
 Game_BattlerBase.prototype.tona_healDamage = function(target, min, max) {
 
-	let value = (max - min + 1) * Math.random() + min;
+	var value = (max - min + 1) * Math.random() + min;
 
 	return value;
 }
@@ -64,7 +63,7 @@ Game_BattlerBase.prototype.tona_healDamage = function(target, min, max) {
 
 Game_BattlerBase.prototype.tona_rangeDamage = function(target, min, max) {
 
-	let value = (max - min + 1) * Math.random() + min;
+	var value = (max - min + 1) * Math.random() + min;
 
 	return value;
 }
@@ -172,7 +171,7 @@ Game_BattlerBase.prototype.tona_eraseConflictState = function(stateId) {
 
 Game_BattlerBase.prototype.updateStateTurns = function(timing) {
     for (const stateId of this._states) {
-        let state = $dataStates[stateId];
+        var state = $dataStates[stateId];
         if (state.autoRemovalTiming === timing && this._stateTurns[stateId] > 0) {
             this._stateTurns[stateId]--;
         }
