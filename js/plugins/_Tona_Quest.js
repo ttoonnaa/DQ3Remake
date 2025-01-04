@@ -194,6 +194,8 @@ Game_Interpreter.prototype.tona_quest_toNextEvent = function() {
 Game_Interpreter.prototype.tona_quest_successQuest = function() {
     $tona_resultAction = [];
 
+	var lastCleared = $tona_saveData.questClearFlag[$tona_questNow._questId];
+
 	// クエスト成功
     $tona_saveData.questClearFlag[$tona_questNow._questId] = 1;
     $tona_saveData.partyLevel = Math.max($tona_saveData.partyLevel, $tona_questNow.quest().levelResult);
@@ -201,8 +203,16 @@ Game_Interpreter.prototype.tona_quest_successQuest = function() {
     // チェックポイント処理
     $tona_resultAction.push([$tona_ActionType_Message, "合計で " + $tona_questNow._gotGold + " Gold を獲得！"]);
 
+	// 初回報酬
+	if (lastCleared != 1) {
+		var reward = $tona_questNow.quest().reward;
+		var item = tona_getItem(reward.kind, reward.dataId);
+		$gameParty.gainItem(item, 1);
+	    $tona_resultAction.push([$tona_ActionType_Message, "初回報酬：" + item.name + " を獲得！"]);
+	}
+
     // データを更新
-    tona_UpdateData(true);
+    tona_updateData(true);
 }
 
 // ****************************************************************************************************************************
@@ -243,7 +253,7 @@ tona_randomBattleCreateTemorary = function() {
     this.enemyBitmap = 0;
 };
 
-Game_Interpreter.prototype.tona_quest_createRandomBattle_Start = function() {
+Game_Interpreter.prototype.tona_quest_createRandomBattle_start = function() {
 	var wave = $tona_questNow.wave();
 
     $tona_randomBattleCreateTemorary = new tona_randomBattleCreateTemorary();

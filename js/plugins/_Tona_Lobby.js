@@ -28,7 +28,6 @@ function tona_pub_newName() {
 	var name;
 
 	tona_pub_newNameId_loop: while (true) {
-
 		name = $tona_name[Math.randomInt($tona_name.length - 1) + 1];
 
 		for (var i = 1; i <= $tona_MaxActorId; i++) {
@@ -55,7 +54,6 @@ function tona_pub_newFace() {
 	var face;
 
 	tona_pub_newFace_loop: while (true) {
-
 		face = $tona_face[Math.randomInt($tona_face.length - 1) + 1];
 
 		for (var i = 1; i <= $tona_MaxActorId; i++) {
@@ -82,12 +80,11 @@ function tona_pub_newPersonality() {
 	var personalityId;
 
 	tona_pub_newPersonality_loop: while (true) {
-
 		personalityId = Math.randomInt($tona_personality.length - 1) + 1;
 
 		for (var i = 1; i <= $tona_MaxActorId; i++) {
 			var actor = $gameActors.actor(i);
-			if (actor.name() == "") {
+			if (actor.name() != "") {
 				if (actor._tona_personalityId == personalityId) {
 					continue tona_pub_newPersonality_loop;
 				}
@@ -182,16 +179,16 @@ Game_Interpreter.prototype.tona_pub_inviteCreateActor = function() {
 	var actor = $gameActors.actor(actorId);
 	var classId = $tona_pub_inviteData.classId;
 
+	// ステータスを決める
+	var name = tona_pub_newName();
+	var face = tona_pub_newFace();
+	var personalityId = tona_pub_newPersonality();
+
 	// 職業からアクターを作成
 	actor.tona_setupWithClass(actorId, classId);
-
-	// 名前を決める
-	var name = tona_pub_newName();
 	actor.setName(name.name);
-
-	// 顔グラを決める
-	var face = tona_pub_newFace();
 	actor.setFaceImage(face.name, face.index);
+	actor.tona_setPersonality(personalityId);
 
 	// 歩行グラは透明にする（勇者のみデフォルト）
 	if (actorId == 1) {
@@ -200,10 +197,6 @@ Game_Interpreter.prototype.tona_pub_inviteCreateActor = function() {
 	else {
 		actor.setCharacterImage("", 0);
 	}
-
-	// 性格を決める
-	var personalityId = tona_pub_newPersonality();
-	actor.tona_setPersonality(personalityId);
 
 	// 種を与える
 	for (var i = 0; i < 5; i++) {

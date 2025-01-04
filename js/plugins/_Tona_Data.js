@@ -147,35 +147,35 @@ function tona_createQuestDatabase() {
     var quests = [];
 	var hagureFull = [];
 
-	quests[1] = { name: "アリアハン周辺", level: 1, waves: [], levelResult: 2 };
+	quests[1] = { name: "アリアハン周辺", level: 1, waves: [], levelResult: 2, reward: { kind: 1, dataId: 1 } };
     quests[1].waves[1] = { mapId: 3, eventNum: 10, level: 1, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
-	quests[2] = { name: "レーベ周辺", level: 2, waves: [], levelResult: 3 };
+	quests[2] = { name: "レーベ周辺", level: 2, waves: [], levelResult: 3, reward: { kind: 1, dataId: 1 } };
     quests[2].waves[1] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
     quests[2].waves[2] = { mapId: 3, eventNum: 10, level: 2, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
-	quests[3] = { name: "岬の洞窟", level: 3, waves: [], levelResult: 4 };
+	quests[3] = { name: "岬の洞窟", level: 3, waves: [], levelResult: 4, reward: { kind: 1, dataId: 1 } };
     quests[3].waves[1] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
     quests[3].waves[2] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
     quests[3].waves[3] = { mapId: 4, eventNum: 10, level: 3, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
 
-	quests[4] = { name: "ナジミの塔", level: 4, waves: [], levelResult: 5 };
+	quests[4] = { name: "ナジミの塔", level: 4, waves: [], levelResult: 5, reward: { kind: 1, dataId: 1 } };
     quests[4].waves[1] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
     quests[4].waves[2] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
     quests[4].waves[3] = { mapId: 5, eventNum: 10, level: 4, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
 
-	quests[5] = { name: "いざないの洞窟", level: 5, waves: [], levelResult: 6 };
+	quests[5] = { name: "いざないの洞窟", level: 5, waves: [], levelResult: 6, reward: { kind: 1, dataId: 1 } };
     quests[5].waves[1] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
     quests[5].waves[2] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
     quests[5].waves[3] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
 
-	quests[6] = { name: "ロマリア周辺", level: 6, waves: [], levelResult: 7 };
-	quests[7] = { name: "カザーブ周辺", level: 7, waves: [], levelResult: 8 };
-	quests[8] = { name: "シャンパーニの塔", level: 8, waves: [], levelResult: 9 };
-	quests[9] = { name: "ノアニール周辺", level: 9, waves: [], levelResult: 10 };
-	quests[10] = { name: "地底の湖", level: 10, waves: [], levelResult: 11 };
-	quests[11] = { name: "アッサラーム周辺", level: 11, waves: [], levelResult: 12 };
-	quests[12] = { name: "イシス周辺", level: 12, waves: [], levelResult: 13 };
+	quests[6] = { name: "ロマリア周辺", level: 6, waves: [], levelResult: 7, reward: { kind: 1, dataId: 1 } };
+	quests[7] = { name: "カザーブ周辺", level: 7, waves: [], levelResult: 8, reward: { kind: 1, dataId: 1 } };
+	quests[8] = { name: "シャンパーニの塔", level: 8, waves: [], levelResult: 9, reward: { kind: 1, dataId: 1 } };
+	quests[9] = { name: "ノアニール周辺", level: 9, waves: [], levelResult: 10, reward: { kind: 1, dataId: 1 } };
+	quests[10] = { name: "地底の湖", level: 10, waves: [], levelResult: 11, reward: { kind: 1, dataId: 1 } };
+	quests[11] = { name: "アッサラーム周辺", level: 11, waves: [], levelResult: 12, reward: { kind: 1, dataId: 1 } };
+	quests[12] = { name: "イシス周辺", level: 12, waves: [], levelResult: 13, reward: { kind: 1, dataId: 1 } };
 
 	// レベルから Gold を設定
 	for (var questId = 1; questId < quests.length; questId++) {
@@ -606,6 +606,21 @@ function tona_findLevelEnemies(level) {
 	}
 
 	return enemyIds;
+}
+
+// ****************************************************************************************************************************
+// アイテムを取得
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function tona_getItem(kind, dataId) {
+
+	switch (kind) {
+	case 1:		return $dataItems[dataId];
+	case 2:		return $dataWeapons[dataId];
+	case 3:		return $dataArmors[dataId];
+	}
+
+	return null;
 }
 
 // ****************************************************************************************************************************
