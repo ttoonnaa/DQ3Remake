@@ -322,9 +322,9 @@ Game_Interpreter.prototype.tona_lobby_openItemShop = function() {
 
     for (var i = 0; i < kouho.length; i++) {
         var itemId = kouho[i];
-//        if ($tona_saveData.itemAppearState[itemId]) {
+        if ($tona_saveData.itemAppearState[itemId]) {
             goods.push([0, itemId, 0, 0]);
-//        }
+        }
     }
     SceneManager.push(Scene_Shop);
     SceneManager.prepareNextScene(goods, false);

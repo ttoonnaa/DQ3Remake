@@ -275,7 +275,7 @@ function tona_createShopDatabase() {
 	];
 
 	$tona_shopItemList = [
-		11,
+		11, 12, 13, 15, 16, 17, 19, 20, 21, 22, 23, 25,
 	];
 }
 
@@ -307,6 +307,10 @@ function tona_overrideDatabase(object) {
 	else if (object === $dataArmors) {
         tona_overrideArmorDatabase();
     }
+    // 道具
+	else if (object === $dataItems) {
+        tona_overrideItemDatabase();
+    }
 }
 
 // ****************************************************************************************************************************
@@ -328,7 +332,14 @@ function tona_overrideEnemyDatabase() {
 		$dataEnemies[i].tona_level = tona_evalNum($dataEnemies[i].meta.tona_level);
 
 		// 守備力を調整する
-		$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 2 / 3);
+		if ($dataEnemies[i].tona_level < 14) {
+			$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 0.7);
+		}
+		else {
+
+			// バハラタあたりから明らかにおかしいのでさらに調整
+			$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 0.5);
+		}
 
 		// 運の良さを設定する
 		$dataEnemies[i].params[7] = Math.floor($dataEnemies[i].tona_level * 2.5);
@@ -550,6 +561,26 @@ function tona_overrideArmorDatabase() {
 		// 装備可能クラス
 		if (armor.meta.tona_equip != null) {
 			armor.tona_canEquipClasses = eval(armor.meta.tona_equip);
+		}
+	}
+}
+
+// ****************************************************************************************************************************
+// 道具のデータベースを上書き
+// ----------------------------------------------------------------------------------------------------------------------------
+
+function tona_overrideItemDatabase() {
+
+	var cnt = $dataItems.length;
+
+	// 初期化
+	for (var i = 1; i < cnt; i++) {
+		var item = $dataItems[i];
+		item.tona_level = 0;
+
+		// レベル
+		if (item.meta.tona_level != null) {
+			item.tona_level = eval(item.meta.tona_level);
 		}
 	}
 }
