@@ -352,7 +352,7 @@ Game_Action.prototype.apply = function(target) {
 			var skillId = eval(this.item().meta.tona_chainSkill);
 			var chainAction = new Game_Action(this.subject());
 			chainAction.setSkill(skillId);
-			chainAction.setTarget(target);
+			chainAction.setTarget(target.index());
 			this.subject()._actions.push(chainAction);
 		}
 	}
