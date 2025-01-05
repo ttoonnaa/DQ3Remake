@@ -22,7 +22,7 @@ function tona_createKageEnemy(level) {
 	dst.actions = src.actions;
 	dst.trais = src.traits;
 	dst.meta = JSON.parse(JSON.stringify(src.meta));
-	delete dst.meta.tona_pos_y;
+	delete dst.meta.tona_posY;
 
 	console.log("謎の影=", src.name, dst);
 }
@@ -82,7 +82,7 @@ function tona_battle_callEnemy_update() {
     var dataEnemy = $dataEnemies[$tona_battle_callEnemyTemorary.enemyId];
 
     var resultX = -1;
-    var resultY = 436 - (dataEnemy.meta.tona_pos_y != null ? dataEnemy.meta.tona_pos_y : 0);
+    var resultY = 436 - (dataEnemy.meta.tona_posY != null ? dataEnemy.meta.tona_posY : 0);
     var enemySprite = $tona_battle_callEnemyTemorary.enemyBitmap;
 
     // 現在のエネミーの配置を調べる

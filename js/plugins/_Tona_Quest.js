@@ -378,7 +378,7 @@ Game_Interpreter.prototype.tona_quest_createRandomBattle_update = function() {
             var enemyId = $tona_randomBattleCreateTemorary.result[i][0];
             var enemy = $dataEnemies[enemyId];
             var x = Math.floor(offsetX + $tona_randomBattleCreateTemorary.result[i][2] + $tona_randomBattleCreateTemorary.result[i][1] / 2);
-            var y = 436 - (enemy.meta.tona_pos_y != null ? enemy.meta.tona_pos_y : 0);
+            var y = 436 - (enemy.meta.tona_posY != null ? enemy.meta.tona_posY : 0);
             $dataTroops[$tona_TroopId_RandomEnemy].members.push({"enemyId": enemyId, "x": x ,"y": y, "hidden": false});
         }
         $tona_randomBattleCreateTemorary.step = 99;
