@@ -170,11 +170,35 @@ function tona_createQuestDatabase() {
     quests[5].waves[3] = { mapId: 6, eventNum: 10, level: 5, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
 
 	quests[6] = { name: "ロマリア周辺", level: 6, waves: [], levelResult: 7, reward: { kind: 1, dataId: 1 } };
+    quests[6].waves[1] = { mapId: 3, eventNum: 10, level: 6, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[6].waves[2] = { mapId: 3, eventNum: 10, level: 6, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[6].waves[3] = { mapId: 3, eventNum: 10, level: 6, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+
 	quests[7] = { name: "カザーブ周辺", level: 7, waves: [], levelResult: 8, reward: { kind: 1, dataId: 1 } };
+    quests[7].waves[1] = { mapId: 7, eventNum: 10, level: 7, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[7].waves[2] = { mapId: 7, eventNum: 10, level: 7, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[7].waves[3] = { mapId: 7, eventNum: 10, level: 7, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+
 	quests[8] = { name: "シャンパーニの塔", level: 8, waves: [], levelResult: 9, reward: { kind: 1, dataId: 1 } };
+    quests[8].waves[1] = { mapId: 5, eventNum: 10, level: 8, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+    quests[8].waves[2] = { mapId: 5, eventNum: 10, level: 8, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+    quests[8].waves[3] = { mapId: 5, eventNum: 10, level: 8, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+
 	quests[9] = { name: "ノアニール周辺", level: 9, waves: [], levelResult: 10, reward: { kind: 1, dataId: 1 } };
+    quests[9].waves[1] = { mapId: 8, eventNum: 10, level: 9, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Theme6" };
+    quests[9].waves[2] = { mapId: 8, eventNum: 10, level: 9, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Theme6" };
+    quests[9].waves[3] = { mapId: 8, eventNum: 10, level: 9, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Theme6" };
+
 	quests[10] = { name: "地底の湖", level: 10, waves: [], levelResult: 11, reward: { kind: 1, dataId: 1 } };
+    quests[10].waves[1] = { mapId: 9, eventNum: 10, level: 10, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[10].waves[2] = { mapId: 9, eventNum: 10, level: 10, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+    quests[10].waves[3] = { mapId: 9, eventNum: 10, level: 10, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2" };
+
 	quests[11] = { name: "アッサラーム周辺", level: 11, waves: [], levelResult: 12, reward: { kind: 1, dataId: 1 } };
+    quests[11].waves[1] = { mapId: 3, eventNum: 10, level: 11, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[11].waves[2] = { mapId: 3, eventNum: 10, level: 11, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[11].waves[3] = { mapId: 3, eventNum: 10, level: 11, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+
 	quests[12] = { name: "イシス周辺", level: 12, waves: [], levelResult: 13, reward: { kind: 1, dataId: 1 } };
 
 	// レベルから Gold を設定
