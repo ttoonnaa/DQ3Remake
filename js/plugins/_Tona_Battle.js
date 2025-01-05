@@ -54,7 +54,6 @@ Game_Action.prototype.tona_callEnemy_start = function(param) {
         }
         else {
             console.log("仲間呼びに失敗");
-            return;
         }
 
 		// 謎の影の場合は Temp に変換

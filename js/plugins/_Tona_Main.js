@@ -25,9 +25,6 @@
     // 一時データ：アクション
     $tona_resultAction = [];
 
-    // 一時データ：現在のクエスト
-    $tona_questNow = new tona_QuestNow();
-
 	// 一時データ：現在の勧誘
 	$tona_pub_inviteData = {};
 

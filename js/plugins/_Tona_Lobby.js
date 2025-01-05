@@ -32,7 +32,7 @@ function tona_pub_newName() {
 
 		for (var i = 1; i <= $tona_MaxActorId; i++) {
 			var actor = $gameActors.actor(i);
-			if (actor.name() == "") {
+			if (actor.name() != "") {
 				if (actor.name() == name.name) {
 					continue tona_pub_newNameId_loop;
 				}
@@ -58,7 +58,7 @@ function tona_pub_newFace() {
 
 		for (var i = 1; i <= $tona_MaxActorId; i++) {
 			var actor = $gameActors.actor(i);
-			if (actor.name() == "") {
+			if (actor.name() != "") {
 				if (actor.faceName() == face.name && actor.faceIndex() == face.index) {
 					continue tona_pub_newFace_loop;
 				}

@@ -37,16 +37,24 @@ Game_Interpreter.prototype.tona_quest_getQuestNowNameToVariable = function() {
 };
 
 // ****************************************************************************************************************************
+// Interpreter：クエストを初期化
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype.tona_quest_initialize = function() {
+    $tona_questNow = new tona_QuestNow();
+}
+
+// ****************************************************************************************************************************
 // Interpreter：クエストを設定
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_Interpreter.prototype.tona_quest_setQuest = function(questId) {
-
     $tona_questNow._questId = questId;
     $tona_questNow._waveId = 1;
     $tona_questNow._progress = -1;
     $tona_questNow._eventList = [];
     $tona_questNow._gotGold = 0;
+    $tona_questNow._losed = 0;
 };
 
 // ****************************************************************************************************************************
