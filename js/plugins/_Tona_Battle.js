@@ -21,7 +21,10 @@ function tona_createKageEnemy(level) {
 	dst.dropItems = src.dropItems;
 	dst.actions = src.actions;
 	dst.trais = src.traits;
-	dst.meta = src.meta;
+	dst.meta = JSON.parse(JSON.stringify(src.meta));
+	delete dst.meta.tona_pos_y;
+
+	console.log("謎の影=", src.name, dst);
 }
 
 // ****************************************************************************************************************************
@@ -40,28 +43,33 @@ function tona_battle_callEnemyTemorary() {
 Game_Action.prototype.tona_callEnemy_start = function(param) {
     var subject = BattleManager._subject;
     if (subject instanceof Game_Enemy) {
+		var enemyId = 0;
 
-        // 読み込み終わるまでのウェイト
-        BattleManager._logWindow._waitCount = 100000;
+		// エネミーIDを決定する
         if ((typeof param) === 'number') {
-            var enemyId = param > 0 ? param : subject._enemyId;
-            $tona_battle_callEnemyTemorary = new tona_battle_callEnemyTemorary();
-            $tona_battle_callEnemyTemorary.enemyId = enemyId;
-            $tona_battle_callEnemyTemorary.enemyIdList = [];
-            $tona_battle_callEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
-            $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_battle_callEnemy_update()", 30);
+            enemyId = param > 0 ? param : subject._enemyId;
         }
         else if (param.length > 0) {
-            var enemyId = param[0];
-            $tona_battle_callEnemyTemorary = new tona_battle_callEnemyTemorary();
-            $tona_battle_callEnemyTemorary.enemyId = enemyId;
-            $tona_battle_callEnemyTemorary.enemyIdList = param.slice(1);
-            $tona_battle_callEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
-            $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_battle_callEnemy_update()", 30);
+            enemyId = param[0];
         }
         else {
             console.log("仲間呼びに失敗");
+            return;
         }
+
+		// 謎の影の場合は Temp に変換
+		if (enemyId == $tona_EnemyId_Kage) {
+			$enemyId = $tona_EnemyId_KageTemp;
+		}
+
+        $tona_battle_callEnemyTemorary = new tona_battle_callEnemyTemorary();
+        $tona_battle_callEnemyTemorary.enemyId = enemyId;
+        $tona_battle_callEnemyTemorary.enemyIdList = [];
+        $tona_battle_callEnemyTemorary.enemyBitmap = ImageManager.loadEnemy($dataEnemies[enemyId].battlerName, $dataEnemies[enemyId].battlerHue);  // Loading...
+        $tona_battle_callEnemyTemorary.intervalId = setInterval("tona_battle_callEnemy_update()", 30);
+
+        // 読み込み終わるまでのウェイト
+        BattleManager._logWindow._waitCount = 100000;
     }
 }
 

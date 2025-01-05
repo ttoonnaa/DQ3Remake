@@ -234,7 +234,6 @@ function tona_createEnemyDatabase() {
 	enemies[37]  = { name: "", attr: [3,3,2,2,4,5,3,1,3], regist1: [0,4,4,3,3,3,4,0], regist2: [4,4,3,4,4,4,3,4,4] };	// 
 	enemies[38]  = { name: "", attr: [2,2,2,3,4,3,2,3,3], regist1: [4,4,4,2,3,3,2,0], regist2: [4,4,3,4,4,4,4,2,4] };	// 
 	enemies[39]  = { name: "", attr: [2,2,2,4,4,3,1,4,3], regist1: [3,4,4,3,3,4,4,0], regist2: [4,4,3,4,4,4,3,4,2] };	// 
-
 	enemies[40]  = { name: "", attr: [3,3,3,1,1,3,3,1,3], regist1: [4,4,4,2,3,4,4,4], regist2: [4,3,2,4,4,4,4,4,0] };	// 
 	enemies[41]  = { name: "", attr: [1,1,2,3,1,3,1,4,2], regist1: [4,4,4,4,3,4,2,4], regist2: [4,4,3,4,4,4,3,2,3] };	// 
 	enemies[42]  = { name: "", attr: [5,4,3,3,3,4,5,3,3], regist1: [0,0,4,4,4,4,0,4], regist2: [4,3,3,4,0,0,4,4,0] };	// 
@@ -245,6 +244,16 @@ function tona_createEnemyDatabase() {
 	enemies[47]  = { name: "", attr: [4,4,1,2,2,2,4,2,2], regist1: [2,2,4,0,0,4,2,2], regist2: [4,3,3,4,3,2,3,4,4] };	// 
 	enemies[48]  = { name: "", attr: [2,2,2,2,1,3,3,3,3], regist1: [3,4,4,2,3,3,4,4], regist2: [4,3,3,4,4,4,3,4,3] };	// 
 	enemies[49]  = { name: "", attr: [2,2,2,1,3,2,2,1,3], regist1: [3,4,4,4,3,4,4,4], regist2: [4,4,4,4,4,3,3,4,3] };	// 
+	enemies[50]  = { name: "", attr: [1,1,2,3,4,4,1,3,3], regist1: [4,4,4,4,3,4,2,0], regist2: [4,4,4,4,4,4,4,4,4] };	// 
+	enemies[51]  = { name: "", attr: [5,4,3,3,3,4,5,3,3], regist1: [0,0,4,4,4,3,0,4], regist2: [4,4,4,4,0,0,4,2,4] };	// 
+	enemies[52]  = { name: "", attr: [2,2,2,2,2,4,2,3,3], regist1: [3,4,4,4,3,4,4,4], regist2: [4,2,4,4,4,3,2,2,4] };	// 
+	enemies[53]  = { name: "", attr: [0,0,1,5,4,2,0,5,2], regist1: [3,4,4,3,3,4,4,0], regist2: [4,4,3,4,0,4,4,4,4] };	// 
+	enemies[54]  = { name: "", attr: [3,3,4,2,4,3,3,2,3], regist1: [4,4,4,4,3,4,3,4], regist2: [4,4,4,4,4,4,4,3,0] };	// 
+	enemies[55]  = { name: "", attr: [5,4,4,3,3,4,5,3,3], regist1: [0,0,4,4,3,4,0,4], regist2: [4,4,4,4,0,0,4,4,0] };	// 
+	enemies[56]  = { name: "", attr: [3,3,3,4,2,4,3,4,3], regist1: [3,4,4,4,3,4,4,0], regist2: [4,3,4,4,4,4,3,4,0] };	// 
+	enemies[57]  = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,4,4,4,3,4,4,4], regist2: [4,3,4,4,4,4,4,4,0] };	// 
+	enemies[58]  = { name: "", attr: [2,2,2,1,2,4,2,1,2], regist1: [3,4,4,3,2,3,3,3], regist2: [4,3,3,4,3,4,3,4,4] };	// 
+	enemies[59]  = { name: "", attr: [2,2,2,1,2,4,2,2,3], regist1: [4,4,4,3,2,4,3,0], regist2: [4,4,3,4,0,4,4,3,0] };	// 
 
 	//enemies[99]  = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,3,3,3,3,3,3,3], regist2: [3,3,3,3,3,3,3,3,3] };	// 
 
@@ -324,7 +333,7 @@ function tona_overrideEnemyDatabase() {
 
 	for (var i = 1; i < $tona_enemy.length; i++) {
 		var enemy = $tona_enemy[i];
-		if (enemy == null) {
+		if (enemy == null || $dataEnemies[i].name == "") {
 			continue;
 		}
 
@@ -645,6 +654,9 @@ function tona_findLevelEnemies(level) {
 
 	for (var i = 1; i < $tona_enemy.length; i++) {
 		var enemy = $dataEnemies[i];
+		if (enemy == null || $dataEnemies[i].name == "") {
+			continue;
+		}
 		if (level - 2 <= enemy.tona_level && enemy.tona_level <= level) {
 			enemyIds.push(i);
 		}
