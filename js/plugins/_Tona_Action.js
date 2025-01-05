@@ -470,7 +470,7 @@ Game_Action.prototype.itemEffectAddNormalState = function(target, effect) {
 };
 
 Game_Action.prototype.itemEffectAddDebuff = function(target, effect) {
-	var change = 1;
+	var chance = 1;
     chance *= target.debuffRate(effect.dataId);
     chance += Math.min(this.lukEffectAdd(target), 0.0);			// ★足し算に変更
     if (Math.random() < chance) {
