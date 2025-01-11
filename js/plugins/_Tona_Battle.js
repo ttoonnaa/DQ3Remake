@@ -20,7 +20,7 @@ function tona_createKageEnemy(level) {
 	dst.gold = src.gold;
 	dst.dropItems = src.dropItems;
 	dst.actions = src.actions;
-	dst.trais = src.traits;
+	dst.traits = src.traits;
 	dst.meta = JSON.parse(JSON.stringify(src.meta));
 	delete dst.meta.tona_posY;
 
@@ -144,6 +144,42 @@ function tona_battle_callEnemy_update() {
         // テンポラリを削除
         $tona_battle_callEnemyTemorary = 0;
     }
+};
+
+// ****************************************************************************************************************************
+// バトル：アクション開始
+// ----------------------------------------------------------------------------------------------------------------------------
+
+BattleManager.startAction = function() {
+    const subject = this._subject;
+    const action = subject.currentAction();
+    const targets = action.makeTargets();
+    this._phase = "action";
+    this._action = action;
+    this._action.tona_targetCounter = 0;		// ★ターゲットカウンターを追加
+    this._targets = targets;
+    subject.cancelMotionRefresh();
+    subject.useItem(action.item());
+    this._action.applyGlobal();
+    this._logWindow.startAction(subject, action, targets);
+};
+
+// ****************************************************************************************************************************
+// バトル：ターゲットにアクション実行
+// ----------------------------------------------------------------------------------------------------------------------------
+
+BattleManager.invokeAction = function(subject, target) {
+    this._action.tona_targetCounter++;			// ★ターゲットカウンターを追加
+    this._logWindow.push("pushBaseLine");
+    if (Math.random() < this._action.itemCnt(target)) {
+        this.invokeCounterAttack(subject, target);
+    } else if (Math.random() < this._action.itemMrf(target)) {
+        this.invokeMagicReflection(subject, target);
+    } else {
+        this.invokeNormalAction(subject, target);
+    }
+    subject.setLastTarget(target);
+    this._logWindow.push("popBaseLine");
 };
 
 // ****************************************************************************************************************************

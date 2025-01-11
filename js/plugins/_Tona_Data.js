@@ -199,7 +199,50 @@ function tona_createQuestDatabase() {
     quests[11].waves[2] = { mapId: 3, eventNum: 10, level: 11, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
     quests[11].waves[3] = { mapId: 3, eventNum: 10, level: 11, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
 
-	quests[12] = { name: "イシス周辺", level: 12, waves: [], levelResult: 13, reward: { kind: 1, dataId: 1 } };
+	quests[12] = { name: "イシス砂漠", level: 12, waves: [], levelResult: 13, reward: { kind: 1, dataId: 1 } };
+    quests[12].waves[1] = { mapId: 10, eventNum: 10, level: 12, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3" };
+    quests[12].waves[2] = { mapId: 10, eventNum: 10, level: 12, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3" };
+    quests[12].waves[3] = { mapId: 10, eventNum: 10, level: 12, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3" };
+
+	quests[13] = { name: "ピラミッド", level: 13, waves: [], levelResult: 14, reward: { kind: 1, dataId: 1 } };
+    quests[13].waves[1] = { mapId: 11, eventNum: 10, level: 13, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon4" };
+    quests[13].waves[2] = { mapId: 11, eventNum: 10, level: 13, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon4" };
+    quests[13].waves[3] = { mapId: 11, eventNum: 10, level: 13, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon4" };
+
+	quests[14] = { name: "ポルトガ周辺", level: 14, waves: [], levelResult: 15, reward: { kind: 1, dataId: 1 } };
+    quests[14].waves[1] = { mapId: 3, eventNum: 10, level: 14, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[14].waves[2] = { mapId: 3, eventNum: 10, level: 14, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+    quests[14].waves[3] = { mapId: 3, eventNum: 10, level: 14, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4" };
+
+	quests[15] = { name: "バハラタ周辺", level: 15, waves: [], levelResult: 16, reward: { kind: 1, dataId: 1 } };
+    quests[15].waves[1] = { mapId: 8, eventNum: 10, level: 15, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Theme6" };
+    quests[15].waves[2] = { mapId: 8, eventNum: 10, level: 15, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Theme6" };
+    quests[15].waves[3] = { mapId: 8, eventNum: 10, level: 15, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Theme6" };
+
+	quests[16] = { name: "人さらいのアジト", level: 16, waves: [], levelResult: 17, reward: { kind: 1, dataId: 1 } };
+    quests[16].waves[1] = { mapId: 10, eventNum: 10, level: 16, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3" };
+    quests[16].waves[2] = { mapId: 10, eventNum: 10, level: 16, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3" };
+    quests[16].waves[3] = { mapId: 10, eventNum: 10, level: 16, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3" };
+
+	quests[17] = { name: "ダーマ周辺", level: 17, waves: [], levelResult: 18, reward: { kind: 1, dataId: 1 } };
+    quests[17].waves[1] = { mapId: 7, eventNum: 10, level: 17, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[17].waves[2] = { mapId: 7, eventNum: 10, level: 17, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+    quests[17].waves[3] = { mapId: 7, eventNum: 10, level: 17, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field1" };
+
+	quests[18] = { name: "大海原", level: 18, waves: [], levelResult: 19, reward: { kind: 1, dataId: 1 } };
+    quests[18].waves[1] = { mapId: 12, eventNum: 10, level: 18, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Ship1" };
+    quests[18].waves[2] = { mapId: 12, eventNum: 10, level: 18, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Ship1" };
+    quests[18].waves[3] = { mapId: 12, eventNum: 10, level: 18, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Ship1" };
+
+	quests[19] = { name: "ガルナの塔", level: 19, waves: [], levelResult: 20, reward: { kind: 1, dataId: 1 } };
+    quests[19].waves[1] = { mapId: 5, eventNum: 10, level: 19, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+    quests[19].waves[2] = { mapId: 5, eventNum: 10, level: 19, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+    quests[19].waves[3] = { mapId: 5, eventNum: 10, level: 19, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6" };
+
+	quests[20] = { name: "ムオル周辺", level: 20, waves: [], levelResult: 21, reward: { kind: 1, dataId: 1 } };
+    quests[20].waves[1] = { mapId: 10, eventNum: 10, level: 20, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Battle5" };
+    quests[20].waves[2] = { mapId: 10, eventNum: 10, level: 20, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Battle5" };
+    quests[20].waves[3] = { mapId: 10, eventNum: 10, level: 20, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Battle5" };
 
 	// レベルから Gold を設定
 	for (var questId = 1; questId < quests.length; questId++) {
@@ -278,6 +321,38 @@ function tona_createEnemyDatabase() {
 	enemies[57]  = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,4,4,4,3,4,4,4], regist2: [4,3,4,4,4,4,4,4,0] };	// 
 	enemies[58]  = { name: "", attr: [2,2,2,1,2,4,2,1,2], regist1: [3,4,4,3,2,3,3,3], regist2: [4,3,3,4,3,4,3,4,4] };	// 
 	enemies[59]  = { name: "", attr: [2,2,2,1,2,4,2,2,3], regist1: [4,4,4,3,2,4,3,0], regist2: [4,4,3,4,0,4,4,3,0] };	// 
+
+	enemies[60]  = { name: "", attr: [3,3,3,1,3,4,3,1,3], regist1: [2,4,4,4,3,4,4,0], regist2: [4,3,4,4,4,4,4,4,3] };	// 
+	enemies[61]  = { name: "", attr: [3,3,3,1,3,4,3,1,3], regist1: [3,4,4,3,2,4,4,2], regist2: [4,4,4,4,4,3,4,4,0] };	// 
+	enemies[62]  = { name: "", attr: [3,3,2,1,2,4,3,1,3], regist1: [3,4,4,4,2,4,2,4], regist2: [4,4,4,4,4,3,3,3,0] };	// 
+	enemies[63]  = { name: "", attr: [1,1,1,1,1,4,1,1,3], regist1: [2,4,4,4,2,3,4,0], regist2: [3,1,3,3,3,2,2,3,2] };	// 
+	enemies[64]  = { name: "", attr: [3,3,4,2,2,4,3,1,3], regist1: [3,4,4,2,2,3,4,0], regist2: [4,4,4,4,4,4,4,4,3] };	// 
+	enemies[65]  = { name: "", attr: [2,2,2,4,4,3,2,4,3], regist1: [4,4,4,3,3,4,2,0], regist2: [4,4,4,4,0,3,4,4,2] };	// 
+	enemies[66]  = { name: "", attr: [1,1,1,4,1,3,1,4,2], regist1: [4,4,4,2,2,4,3,4], regist2: [4,2,3,4,4,2,4,4,0] };	// 
+	enemies[67]  = { name: "", attr: [3,3,3,1,3,4,3,1,3], regist1: [3,4,4,3,2,4,3,2], regist2: [4,4,3,4,4,4,4,3,0] };	// 
+	enemies[68]  = { name: "", attr: [1,1,3,4,3,3,1,4,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,4,4,4,4,4,4,4,3] };	// 
+	enemies[69]  = { name: "", attr: [5,4,3,2,3,3,4,2,3], regist1: [4,4,4,4,3,4,4,4], regist2: [4,4,4,4,4,4,4,4,0] };	// 
+	enemies[70]  = { name: "", attr: [0,0,0,0,0,0,0,0,3], regist1: [0,3,0,0,0,4,2,3], regist2: [4,0,0,4,4,0,3,0,0] };	// 
+	enemies[71]  = { name: "", attr: [2,2,3,4,3,3,1,4,3], regist1: [3,4,4,4,2,4,4,4], regist2: [4,3,4,4,4,4,4,3,0] };	// 
+	enemies[72]  = { name: "", attr: [3,3,4,4,1,5,3,4,3], regist1: [3,4,4,2,3,4,4,0], regist2: [4,4,4,4,4,4,4,2,3] };	// 
+	enemies[73]  = { name: "", attr: [3,3,3,4,4,3,3,4,3], regist1: [4,4,4,3,3,4,4,4], regist2: [4,4,3,4,4,4,4,4,0] };	// 
+	enemies[74]  = { name: "", attr: [1,1,1,3,1,2,0,3,3], regist1: [3,4,4,2,3,4,4,0], regist2: [4,3,4,4,4,3,4,3,0] };	// 
+	enemies[75]  = { name: "", attr: [1,1,2,4,2,3,2,4,3], regist1: [2,4,4,3,2,3,4,4], regist2: [4,2,3,4,4,3,3,3,3] };	// 
+	enemies[76]  = { name: "", attr: [2,2,2,3,3,3,2,3,3], regist1: [3,4,4,4,2,4,4,4], regist2: [4,4,4,4,4,2,3,3,0] };	// 
+	enemies[77]  = { name: "", attr: [5,4,3,3,3,4,5,3,3], regist1: [0,0,4,3,3,4,0,4], regist2: [4,3,3,4,0,0,3,4,0] };	// 
+	enemies[78]  = { name: "", attr: [3,3,3,2,1,3,3,1,3], regist1: [3,4,4,4,2,4,4,4], regist2: [4,3,4,4,4,3,4,2,3] };	// 
+	enemies[79]  = { name: "", attr: [0,0,0,0,0,0,0,0,3], regist1: [0,3,0,0,0,2,2,0], regist2: [4,0,0,4,0,0,0,0,0] };	// 
+	enemies[80]  = { name: "", attr: [2,2,2,2,2,2,3,3,3], regist1: [3,4,4,3,2,4,4,4], regist2: [4,3,3,4,4,4,4,4,2] };	// 
+	enemies[81]  = { name: "", attr: [1,1,1,3,2,4,1,3,3], regist1: [0,0,4,3,3,3,0,3], regist2: [4,2,3,4,0,2,3,3,3] };	// 
+	enemies[82]  = { name: "", attr: [5,4,3,3,4,5,4,3,3], regist1: [2,3,4,4,3,3,4,4], regist2: [4,3,3,4,4,3,3,4,2] };	// 
+	enemies[83]  = { name: "", attr: [2,2,1,1,2,3,3,1,3], regist1: [2,4,4,4,0,4,4,4], regist2: [4,4,4,4,4,3,4,4,4] };	// 
+	enemies[84]  = { name: "", attr: [1,1,1,1,1,2,1,1,2], regist1: [3,4,4,4,3,3,3,3], regist2: [4,2,4,4,3,2,3,4,3] };	// 
+	enemies[85]  = { name: "", attr: [2,2,2,2,2,3,3,3,3], regist1: [3,4,4,3,2,4,4,4], regist2: [4,4,3,4,4,4,4,3,0] };	// 
+	enemies[86]  = { name: "", attr: [2,2,3,2,2,1,1,1,2], regist1: [0,0,4,0,2,4,0,0], regist2: [4,4,4,4,0,0,0,4,0] };	// 
+	enemies[87]  = { name: "", attr: [1,1,1,1,1,2,2,2,3], regist1: [2,3,4,2,0,2,3,0], regist2: [4,2,3,4,3,2,2,4,3] };	// 
+	enemies[88]  = { name: "", attr: [2,2,1,3,4,4,2,3,3], regist1: [0,4,4,4,2,2,4,0], regist2: [4,3,4,4,4,3,3,4,2] };	// 
+	enemies[89]  = { name: "", attr: [2,2,2,2,4,4,1,3,3], regist1: [2,3,4,3,2,2,4,4], regist2: [4,2,3,4,4,3,4,4,3] };	// 
+	enemies[90]  = { name: "", attr: [1,1,1,1,1,1,1,1,2], regist1: [2,2,4,0,0,3,2,2], regist2: [4,3,2,4,3,2,0,3,2] };	// 
 
 	//enemies[99]  = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,3,3,3,3,3,3,3], regist2: [3,3,3,3,3,3,3,3,3] };	// 
 
@@ -365,13 +440,11 @@ function tona_overrideEnemyDatabase() {
 		$dataEnemies[i].tona_level = tona_evalNum($dataEnemies[i].meta.tona_level);
 
 		// 守備力を調整する
-		if ($dataEnemies[i].tona_level < 14) {
-			$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 0.7);
-		}
-		else {
+		$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 0.85);
 
-			// バハラタあたりから明らかにおかしいのでさらに調整
-			$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 0.5);
+		// バハラタ付近の敵が頭おかしいのでさらに調整
+		if ([49, 50, 51, 52, 53].includes(i)) {
+			$dataEnemies[i].params[3] = Math.floor($dataEnemies[i].params[3] * 0.85);
 		}
 
 		// 運の良さを設定する
@@ -413,6 +486,8 @@ function tona_overrideEnemyDatabase() {
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 17, "value": statRate[enemy.regist1[6]] / 100 });	// おたけび
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 18, "value": statRate[enemy.regist1[7]] / 100 });	// 転倒
 	    $dataEnemies[i].traits.push({ "code": 13, "dataId": 19, "value": statRate[enemy.regist2[3]] / 100 });	// 呪文耐性ダウン
+
+		//console.log(i, $dataEnemies[i].name, Math.floor(($dataEnemies[i].params[2] / $dataEnemies[i].params[3]) * 100) / 100);
 
 		// 特効を設定する
 		if ($dataEnemies[i].meta.tona_elements != null) {
@@ -559,6 +634,9 @@ function tona_overrideWeaponDatabase() {
 		var weapon = $dataWeapons[i];
 		weapon.tona_level = 0;
 		weapon.tona_canEquipClasses = [];
+
+		// 攻撃力を調整する
+		weapon.params[2] = Math.floor(weapon.params[2] * 1.5);
 
 		// レベル
 		if (weapon.meta.tona_level != null) {

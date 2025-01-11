@@ -263,4 +263,29 @@ function tona_toNum(value, def) {
 	return def;
 }
 
+// ****************************************************************************************************************************
+// 汎用：ガチャ
+// ----------------------------------------------------------------------------------------------------------------------------
 
+function tona_gacha(arr) {
+
+	if (arr.length == 0)
+		return null;
+
+	var totalWeight = 0;
+	for (var i = 0; i < arr.length; i++) {
+		totalWeight += arr[i].weight;
+	}
+
+	var needleWeight = Math.randomInt(totalWeight);
+
+	totalWeight = 0;
+	for (var i = 0; i < arr.length; i++) {
+		totalWeight += arr[i].weight;
+		if (totalWeight >= needleWeight) {
+			return arr[i].node;
+		}
+	}
+
+	return null;
+}

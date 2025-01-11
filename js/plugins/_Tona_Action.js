@@ -239,6 +239,13 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
         rate *= target.rec;
     }
 
+	// ★減少の処理
+	if (item.meta.tona_damageReduction) {
+		var redctionRate = [1, 0.8, 0.6, 0.5, 0.3, 0.2];
+		var redctionIndex = Math.min(this.tona_targetCounter - 1, redctionRate.length - 1);
+		rate *= redctionRate[redctionIndex];
+	}
+
 	// ダメージ倍率を適用
 	var value = baseValue * rate;
 
