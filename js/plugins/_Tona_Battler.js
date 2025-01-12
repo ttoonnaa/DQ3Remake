@@ -69,6 +69,15 @@ Game_BattlerBase.prototype.tona_rangeDamage = function(target, min, max) {
 }
 
 // ****************************************************************************************************************************
+// バトラー：メガンテダメージ計算式
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_BattlerBase.prototype.tona_destroyDamage = function(target) {
+
+	return Math.max((target.hp - 1) - Math.randomInt(10), 1);
+}
+
+// ****************************************************************************************************************************
 // バトラー：計算式のエイリアス（エディターで指定する計算式で使う）
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -86,6 +95,10 @@ Game_BattlerBase.prototype.HD = function(target, min, max) {
 
 Game_BattlerBase.prototype.RD = function(target, min, max) {
 	return this.tona_rangeDamage(target, min, max);
+}
+
+Game_BattlerBase.prototype.DD = function(target) {
+	return this.tona_destroyDamage(target);
 }
 
 // ****************************************************************************************************************************
@@ -120,7 +133,7 @@ Game_Battler.prototype.refresh = function() {
         this.addState(this.deathStateId());
     }
 	// ★追加：ザキや急所状態なら死亡させる
-    else if (this.isStateAffected($tona_StateId_Zaki) || this.isStateAffected($tona_StateId_VitalPoint)) {
+    else if (this.isStateAffected($tona_StateId_Zaki) || this.isStateAffected($tona_StateId_VitalPoint) || this.isStateAffected($tona_StateId_Megante)) {
         this.addState(this.deathStateId());
     }
     else {

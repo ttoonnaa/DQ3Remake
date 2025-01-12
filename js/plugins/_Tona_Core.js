@@ -33,6 +33,7 @@ var $tona_TroopId_RandomEnemy = 1;
 // ステート
 var $tona_StateId_Zaki = 12;
 var $tona_StateId_VitalPoint = 13;
+var $tona_StateId_Megante = 14;
 var $tona_StateId_Nifuramu = 16;
 var $tona_StateId_Bashirura = 15;
 var $tona_StateId_Ukenagashi = 36;
