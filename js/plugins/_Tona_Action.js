@@ -317,6 +317,27 @@ Game_Action.prototype.calcElementRate = function(target) {
 };
 
 // ****************************************************************************************************************************
+// アクション：反映（グローバル）
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.applyGlobal = function() {
+    for (const effect of this.item().effects) {
+        if (effect.code === Game_Action.EFFECT_COMMON_EVENT) {
+            $gameTemp.reserveCommonEvent(effect.dataId);
+        }
+    }
+    this.updateLastUsed();
+    this.updateLastSubject();
+
+    // ★ここから追加
+    if (this.isSkill()) {
+        if (this.item().meta.tona_callEnemy != null) {
+			this.tona_callEnemy_start(eval(this.item().meta.tona_callEnemy));
+        }
+    }
+}
+
+// ****************************************************************************************************************************
 // アクション：反映
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -331,6 +352,9 @@ Game_Action.prototype.apply = function(target) {
     result.drain = this.isDrain();
     result.moroha = this.tona_isMoroha();	// ★もろはの処理を追加
     result.sutemi = this.tona_isSutemi();	// ★すてみの処理を追加
+	result.mpShortage = this.item().meta.tona_mpShortage != null;		// ★ＭＰが足りないの処理を追加
+
+	console.log("apply: mpShortage", result.mpShortage);
 
     if (result.isHit()) {
         if (this.item().damage.type > 0) {
@@ -486,23 +510,3 @@ Game_Action.prototype.itemEffectAddDebuff = function(target, effect) {
     }
 };
 
-// ****************************************************************************************************************************
-// アクション：開始処理
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.applyGlobal = function() {
-    for (const effect of this.item().effects) {
-        if (effect.code === Game_Action.EFFECT_COMMON_EVENT) {
-            $gameTemp.reserveCommonEvent(effect.dataId);
-        }
-    }
-    this.updateLastUsed();
-    this.updateLastSubject();
-
-    // ★ここから追加
-    if (this.isSkill()) {
-        if (this.item().meta.tona_callEnemy != null) {
-			this.tona_callEnemy_start(eval(this.item().meta.tona_callEnemy));
-        }
-    }
-}

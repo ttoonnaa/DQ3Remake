@@ -248,6 +248,25 @@ Window_BattleLog.prototype.tona_displayUkenagashi = function(substitute, target)
     this.push("addText", text);
 };
 
+// ****************************************************************************************************************************
+// ウィンドウ：アクション結果：失敗を表示
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Window_BattleLog.prototype.displayFailure = function(target) {
+
+	console.log("displayFailure: mpShortage", target.result().mpShortage);
+
+	// ★追加：ＭＰが足りない
+    if (target.result().mpShortage) {
+        this.push("addText", "しかしMPが足りない！");
+    }
+    else if (target.result().isHit() && !target.result().success) {
+        this.push("addText", TextManager.actionFailure.format(target.name()));
+    }
+};
+
+
+
 
 
 
