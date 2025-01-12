@@ -157,12 +157,51 @@ BattleManager.startAction = function() {
     this._phase = "action";
     this._action = action;
     this._action.tona_targetCounter = 0;		// ★ターゲットカウンターを追加
+    this._action.tona_globalActionEnd = false;	// ★グローバル処理フラグを追加
     this._targets = targets;
     subject.cancelMotionRefresh();
     subject.useItem(action.item());
     this._action.applyGlobal();
     this._logWindow.startAction(subject, action, targets);
 };
+
+// ****************************************************************************************************************************
+// バトル：アクション更新
+// ----------------------------------------------------------------------------------------------------------------------------
+
+BattleManager.updateAction = function() {
+
+	// ★追加：グローバル効果
+	if (this._action.tona_hasGroupAction() && !this._action.tona_globalActionEnd) {
+		this._action.tona_globalActionEnd = true;
+        this.tona_invokeGlobalAction(this._subject);
+	}
+	else {
+
+		// ここからは通常のターゲット効果
+	    const target = this._targets.shift();
+	    if (target) {
+	        this.invokeAction(this._subject, target);
+	    } else {
+	        this.endAction();
+	    }
+	}
+};
+
+// ****************************************************************************************************************************
+// バトル：グローバルアクション実行
+// ----------------------------------------------------------------------------------------------------------------------------
+
+BattleManager.tona_invokeGlobalAction = function(subject) {
+
+	// MPが足りないを強制表示（ベビーサタン）
+	if (this._action.item().meta.tona_globalAction == $tona_GlobalAtion_MpShortage) {
+	    this._logWindow.push("pushBaseLine");
+        this._logWindow.push("addText", "しかしMPが足りない！");
+        this._logWindow.push("waitForNewLine");
+	    this._logWindow.push("popBaseLine");
+	}
+}
 
 // ****************************************************************************************************************************
 // バトル：ターゲットにアクション実行
@@ -247,27 +286,4 @@ Window_BattleLog.prototype.tona_displayUkenagashi = function(substitute, target)
     this.push("performSubstitute", substitute, target);
     this.push("addText", text);
 };
-
-// ****************************************************************************************************************************
-// ウィンドウ：アクション結果：失敗を表示
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Window_BattleLog.prototype.displayFailure = function(target) {
-
-	console.log("displayFailure: mpShortage", target.result().mpShortage);
-
-	// ★追加：ＭＰが足りない
-    if (target.result().mpShortage) {
-        this.push("addText", "しかしMPが足りない！");
-    }
-    else if (target.result().isHit() && !target.result().success) {
-        this.push("addText", TextManager.actionFailure.format(target.name()));
-    }
-};
-
-
-
-
-
-
 

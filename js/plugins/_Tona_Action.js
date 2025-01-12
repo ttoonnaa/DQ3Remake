@@ -32,14 +32,6 @@ Game_Action.prototype.speed = function() {
 };
 
 // ****************************************************************************************************************************
-// アクション：グループ攻撃を判定
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_Action.prototype.tona_isForGroup = function() {
-	return this.item().meta.tona_groupRange != null;
-}
-
-// ****************************************************************************************************************************
 // アクション：命中タイプ
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -57,6 +49,22 @@ Game_Action.prototype.isPhysical = function() {
 
 Game_Action.prototype.isMagical = function() {
 	return this.item().hitType === Game_Action.HITTYPE_MAGICAL && !this.tona_isStateHit();
+}
+
+// ****************************************************************************************************************************
+// アクション：グループ攻撃を判定
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.tona_isForGroup = function() {
+	return this.item().meta.tona_groupRange != null;
+}
+
+// ****************************************************************************************************************************
+// アクション：グローバルアクション判定
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.tona_hasGroupAction = function() {
+	return this.item().meta.tona_globalAction != null;
 }
 
 // ****************************************************************************************************************************
@@ -352,9 +360,6 @@ Game_Action.prototype.apply = function(target) {
     result.drain = this.isDrain();
     result.moroha = this.tona_isMoroha();	// ★もろはの処理を追加
     result.sutemi = this.tona_isSutemi();	// ★すてみの処理を追加
-	result.mpShortage = this.item().meta.tona_mpShortage != null;		// ★ＭＰが足りないの処理を追加
-
-	console.log("apply: mpShortage", result.mpShortage);
 
     if (result.isHit()) {
         if (this.item().damage.type > 0) {
