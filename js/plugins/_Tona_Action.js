@@ -254,6 +254,13 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
 		rate *= redctionRate[redctionIndex];
 	}
 
+	// ★分散の処理
+	if (item.meta.tona_damageSpread) {
+		var redctionRate = [1.5, 1, 0.75, 0.6, 0.5];
+		var redctionIndex = Math.min(this.tona_targetCount - 1, redctionRate.length - 1);
+		rate *= redctionRate[redctionIndex];
+	}
+
 	// ダメージ倍率を適用
 	var value = baseValue * rate;
 

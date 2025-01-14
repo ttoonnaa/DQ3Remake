@@ -156,8 +156,9 @@ BattleManager.startAction = function() {
     const targets = action.makeTargets();
     this._phase = "action";
     this._action = action;
-    this._action.tona_targetCounter = 0;		// ★ターゲットカウンターを追加
-    this._action.tona_globalActionEnd = false;	// ★グローバル処理フラグを追加
+    this._action.tona_targetCount = targets.length;	// ★ターゲット数を追加
+    this._action.tona_targetCounter = 0;			// ★ターゲットカウンターを追加
+    this._action.tona_globalActionEnd = false;		// ★グローバル処理フラグを追加
     this._targets = targets;
     subject.cancelMotionRefresh();
     subject.useItem(action.item());
