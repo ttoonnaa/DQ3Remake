@@ -568,7 +568,42 @@ Game_Action.prototype.itemTargetCandidates = function() {
     }
 };
 
+// ****************************************************************************************************************************
+// アクション：ターゲットを作成する
+// ----------------------------------------------------------------------------------------------------------------------------
 
+Game_Action.prototype.makeTargets = function() {
+    const targets = [];
+
+	// ★追加：魅了時のターゲット
+    if (!this._forcing && this.subject().tona_isMiryou()) {
+
+	    if (this.isForEveryone()) {
+	        targets.push(...this.targetsForEveryone());
+	    }
+	    else if (this.isForOpponent()) {
+	        targets.push(...this.targetsForFriends());
+	    }
+	    else if (this.isForFriend()) {
+	        targets.push(...this.targetsForOpponents());
+	    }
+    }
+
+    // ここから通常の処理
+    else if (!this._forcing && this.subject().isConfused()) {
+        targets.push(this.confusionTarget());
+    }
+    else if (this.isForEveryone()) {
+        targets.push(...this.targetsForEveryone());
+    }
+    else if (this.isForOpponent()) {
+        targets.push(...this.targetsForOpponents());
+    }
+    else if (this.isForFriend()) {
+        targets.push(...this.targetsForFriends());
+    }
+    return this.repeatTargets(targets);
+}
 
 
 
