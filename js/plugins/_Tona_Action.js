@@ -522,3 +522,50 @@ Game_Action.prototype.itemEffectAddDebuff = function(target, effect) {
     }
 };
 
+// ****************************************************************************************************************************
+// アクション：ターゲット候補を上げる
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Action.prototype.itemTargetCandidates = function() {
+
+	// ★追加：魅了を考慮する
+
+    if (!this.isValid()) {
+        return [];
+    }
+    else if (this.isForOpponent()) {
+		if (this.subject().isConfused()) {
+	        return this.friendsUnit().aliveMembers();
+		}
+		else {
+	        return this.opponentsUnit().aliveMembers();
+		}
+    }
+    else if (this.isForUser()) {
+        return [this.subject()];
+    }
+    else if (this.isForDeadFriend()) {
+		if (this.subject().isConfused()) {
+	        return this.opponentsUnit().deadMembers();
+		}
+		else {
+	        return this.friendsUnit().deadMembers();
+		}
+    }
+    else {
+		if (this.subject().isConfused()) {
+	        return this.opponentsUnit().aliveMembers();
+		}
+		else {
+	        return this.friendsUnit().aliveMembers();
+		}
+    }
+};
+
+
+
+
+
+
+
+

@@ -209,6 +209,10 @@ BattleManager.tona_invokeGlobalAction = function(subject) {
 // ----------------------------------------------------------------------------------------------------------------------------
 
 BattleManager.invokeAction = function(subject, target) {
+
+console.log("invokeAction");
+console.log(this._action);
+
     this._action.tona_targetCounter++;			// ★ターゲットカウンターを追加
     this._logWindow.push("pushBaseLine");
     if (Math.random() < this._action.itemCnt(target)) {

@@ -330,6 +330,43 @@
 
 		return cri / 100;
 	}
+
+	// ****************************************************************************************************************************
+	// アクター：アクションを作成
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+	Game_Action.prototype.prepare = function() {
+
+	    if (this.subject().tona_isMiryou() && !this._forcing) {
+	        this.tona_setMiryou();
+	    }
+	    else if (this.subject().isConfused() && !this._forcing) {
+	        this.setConfusion();
+	    }
+	};
+
+	Game_Action.prototype.tona_setMiryou = function() {
+		this.subject().tona_setMiryouAction();
+	}
+
+	Game_Actor.prototype.tona_setMiryouAction = function() {
+
+	    for (let i = 0; i < this.numActions(); i++) {
+	        const list = this.makeActionList();
+	        let maxValue = -Number.MAX_VALUE;
+	        for (const action of list) {
+	            const value = action.evaluate();
+	            if (value > maxValue) {
+	                maxValue = value;
+	                this.setAction(i, action);
+	            }
+	        }
+	    }
+
+	}
+
+
+
 })();
 
 

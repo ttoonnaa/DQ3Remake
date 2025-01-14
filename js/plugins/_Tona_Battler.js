@@ -133,7 +133,7 @@ Game_Battler.prototype.refresh = function() {
         this.addState(this.deathStateId());
     }
 	// ★追加：ザキや急所状態なら死亡させる
-    else if (this.isStateAffected($tona_StateId_Zaki) || this.isStateAffected($tona_StateId_VitalPoint) || this.isStateAffected($tona_StateId_Megante)) {
+    else if (this.isStateAffected($tona_StateId_Zaki) || this.isStateAffected($tona_StateId_Kyuusyo) || this.isStateAffected($tona_StateId_Megante)) {
         this.addState(this.deathStateId());
     }
     else {
@@ -212,6 +212,14 @@ Game_Battler.prototype.onTurnEnd = function() {
 
 Game_BattlerBase.prototype.isHidden = function() {
     return this._hidden || this.isStateAffected($tona_StateId_Nifuramu) || this.isStateAffected($tona_StateId_Bashirura);
+};
+
+// ****************************************************************************************************************************
+// バトラー：魅了状態を判定
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_BattlerBase.prototype.tona_isMiryou = function() {
+	return this.isStateAffected($tona_StateId_Miryou);
 };
 
 // ****************************************************************************************************************************
