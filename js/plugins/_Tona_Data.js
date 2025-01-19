@@ -641,6 +641,7 @@ function tona_overrideClassDatabase() {
 	    $dataClasses[i].traits.push({ "code": 13, "dataId": 17, "value": 0.7 });	// おたけび
 	    $dataClasses[i].traits.push({ "code": 13, "dataId": 18, "value": 0.7 });	// 転倒
 	    $dataClasses[i].traits.push({ "code": 13, "dataId": 19, "value": 0.7 });	// 呪文耐性ダウン
+	    $dataClasses[i].traits.push({ "code": 13, "dataId": 20, "value": 0.7 });	// 魅了
 	}
 }
 

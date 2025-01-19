@@ -332,22 +332,8 @@
 	}
 
 	// ****************************************************************************************************************************
-	// アクター：アクションを作成
+	// アクター：魅了時のアクションを設定
 	// ----------------------------------------------------------------------------------------------------------------------------
-
-	Game_Action.prototype.prepare = function() {
-
-	    if (this.subject().tona_isMiryou() && !this._forcing) {
-	        this.tona_setMiryou();
-	    }
-	    else if (this.subject().isConfused() && !this._forcing) {
-	        this.setConfusion();
-	    }
-	};
-
-	Game_Action.prototype.tona_setMiryou = function() {
-		this.subject().tona_setMiryouAction();
-	}
 
 	Game_Actor.prototype.tona_setMiryouAction = function() {
 
@@ -362,9 +348,7 @@
 	            }
 	        }
 	    }
-
 	}
-
 
 
 })();
