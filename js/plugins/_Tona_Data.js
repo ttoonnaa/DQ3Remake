@@ -457,7 +457,7 @@ function tona_overrideEnemyDatabase() {
 		$dataEnemies[i].params[7] = Math.floor($dataEnemies[i].tona_level * 2.5);
 
 		// 経験値を調整する
-		$dataEnemies[i].exp = Math.ceil($dataEnemies[i].exp / 8);
+		$dataEnemies[i].exp = Math.ceil($dataEnemies[i].exp / 4);
 
 		// 特徴を設定する
 	    $dataEnemies[i].traits.push({ "code": 31, "dataId":  1, "value": 0 });				// 攻撃属性：物理
