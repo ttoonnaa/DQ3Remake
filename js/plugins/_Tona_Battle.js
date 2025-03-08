@@ -6,7 +6,7 @@
 function tona_createKageEnemy(level) {
 
 	// 正体となるエネミーを選択（レベル+2までのエネミーが登場）
-	var enemyIds = tona_findLevelEnemies(level + 2);
+	var enemyIds = tona_findRangeLevelEnemies(level, level + 2);
 	var enemyId = enemyIds[Math.randomInt(enemyIds.length)];
 	var src = $dataEnemies[enemyId];
 
@@ -209,9 +209,6 @@ BattleManager.tona_invokeGlobalAction = function(subject) {
 // ----------------------------------------------------------------------------------------------------------------------------
 
 BattleManager.invokeAction = function(subject, target) {
-
-console.log("invokeAction");
-console.log(this._action);
 
     this._action.tona_targetCounter++;			// ★ターゲットカウンターを追加
     this._logWindow.push("pushBaseLine");

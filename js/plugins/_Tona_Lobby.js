@@ -359,12 +359,57 @@ Game_Interpreter.prototype.tona_lobby_showQuestMenu = function() {
     this.setWaitMode('message');
 };
 
+// ****************************************************************************************************************************
+// ロビー：転職できるキャラが存在するか
+// ----------------------------------------------------------------------------------------------------------------------------
 
+Game_Interpreter.prototype.tona_lobby_isJobExist = function() {
 
+    for (var i = 0; i < $gameParty.members().length; i++) {
+		var actor = $gameParty.members()[i];
+		if (actor.level >= 10) {
+		    $tona_result = 1;
+		    return;
+		}
+	}
 
+    $tona_result = 0;
+}
 
+// ****************************************************************************************************************************
+// ロビー：転職メニューを表示
+// ----------------------------------------------------------------------------------------------------------------------------
 
+Game_Interpreter.prototype.tona_lobby_showJobMenu = function() {
+	var resultList = [];
+    var choices = [];
 
+    for (var i = 0; i < $gameParty.members().length; i++) {
+		var actor = $gameParty.members()[i];
+		if (actor.level >= 10) {
+		    choices.push(actor.name() + " Lv." + actor.level);		resultList.push(actor.actorId());
+		}
+	}
+
+    choices.push("キャンセル");	resultList.push(0);
+
+    $gameMessage.setChoices(choices, 0, resultList.length - 1);
+    $gameMessage.setChoiceBackground(1);
+    $gameMessage.setChoicePositionType(0);
+    $gameMessage.setChoiceCallback(function(n) {
+        $tona_result = resultList[n];
+    }.bind(this));
+
+    this.setWaitMode('message');
+};
+
+// ****************************************************************************************************************************
+// ロビー：レベルリセットする
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype.tona_lobby_doJob = function(actorId) {
+	$gameActors.actor(actorId).tona_levelReset();
+}
 
 
 

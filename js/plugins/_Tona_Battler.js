@@ -78,6 +78,15 @@ Game_BattlerBase.prototype.tona_destroyDamage = function(target) {
 }
 
 // ****************************************************************************************************************************
+// バトラー：レベルダメージ計算式
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_BattlerBase.prototype.tona_levelDamage = function(target, min, max) {
+
+	return this.level * ((max - min) * Math.random() + min);
+}
+
+// ****************************************************************************************************************************
 // バトラー：計算式のエイリアス（エディターで指定する計算式で使う）
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -99,6 +108,10 @@ Game_BattlerBase.prototype.RD = function(target, min, max) {
 
 Game_BattlerBase.prototype.DD = function(target) {
 	return this.tona_destroyDamage(target);
+}
+
+Game_BattlerBase.prototype.LD = function(target) {
+	return this.tona_levelDamage(target);
 }
 
 // ****************************************************************************************************************************
@@ -156,6 +169,26 @@ Game_BattlerBase.prototype.addNewState = function(stateId) {
     if (!restricted && this.isRestricted()) {
         this.onRestrict();
     }
+};
+
+// ****************************************************************************************************************************
+// バトラー：行動制約を受けたときの処理
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Battler.prototype.onRestrict = function() {
+    Game_BattlerBase.prototype.onRestrict.call(this);
+    this.clearTpbChargeTime();
+    for (const state of this.states()) {
+        if (state.removeByRestriction) {
+            this.removeState(state.id);
+        }
+    }
+
+	// ★改造：アクションを消すのをやめて makeActions にする
+	// makeActions は空のアクションが行動回数分だけ作られる
+	// アクション実行時に prepare で本体が作られる
+
+	this.makeActions();
 };
 
 // ****************************************************************************************************************************
@@ -246,5 +279,11 @@ Game_BattlerBase.prototype.tona_isSutemi = function() {
 	return this.isStateAffected($tona_StateId_Sutemi);
 };
 
+// ****************************************************************************************************************************
+// バトラー：ヒュプノスのターゲットになる
+// ----------------------------------------------------------------------------------------------------------------------------
 
+Game_BattlerBase.prototype.tona_isHypnosTarget = function() {
+	return this.isStateAffected($tona_StateId_Sleep) || this.isStateAffected($tona_StateId_Panic);
+};
 

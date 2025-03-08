@@ -160,14 +160,15 @@ Game_Enemy.prototype.tona_makeHagureActions = function() {
 
 	if (klassId == 1) {
 
-		// 攻撃：70%
-		// 支援：30%
+		// 攻撃：80%
+		// 回復：10%
+		// 支援：10%
 
 		var attackSkill = [];
 		var supportSkill = [];
 
 		// 攻撃スキル
-		if (level >= 40) {
+		if (this.canUse($dataSkills[skill])) {
 			this.tona_addSkill(skillAttack, 13);	// ギガスラッシュ
 			this.tona_addSkill(skillAttack, 13);	// ギガデイン
 		}
@@ -181,6 +182,10 @@ Game_Enemy.prototype.tona_makeHagureActions = function() {
 		else if (level >= 40) {
 			this.tona_addSkill(skillAttack, 13);	// メラ
 		}
+
+		// 支援スキル
+
+
 	}
 
 	// ****************************************************************************************************************************
@@ -189,7 +194,19 @@ Game_Enemy.prototype.tona_makeHagureActions = function() {
 
 	else if (klassId == 2) {
 
-		
+		// 攻撃：80%
+		// 支援：20%
+	}
+
+	// ****************************************************************************************************************************
+	// もどきAI：そうりょ
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+	else if (klassId == 4) {
+
+		// 攻撃：60%
+		// 回復：30%
+		// 支援：10%
 	}
 
 	// ****************************************************************************************************************************
@@ -201,7 +218,7 @@ Game_Enemy.prototype.tona_makeHagureActions = function() {
 		this.tona_addSkill(skillTable, 1);		// 通常攻撃
 	}
 
-	// スキルテーブルをからスキルを選ぶ
+	// スキルテーブルからスキルを選ぶ
     if (skillTable.length > 0) {
     	var node = skillTable;
 		while (Array.isArray(node)) {

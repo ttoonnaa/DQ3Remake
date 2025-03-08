@@ -219,8 +219,6 @@
 	// アクター：転職
 	// ----------------------------------------------------------------------------------------------------------------------------
 
-	var Game_Actor_changeClass = Game_Actor.prototype.changeClass;
-
 	Game_Actor.prototype.tona_changeClass = function(classId) {
 
 		// 新しいクラスの経験値を 0 にする
@@ -228,6 +226,27 @@
 
 		// クラスチェンジ
 		this.changeClass(classId, false);
+
+		// paramBase を半分にする（切り上げ）
+		for (var i = 0; i < 8; i++) {
+			this._paramBase[i] = Math.ceil(this._paramBase[i] / 2);
+			this._paramBaseAmari[i] = 0;
+		}
+
+	    this.refresh();
+	}
+
+	// ****************************************************************************************************************************
+	// アクター：レベルリセット
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+	Game_Actor.prototype.tona_levelReset = function() {
+
+		// クラスの経験値を 0 にする
+		this._exp[this._classId] = 0;
+
+		// レベルを 1 にする
+		this._level = 1;
 
 		// paramBase を半分にする（切り上げ）
 		for (var i = 0; i < 8; i++) {

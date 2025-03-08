@@ -31,6 +31,8 @@ var $tona_EnemyId_KageTemp = 201;
 var $tona_TroopId_RandomEnemy = 1;
 
 // ステート
+var $tona_StateId_Sleep = 8;
+var $tona_StateId_Panic = 9;
 var $tona_StateId_Zaki = 12;
 var $tona_StateId_Kyuusyo = 13;
 var $tona_StateId_Megante = 14;

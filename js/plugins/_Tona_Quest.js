@@ -94,6 +94,17 @@ Game_Interpreter.prototype.tona_quest_playBgm = function() {
 }
 
 // ****************************************************************************************************************************
+// Interpreter：クエストの時間帯を取得
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_Interpreter.prototype.tona_quest_getDayCycle = function() {
+
+	var value = $tona_questNow.wave().dayCycle;
+
+	$tona_result = value != null ? value : 1;
+}
+
+// ****************************************************************************************************************************
 // Interpreter：イベント情報を準備
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -269,7 +280,7 @@ Game_Interpreter.prototype.tona_quest_createRandomBattle_start = function() {
     $tona_randomBattleCreateTemorary.step = 1;
     $tona_randomBattleCreateTemorary.questId = $tona_questNow._questId;
     $tona_randomBattleCreateTemorary.mapId = $tona_questNow._waveId;
-    $tona_randomBattleCreateTemorary.monsters = tona_findLevelEnemies(wave.level);
+    $tona_randomBattleCreateTemorary.monsters = tona_findLevelAroundEnemies(wave.level);
     $tona_randomBattleCreateTemorary.hagureRate = wave.hagureRate;
     $tona_randomBattleCreateTemorary.hagure = wave.hagure.concat();
     $tona_randomBattleCreateTemorary.result = [];

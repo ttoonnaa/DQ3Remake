@@ -91,6 +91,11 @@ Game_Action.prototype.lukEffectAdd = function(target) {
 
 Game_Action.prototype.itemCri = function(target) {
 
+	// 会心必中
+	if (this.item().meta.tona_certainCri == 1) {
+		return 1;
+	}
+
 	// 回避を基準に考える
 	if (this.item().damage.critical) {
 
@@ -265,6 +270,13 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
 		var redctionRate = [1.5, 1, 0.75, 0.6, 0.5];
 		var redctionIndex = Math.min(this.tona_targetCount - 1, redctionRate.length - 1);
 		rate *= redctionRate[redctionIndex];
+	}
+
+	// ★ヒュプノスの処理
+	if (item.meta.tona_hypnos) {
+		if (target.tona_isHypnosTarget()) {
+			rate *= 6;
+		}
 	}
 
 	// ダメージ倍率を適用
