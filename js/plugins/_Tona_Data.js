@@ -314,6 +314,36 @@ function tona_createQuestDatabase() {
     quests[34].waves[2] = { mapId: 6, eventNum: 10, level: 34, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon5" };
     quests[34].waves[3] = { mapId: 6, eventNum: 10, level: 34, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon5" };
 
+	quests[35] = { name: "ラダトーム周辺", level: 35, waves: [], levelResult: 36, reward: { kind: 1, dataId: 1 } };
+    quests[35].waves[1] = { mapId: 3, eventNum: 10, level: 35, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4", dayCycle: 3 };
+    quests[35].waves[2] = { mapId: 3, eventNum: 10, level: 35, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4", dayCycle: 3 };
+    quests[35].waves[3] = { mapId: 3, eventNum: 10, level: 35, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon5", dayCycle: 3 };
+
+	quests[36] = { name: "魔王の爪痕", level: 36, waves: [], levelResult: 37, reward: { kind: 1, dataId: 1 } };
+    quests[36].waves[1] = { mapId: 4, eventNum: 10, level: 36, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2", dayCycle: 3 };
+    quests[36].waves[2] = { mapId: 4, eventNum: 10, level: 36, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2", dayCycle: 3 };
+    quests[36].waves[3] = { mapId: 4, eventNum: 10, level: 36, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon2", dayCycle: 3 };
+
+	quests[37] = { name: "ドムドーラ周辺", level: 37, waves: [], levelResult: 38, reward: { kind: 1, dataId: 1 } };
+    quests[37].waves[1] = { mapId: 10, eventNum: 10, level: 37, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3", dayCycle: 3 };
+    quests[37].waves[2] = { mapId: 10, eventNum: 10, level: 37, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3", dayCycle: 3 };
+    quests[37].waves[3] = { mapId: 10, eventNum: 10, level: 37, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon3", dayCycle: 3 };
+
+	quests[38] = { name: "リムルダール周辺", level: 38, waves: [], levelResult: 39, reward: { kind: 1, dataId: 1 } };
+    quests[38].waves[1] = { mapId: 3, eventNum: 10, level: 38, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4", dayCycle: 3 };
+    quests[38].waves[2] = { mapId: 3, eventNum: 10, level: 38, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4", dayCycle: 3 };
+    quests[38].waves[3] = { mapId: 3, eventNum: 10, level: 38, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Field4", dayCycle: 3 };
+
+	quests[39] = { name: "ルビスの塔", level: 39, waves: [], levelResult: 40, reward: { kind: 1, dataId: 1 } };
+    quests[39].waves[1] = { mapId: 5, eventNum: 10, level: 39, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6", dayCycle: 3 };
+    quests[39].waves[2] = { mapId: 5, eventNum: 10, level: 39, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6", dayCycle: 3 };
+    quests[39].waves[3] = { mapId: 5, eventNum: 10, level: 39, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon6", dayCycle: 3 };
+
+	quests[40] = { name: "ゾーマ城", level: 40, waves: [], levelResult: 41, reward: { kind: 1, dataId: 1 } };
+    quests[40].waves[1] = { mapId: 6, eventNum: 10, level: 40, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon5", dayCycle: 3 };
+    quests[40].waves[2] = { mapId: 6, eventNum: 10, level: 40, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon5", dayCycle: 3 };
+    quests[40].waves[3] = { mapId: 6, eventNum: 10, level: 40, maxEnemyNum: 8, hagureRate: 0, hagure: hagureFull, bgmName: "Dungeon5", dayCycle: 3 };
+
 	// レベルから Gold を設定
 	for (var questId = 1; questId < quests.length; questId++) {
 		var quest = quests[questId];
@@ -463,6 +493,13 @@ function tona_createEnemyDatabase() {
 	enemies[128] = { name: "", attr: [5,4,3,0,1,4,5,0,3], regist1: [0,0,4,3,3,4,0,4], regist2: [4,3,3,4,0,0,4,2,0] };	// 
 	enemies[129] = { name: "", attr: [2,2,2,2,4,3,1,3,3], regist1: [4,4,4,4,3,3,4,0], regist2: [4,3,3,4,0,0,4,2,0] };	// 
 	enemies[130] = { name: "", attr: [5,4,3,1,4,3,4,1,3], regist1: [3,4,4,3,2,3,3,4], regist2: [4,2,4,4,4,3,4,4,3] };	// 
+	enemies[131] = { name: "", attr: [3,3,1,1,1,0,3,1,2], regist1: [2,2,4,0,0,4,3,0], regist2: [4,4,4,4,3,3,3,3,0] };	// 
+	enemies[132] = { name: "", attr: [1,1,1,3,3,3,0,2,3], regist1: [3,3,4,3,2,4,4,3], regist2: [4,4,3,4,4,4,4,4,0] };	// 
+	enemies[133] = { name: "", attr: [1,1,3,2,1,1,1,2,2], regist1: [2,2,4,2,0,4,0,3], regist2: [4,3,4,4,0,3,3,2,0] };	// 
+	enemies[134] = { name: "", attr: [2,2,2,1,1,4,2,1,3], regist1: [2,2,4,4,2,2,4,4], regist2: [4,3,3,4,4,3,3,2,3] };	// 
+	enemies[135] = { name: "", attr: [5,4,3,0,1,2,5,0,3], regist1: [0,0,4,3,3,4,0,4], regist2: [4,4,4,4,0,0,4,3,0] };	// 
+	enemies[136] = { name: "", attr: [0,1,2,3,0,3,0,3,3], regist1: [3,4,4,3,2,3,4,4], regist2: [4,4,3,4,4,3,4,4,3] };	// 
+	enemies[137] = { name: "", attr: [4,4,1,1,3,4,5,1,3], regist1: [0,0,4,3,3,3,0,4], regist2: [4,3,3,4,0,0,3,2,2] };	// 
 
 	//enemies[101] = { name: "", attr: [3,3,3,3,3,3,3,3,3], regist1: [3,3,3,3,3,3,3,3], regist2: [3,3,3,3,3,3,3,3,3] };	// 
 
@@ -745,6 +782,7 @@ function tona_overrideClassDatabase() {
 	    $dataClasses[i].traits.push({ "code": 12, "dataId":  6, "value": 0.7 });	// 敏捷性↓
 
 	    $dataClasses[i].traits.push({ "code": 13, "dataId":  1, "value": 0.3 });	// 戦闘不能
+	    $dataClasses[i].traits.push({ "code": 13, "dataId":  6, "value": 0.7 });	// 毒
 	    $dataClasses[i].traits.push({ "code": 13, "dataId":  7, "value": 0.3 });	// 麻痺
 	    $dataClasses[i].traits.push({ "code": 13, "dataId":  8, "value": 0.3 });	// ラリホー
 	    $dataClasses[i].traits.push({ "code": 13, "dataId":  9, "value": 0.3 });	// メダパニ
