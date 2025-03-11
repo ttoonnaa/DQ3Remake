@@ -36,7 +36,7 @@ Game_Action.prototype.speed = function() {
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_Action.prototype.tona_isStateHit = function() {
-	return this.item().meta.tona_hitType === $tona_HitType_State;
+	return this.item().meta.tona_hitType == $tona_HitType_State;
 }
 
 Game_Action.prototype.isCertainHit = function() {

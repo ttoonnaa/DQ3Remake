@@ -69,21 +69,21 @@ Game_BattlerBase.prototype.tona_rangeDamage = function(target, min, max) {
 }
 
 // ****************************************************************************************************************************
-// バトラー：メガンテダメージ計算式
-// ----------------------------------------------------------------------------------------------------------------------------
-
-Game_BattlerBase.prototype.tona_destroyDamage = function(target) {
-
-	return Math.max((target.hp - 1) - Math.randomInt(10), 1);
-}
-
-// ****************************************************************************************************************************
 // バトラー：レベルダメージ計算式
 // ----------------------------------------------------------------------------------------------------------------------------
 
 Game_BattlerBase.prototype.tona_levelDamage = function(target, min, max) {
 
 	return this.level * ((max - min) * Math.random() + min);
+}
+
+// ****************************************************************************************************************************
+// バトラー：メガンテダメージ計算式
+// ----------------------------------------------------------------------------------------------------------------------------
+
+Game_BattlerBase.prototype.tona_destroyDamage = function(target) {
+
+	return Math.max((target.hp - 1) - Math.randomInt(10), 1);
 }
 
 // ****************************************************************************************************************************
@@ -106,12 +106,12 @@ Game_BattlerBase.prototype.RD = function(target, min, max) {
 	return this.tona_rangeDamage(target, min, max);
 }
 
-Game_BattlerBase.prototype.DD = function(target) {
-	return this.tona_destroyDamage(target);
+Game_BattlerBase.prototype.LD = function(target, min, max) {
+	return this.tona_levelDamage(target, min, max);
 }
 
-Game_BattlerBase.prototype.LD = function(target) {
-	return this.tona_levelDamage(target);
+Game_BattlerBase.prototype.DD = function(target) {
+	return this.tona_destroyDamage(target);
 }
 
 // ****************************************************************************************************************************
@@ -187,6 +187,7 @@ Game_Battler.prototype.onRestrict = function() {
 	// ★改造：アクションを消すのをやめて makeActions にする
 	// makeActions は空のアクションが行動回数分だけ作られる
 	// アクション実行時に prepare で本体が作られる
+	// これにより、未行動キャラが混乱した場合、そのターンに混乱攻撃が行われる
 
 	this.makeActions();
 };
